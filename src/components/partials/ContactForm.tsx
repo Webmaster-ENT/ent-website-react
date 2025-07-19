@@ -197,7 +197,7 @@ export default function ContactForm({ onSuccess }: ContactFormProps) {
                     )}
                 />
                 {/* button */}
-                <Button type='submit' className='w-full'>Kirim</Button>
+                <Button type='submit' className='w-full bg-[#134679]'>Kirim</Button>
             </form>
         </Form>
     )

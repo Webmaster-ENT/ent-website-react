@@ -217,13 +217,6 @@ export const MultiSelect = React.forwardRef<
                           <IconComponent className="size-4 mr-2" />
                         )}
                         {option?.label}
-                        {/* <XCircle
-                          className="ml-2 size-4 cursor-pointer"
-                          onClick={(event) => {
-                            event.stopPropagation();
-                            toggleOption(value);
-                          }}
-                        /> */}
                       </Badge>
                     );
                   })}
@@ -237,13 +230,6 @@ export const MultiSelect = React.forwardRef<
                       style={{ animationDuration: `${animation}s` }}
                     >
                       {`+ ${selectedValues.length - maxCount} more`}
-                      {/* <XCircle
-                        className="ml-2 h-4 w-4 cursor-pointer"
-                        onClick={(event) => {
-                          event.stopPropagation();
-                          clearExtraOptions();
-                        }}
-                      /> */}
                     </Badge>
                   )}
                 </div>
@@ -298,7 +284,7 @@ export const MultiSelect = React.forwardRef<
                         : "opacity-50 [&_svg]:invisible"
                     )}
                   >
-                    <CheckIcon className="h-4 w-4" />
+                    <CheckIcon className="size-4 text-white" />
                   </div>
                   <span>(Select All)</span>
                 </CommandItem>
@@ -312,16 +298,16 @@ export const MultiSelect = React.forwardRef<
                     >
                       <div
                         className={cn(
-                          "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
+                          "mr-2 flex size-4 items-center justify-center rounded-sm border border-primary",
                           isSelected
                             ? "bg-primary text-primary-foreground"
                             : "opacity-50 [&_svg]:invisible"
                         )}
                       >
-                        <CheckIcon className="h-4 w-4" />
+                        <CheckIcon className="size-4 text-white" />
                       </div>
                       {option.icon && (
-                        <option.icon className="mr-2 h-4 w-4 text-muted-foreground" />
+                        <option.icon className="mr-2 size-4 text-muted-foreground" />
                       )}
                       <span>{option.label}</span>
                     </CommandItem>
