@@ -1,12 +1,13 @@
-"use client"
-
 import { useState } from "react";
 import { Button } from "../ui/button"
 import { Menu, X } from "lucide-react";
 import { Link } from "react-router";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog"
+import ContactForm from "./ContactForm";
 
 export default function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false)
+    const [open, setOpen] = useState<boolean>(false)
 
     return (
         <nav className="px-6 sticky top-6 z-50">
@@ -35,9 +36,21 @@ export default function Navbar() {
                     </div>
 
                     {/* Desktop CTA Button */}
-                    <Button className="hidden md:block rounded-full bg-white text-blue-900 hover:bg-gray-100 px-6 py-2 font-medium" asChild>
-                    <Link to={'/report'}>Pengajuan Liputan</Link>
-                    </Button>
+                    {/* <Button className="hidden md:block rounded-full bg-white text-blue-900 hover:bg-gray-100 px-6 py-2 font-medium" asChild>
+                        <Link to={'/report'}>Pengajuan Liputan</Link>
+                    </Button> */}
+                    <Dialog open={open} onOpenChange={setOpen}>
+                        <DialogTrigger asChild>
+                            <Button className="hidden md:block rounded-full bg-white text-blue-900 hover:bg-gray-100 px-6 py-2 font-medium">Pengajuan Liputan</Button>
+                        </DialogTrigger>
+                        <DialogContent className="max-h-[60vh] sm:max-h-[70vh] overflow-y-auto">
+                             <DialogHeader>
+                                <DialogTitle>Pengajuan Liputan</DialogTitle>
+                                <DialogDescription>Please fill these fields below</DialogDescription>
+                            </DialogHeader>
+                            <ContactForm onSuccess={() => setOpen(false)} />
+                        </DialogContent>
+                    </Dialog>
                 </div>
 
                 {/* Mobile Hamburger Button */}
