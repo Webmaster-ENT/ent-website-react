@@ -9,12 +9,12 @@ import { useEffect, useState } from "react";
 import { useForm, type SubmitHandler, useFieldArray } from "react-hook-form";
 import { toast } from "sonner";
 import { Card, CardFooter } from "@/components/ui/card";
-import BiodataForm from "./form/registration/BiodataForm";
-import DivisionForm from "./form/registration/DivisionForm";
-import ExperienceForm from "./form/registration/ExperienceForm";
-import AchievementForm from "./form/registration/AchievementForm";
-import StepIndicatorForm from "./form/registration/StepIndicatorForm";
-import ButtonNavigationForm from "./form/registration/ButtonNavigationForm";
+import BiodataForm from "./BiodataForm";
+import DivisionForm from "./DivisionForm";
+import ExperienceForm from "./ExperienceForm";
+import AchievementForm from "./AchievementForm";
+import StepIndicatorForm from "./StepIndicatorForm";
+import ButtonNavigationForm from "./ButtonNavigationForm";
 // import { useDebounce } from "use-debounce";
 import {
   loadFromLocalStorage,
@@ -85,7 +85,7 @@ export default function RegistrationForm() {
   const form = useForm<RegistrationFormSchema>({
     resolver: zodResolver(registrationFormSchema),
     defaultValues,
-    mode: "onTouched",
+    mode: "onChange",
   });
 
   // array field exp
