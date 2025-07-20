@@ -70,30 +70,6 @@ export default function RegistrationForm() {
         setValue,
     } = useForm<RegistrationFormSchema>({
         resolver: zodResolver(registrationFormSchema),
-        defaultValues: {
-            nama: '',
-            nrp: '',
-            jenjang: '',
-            jurusan: '',
-            tempatLahir: '',
-            tanggalLahir: new Date('2000-01-01'),
-            agama: '',
-            alamatSekarang: '',
-            alamatRumah: '',
-            email: '',
-            noHp: '',
-            // step 2
-            divisi: '',
-            moto: '',
-            alasanENT: '',
-            alasanDivisi: '',
-            minatUKM: '',
-            yakinkanKami: '',
-            // step 3
-            experiences: [],
-            // step 4
-            achievements: []
-        }
     })
 
     const { fields, append, remove } = useFieldArray({
