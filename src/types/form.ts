@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { months } from './dates'
 
 // array pilihan produk
 export const products: string[] = [
@@ -28,23 +29,51 @@ export type ReportFormSchema = z.infer<typeof reportFormSchema>
     - Achievements
 */
 
+export const steps = [
+    {
+        id: 1, 
+        title: "Data Diri", 
+        description: 'Informasi terkait biodata Anda',
+        fields: ['nama', 'nrp', 'jenjang', 'jurusan', 'tempatLahir', 'tanggalLahir', 'agama', 'alamatSekarang', 'alamatRumah', 'email', 'noHp'] as const
+    },
+    {
+        id: 2, 
+        title: "Deskripsi Diri", 
+        description: 'Informasi terkait keinginan Anda dalam ENT',
+        fields: ['divisi', 'moto', 'alasanENT', 'alasanDivisi', 'minatUKM', 'yakinkanKami'] as const
+    },
+    {
+        id: 3, 
+        title: "Pengalaman", 
+        description: 'Pengalaman yang pernah Anda dapatkan',
+        fields: ['experiences'] as const
+    },
+    {
+        id: 4, 
+        title: "Penghargaan", 
+        description: 'Penghargaan yang pernah Anda raih',
+        fields: ['achievements'] as const
+    },
+] as const
+
+const monthEnum = months.map(m => m.value) as [string, ...string[]]
+
+
 export const ExperienceSchema = z.object({
   title: z.string().min(1, "Nama pengalaman wajib diisi"),
   position: z.string().min(1, "Posisi wajib diisi"),
-  startYear: z.string(),
-  startMonth: z.string(),
-  endMonth: z.string(),
-  endYear: z.string(),
+  startYear: z.string().min(1, 'Pilih Tahun'),
+  startMonth: z.enum(monthEnum, 'Pilih bulan'),
+  endMonth: z.enum(monthEnum, 'Pilih bulan'),
+  endYear: z.string().min(1, 'Pilih tahun'),
   description: z.string().min(1, "Deskripsi wajib diisi"),
 })
 
 export const AchievementSchema = z.object({
   title: z.string().min(1, "Nama pengalaman wajib diisi"),
   position: z.string().min(1, "Posisi wajib diisi"),
-  startYear: z.string(),
-  startMonth: z.string(),
-  endMonth: z.string(),
-  endYear: z.string(),
+  year: z.string(),
+  month: z.string(),
   description: z.string().min(1, "Deskripsi wajib diisi"),
 })
 
@@ -91,22 +120,20 @@ export const registrationFormSchema = z.object({
 }).refine((data) => {
   // klo experience user ada
   if(data.experiences.length > 0) {
-    return data.experiences.every(
+    const experienceValid = data.experiences.every(
       (exp) => exp.description && exp.endMonth && exp.endYear && exp.position && exp.startMonth && exp.startYear && exp.title
     )
+    if(!experienceValid) return false
   }
   // klo penghargaan user ada
   if(data.achievements.length > 0) {
-    return data.achievements.every(
-      acv => acv.description && acv.endMonth && acv.endYear && acv.position && acv.startMonth && acv.startYear && acv.title
+    const achievementValid = data.achievements.every(
+      acv => acv.description && acv.position && acv.year && acv.title && acv.month
     )
+    if(!achievementValid) return false
   }
 
   return true
-},
-{
-  message: 'Pengalaman harus diisi jika kamu memiliki pengalaman',
-  path: ['experiences']
 })
 
 export type RegistrationFormSchema = z.infer<typeof registrationFormSchema>

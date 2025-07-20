@@ -1,9 +1,9 @@
 import { cn } from "@/lib/utils"
-import { divisions, type RegistrationFormSchema, registrationFormSchema } from "@/types/form"
+import { divisions, type RegistrationFormSchema, registrationFormSchema, steps } from "@/types/form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { CalendarIcon, Check } from "lucide-react"
+import { CalendarIcon, Check, Plus, Trash2 } from "lucide-react"
 import { useEffect, useState } from "react"
-import { Controller, useForm, type SubmitHandler } from "react-hook-form"
+import { Controller, useForm, type SubmitHandler, useFieldArray } from "react-hook-form"
 import { toast } from "sonner"
 import { Button } from "../ui/button"
 import { Label } from "../ui/label"
@@ -15,33 +15,7 @@ import { Calendar } from "../ui/calendar"
 import { Textarea } from "../ui/textarea"
 import { format } from "date-fns"
 import { id } from "date-fns/locale"
-
-const steps = [
-    {
-        id: 1, 
-        title: "Data Diri", 
-        description: 'Informasi terkait biodata Anda',
-        fields: ['nama', 'nrp', 'jenjang', 'jurusan', 'tempatLahir', 'tanggalLahir', 'agama', 'alamatSekarang', 'alamatRumah', 'email', 'noHp'] as const
-    },
-    {
-        id: 2, 
-        title: "Deskripsi Diri", 
-        description: 'Informasi terkait keinginan Anda dalam ENT',
-        fields: ['divisi', 'moto', 'alasanENT', 'alasanDivisi', 'minatUKM', 'yakinkanKami'] as const
-    },
-    {
-        id: 3, 
-        title: "Pengalaman", 
-        description: 'Pengalaman yang pernah Anda dapatkan',
-        fields: ['experiences'] as const
-    },
-    {
-        id: 4, 
-        title: "Penghargaan", 
-        description: 'Penghargaan yang pernah Anda raih',
-        fields: ['achievements'] as const
-    },
-] as const
+import { months, years } from "@/types/dates"
 
 export default function RegistrationForm() {
     const [currentStep, setCurrentStep] = useState(1)
@@ -68,17 +42,19 @@ export default function RegistrationForm() {
         
 
         // buat logic untuk handle api validasi nrp
-        if(currentStep < steps.length - 1) {
+        if(currentStep < steps.length) {
             setCurrentStep(step => step + 1)
         }
     }
 
+    // submit form
     const processRegistration: SubmitHandler<RegistrationFormSchema> = data => {
         console.log(data)
         toast.success('Berhasil Submit')
         reset()
     }
 
+    // debugging langsung ke step tertentu
     const goToStep = (stepId: number) => {
         setCurrentStep(stepId)
     }
@@ -91,13 +67,62 @@ export default function RegistrationForm() {
         reset,
         control,
         watch,
-        setValue
+        setValue,
     } = useForm<RegistrationFormSchema>({
-        resolver: zodResolver(registrationFormSchema)
+        resolver: zodResolver(registrationFormSchema),
+        defaultValues: {
+            nama: '',
+            nrp: '',
+            jenjang: '',
+            jurusan: '',
+            tempatLahir: '',
+            tanggalLahir: new Date('2000-01-01'),
+            agama: '',
+            alamatSekarang: '',
+            alamatRumah: '',
+            email: '',
+            noHp: '',
+            // step 2
+            divisi: '',
+            moto: '',
+            alasanENT: '',
+            alasanDivisi: '',
+            minatUKM: '',
+            yakinkanKami: '',
+            // step 3
+            experiences: [],
+            // step 4
+            achievements: []
+        }
+    })
+
+    const { fields, append, remove } = useFieldArray({
+        control,
+        name: 'experiences'
     })
 
     const jenjang = watch('jenjang')
     const divisi = watch('divisi')
+    const experiences = watch('experiences')
+
+    const addExperience = () => {
+        if(fields.length < 3) {
+            append({
+                title: '',
+                description: '',
+                position: '',
+                startMonth: '',
+                startYear: '',
+                endMonth: '',
+                endYear: ''
+            })
+        }
+    }
+
+    const removeExperience = (id: number) => {
+        remove(id)
+    }
+    
 
     useEffect(() => {
         setValue('jurusan', '')
@@ -470,13 +495,158 @@ export default function RegistrationForm() {
                         <>
                             <CardHeader>
                                 <CardTitle>Pengalaman</CardTitle>
-                                <CardDescription>Isikan pengalaman yang sudah kamu dapat sebelum mendaftar ENT. Kamu bisa melewatinya jika belum ada</CardDescription>
+                                <CardDescription>Isikan pengalaman terbaik (maks. 3) yang sudah kamu dapat sebelum mendaftar ENT. Kamu bisa melewatinya jika belum ada</CardDescription>
                             </CardHeader>
                             <CardContent>
-                                
-                                {/* field buat ngisi klo dia add expereience */}
-                                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                                <div className="space-y-6">
+                                    <div className="flex justify-end items-center">
+                                        <Button
+                                            type="button"
+                                            variant={'outline'}
+                                            size={'sm'}
+                                            onClick={addExperience}
+                                            disabled={fields.length >= 3}
+                                            className="flex items-center gap-2"
+                                        >
+                                            <Plus className="size-4" />
+                                            Tambah Pengalaman
+                                        </Button>
+                                    </div>
+                                    {/* field buat ngisi klo dia add expereience */}
+                                    {fields.map((field, index) => (
+                                        <Card key={field.id} className="relative">
+                                            <CardHeader className="pb-4">
+                                                <div className="flex items-center justify-between">
+                                                <CardTitle className="text-base">Experience {index + 1}</CardTitle>
+                                                <Button
+                                                    type="button"
+                                                    variant="ghost"
+                                                    size="sm"
+                                                    onClick={() => removeExperience(index)}
+                                                    className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                                                >
+                                                    <Trash2 className="size-4" />
+                                                </Button>
+                                                </div>
+                                            </CardHeader>
+                                            <CardContent className="space-y-4">
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                    <div className="space-y-2">
+                                                        <Label htmlFor={`experiences.${index}.title`}>Title Experience *</Label>
+                                                        <Input {...register(`experiences.${index}.title`)} placeholder="e.g., Software Development" />
+                                                        {errors.experiences?.[index]?.title && (
+                                                        <p className="text-sm text-red-600">{errors.experiences[index]?.title?.message}</p>
+                                                        )}
+                                                    </div>
 
+                                                    <div className="space-y-2">
+                                                        <Label htmlFor={`experiences.${index}.position`}>Position *</Label>
+                                                        <Input {...register(`experiences.${index}.position`)} placeholder="e.g., Frontend Developer" />
+                                                        {errors.experiences?.[index]?.position && (
+                                                        <p className="text-sm text-red-600">{errors.experiences[index]?.position?.message}</p>
+                                                        )}
+                                                    </div>
+                                                </div>
+
+                                                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                                <div className="space-y-2">
+                                                    <Label>Start Month *</Label>
+                                                    <Select
+                                                    value={experiences[index]?.startMonth || ""}
+                                                    onValueChange={(value) => setValue(`experiences.${index}.startMonth`, value)}
+                                                    >
+                                                    <SelectTrigger className="w-full">
+                                                        <SelectValue placeholder="Month" />
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                        {months.map((month) => (
+                                                        <SelectItem key={month.value} value={month.value}>
+                                                            {month.label}
+                                                        </SelectItem>
+                                                        ))}
+                                                    </SelectContent>
+                                                    </Select>
+                                                    {errors.experiences?.[index]?.startMonth && (
+                                                    <p className="text-sm text-red-600">{errors.experiences[index]?.startMonth?.message}</p>
+                                                    )}
+                                                </div>
+
+                                                <div className="space-y-2">
+                                                    <Label>Start Year *</Label>
+                                                    <Select
+                                                    value={experiences[index]?.startYear || ""}
+                                                    onValueChange={(value) => setValue(`experiences.${index}.startYear`, value)}
+                                                    >
+                                                    <SelectTrigger className="w-full">
+                                                        <SelectValue placeholder="Year" />
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                        {years.map((year) => (
+                                                        <SelectItem key={year} value={year.toString()}>
+                                                            {year}
+                                                        </SelectItem>
+                                                        ))}
+                                                    </SelectContent>
+                                                    </Select>
+                                                    {errors.experiences?.[index]?.startYear && (
+                                                    <p className="text-sm text-red-600">{errors.experiences[index]?.startYear?.message}</p>
+                                                    )}
+                                                </div>
+
+                                                <div className="space-y-2">
+                                                    <Label>End Month *</Label>
+                                                    <Select
+                                                    value={experiences[index]?.endMonth || ""}
+                                                    onValueChange={(value) => setValue(`experiences.${index}.endMonth`, value)}
+                                                    >
+                                                    <SelectTrigger className="w-full">
+                                                        <SelectValue placeholder="Month" />
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                        {months.map((month) => (
+                                                        <SelectItem key={month.value} value={month.value}>
+                                                            {month.label}
+                                                        </SelectItem>
+                                                        ))}
+                                                    </SelectContent>
+                                                    </Select>
+                                                    {errors.experiences?.[index]?.endMonth && (
+                                                    <p className="text-sm text-red-600">{errors.experiences[index]?.endMonth?.message}</p>
+                                                    )}
+                                                </div>
+
+                                                <div className="space-y-2">
+                                                    <Label>End Year *</Label>
+                                                    <Select
+                                                    value={experiences[index]?.endYear || ""}
+                                                    onValueChange={(value) => setValue(`experiences.${index}.endYear`, value)}
+                                                    >
+                                                    <SelectTrigger className="w-full">
+                                                        <SelectValue placeholder="Year" />
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                        {years.map((year) => (
+                                                        <SelectItem key={year} value={year.toString()}>
+                                                            {year}
+                                                        </SelectItem>
+                                                        ))}
+                                                    </SelectContent>
+                                                    </Select>
+                                                    {errors.experiences?.[index]?.endYear && (
+                                                    <p className="text-sm text-red-600">{errors.experiences[index]?.endYear?.message}</p>
+                                                    )}
+                                                </div>
+                                                <div className="space-y-2 col-span-4">
+                                                    <Label>Deskripsi</Label>
+                                                    <Textarea {...register(`experiences.${index}.description`)} placeholder="jelaskan detail"/>
+                                                    {errors.experiences?.[index]?.description && (
+                                                    <p className="text-sm text-red-600">{errors.experiences[index]?.description?.message}</p>
+                                                    )}
+                                                </div>
+                                                </div>
+                                            </CardContent>
+                                        </Card>
+                                    ))}
                                 </div>
                             </CardContent>
                         </>
