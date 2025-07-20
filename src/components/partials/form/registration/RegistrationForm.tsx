@@ -3,11 +3,9 @@ import {
   registrationFormSchema,
   steps,
 } from "@/types/form";
-import { useNavigate } from "react-router";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm, type SubmitHandler, useFieldArray } from "react-hook-form";
-import { toast } from "sonner";
 import { Card, CardFooter } from "@/components/ui/card";
 import BiodataForm from "./BiodataForm";
 import DivisionForm from "./DivisionForm";
@@ -29,7 +27,6 @@ export default function RegistrationForm() {
   const [currentStep, setCurrentStep] = useState<number>(() => {
     return loadFromLocalStorage<number>(REGISTRATION_KEY_STEP) ?? 1;
   });
-  const navigate = useNavigate();
   const defaultValues = loadFromLocalStorage<RegistrationFormSchema>(
     REGISTRATION_KEY_FORM
   ) ?? {
@@ -62,16 +59,13 @@ export default function RegistrationForm() {
   const processRegistration: SubmitHandler<RegistrationFormSchema> = async (
     data
   ) => {
-    console.log("Submit terpanggil");
     console.log(data);
-    navigate("/");
-    toast.success("Submit Successful", {
-      action: {
-        label: "Download PDF",
-        onClick: () => console.log("berhasil download"),
-      },
-    });
-    form.reset();
+
+    // generate nrp dlu
+    saveToLocalStorage("nrpUser", form.getValues("nrp"));
+    // membuka new window
+    window.open("/success", "_blank");
+
     removeFromLocalStorage(REGISTRATION_KEY_FORM);
     removeFromLocalStorage(REGISTRATION_KEY_STEP);
   };

@@ -1,33 +1,38 @@
 // layout
-import HomeLayout from '@/layouts/HomeLayout'
-import RootLayout from '@/layouts/RootLayout'
+import HomeLayout from "@/layouts/HomeLayout";
+import RootLayout from "@/layouts/RootLayout";
 
 // page
-import HomePage from '@/pages/HomePage'
-import RegistrationPage from '@/pages/RegistrationPage'
-import { createBrowserRouter } from 'react-router'
+import HomePage from "@/pages/HomePage";
+import RegistrationPage from "@/pages/RegistrationPage";
+import SuccessPage from "@/pages/SuccessPage";
+import { createBrowserRouter } from "react-router";
 
 const router = createBrowserRouter([
-    {
-        path: '/',
-        element: <RootLayout />,
+  {
+    path: "/",
+    element: <RootLayout />,
+    children: [
+      {
+        path: "/",
+        element: <HomeLayout />,
         children: [
-            {
-                path: '/',
-                element: <HomeLayout />,
-                children: [
-                    {
-                        index: true,
-                        element: <HomePage />
-                    },
-                    {
-                        path: '/registration',
-                        element: <RegistrationPage />
-                    }
-                ]
-            }
-        ]
-    }
-])
+          {
+            index: true,
+            element: <HomePage />,
+          },
+          {
+            path: "/registration",
+            element: <RegistrationPage />,
+          },
+        ],
+      },
+      {
+        path: "/success",
+        element: <SuccessPage />,
+      },
+    ],
+  },
+]);
 
-export default router
+export default router;
