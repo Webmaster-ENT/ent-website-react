@@ -29,21 +29,35 @@ export type ReportFormSchema = z.infer<typeof reportFormSchema>
 */
 
 export const ExperienceSchema = z.object({
-  id: z.string(),
-  organization: z.string().min(1, "Organisasi wajib diisi"),
+  title: z.string().min(1, "Nama pengalaman wajib diisi"),
   position: z.string().min(1, "Posisi wajib diisi"),
-  startDate: z.string(),
-  endDate: z.string(),
+  startYear: z.string(),
+  startMonth: z.string(),
+  endMonth: z.string(),
+  endYear: z.string(),
   description: z.string().min(1, "Deskripsi wajib diisi"),
 })
 
 export const AchievementSchema = z.object({
-  id: z.string(),
-  name: z.string().min(1, "Nama penghargaan wajib diisi"),
-  organization: z.string().min(1, "Organisasi wajib diisi"),
-  date: z.string(), // bisa ditambah validasi tanggal
+  title: z.string().min(1, "Nama pengalaman wajib diisi"),
+  position: z.string().min(1, "Posisi wajib diisi"),
+  startYear: z.string(),
+  startMonth: z.string(),
+  endMonth: z.string(),
+  endYear: z.string(),
   description: z.string().min(1, "Deskripsi wajib diisi"),
 })
+
+export const divisions: string[] = [
+  'Perencanaan Konten',
+  'Reporter',
+  'Webmaster',
+  'Copywriter',
+  'Desain Grafis',
+  'Fotografer',
+  'Illustrator',
+  'Videografer'
+]
 
 export const registrationFormSchema = z.object({
   // data diri
@@ -64,16 +78,35 @@ export const registrationFormSchema = z.object({
   }),
 
   // Deskripsi Diri
-  divisi: z.string(),
-  moto: z.string(),
-  alasanENT: z.string(),
-  alasanDivisi: z.string(),
-  minatUKM: z.string(),
-  yakinkanKami: z.string(),
+  divisi: z.enum(divisions, 'Divisi wajib dipilih'),
+  moto: z.string().min(1, 'Moto wajib diisi'),
+  alasanENT: z.string().min(1, 'Alasan wajib diisi'),
+  alasanDivisi: z.string().min(1, 'Alasan wajib diisi'),
+  minatUKM: z.string().min(1, 'Minat wajib diisi'),
+  yakinkanKami: z.string().min(1, 'Alasan wajib diisi'),
 
   // Pengalaman
-  experiences: z.array(ExperienceSchema).optional(),
-  achievements: z.array(AchievementSchema).optional()
+  experiences: z.array(ExperienceSchema).max(3, 'Maksimal 3 Pengalaman'),
+  achievements: z.array(AchievementSchema).max(3, 'Maksimal 3 penghargaan terbaik')
+}).refine((data) => {
+  // klo experience user ada
+  if(data.experiences.length > 0) {
+    return data.experiences.every(
+      (exp) => exp.description && exp.endMonth && exp.endYear && exp.position && exp.startMonth && exp.startYear && exp.title
+    )
+  }
+  // klo penghargaan user ada
+  if(data.achievements.length > 0) {
+    return data.achievements.every(
+      acv => acv.description && acv.endMonth && acv.endYear && acv.position && acv.startMonth && acv.startYear && acv.title
+    )
+  }
+
+  return true
+},
+{
+  message: 'Pengalaman harus diisi jika kamu memiliki pengalaman',
+  path: ['experiences']
 })
 
 export type RegistrationFormSchema = z.infer<typeof registrationFormSchema>

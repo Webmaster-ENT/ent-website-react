@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils"
-import { type RegistrationFormSchema, registrationFormSchema } from "@/types/form"
+import { divisions, type RegistrationFormSchema, registrationFormSchema } from "@/types/form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { CalendarIcon, Check } from "lucide-react"
 import { useEffect, useState } from "react"
@@ -97,6 +97,7 @@ export default function RegistrationForm() {
     })
 
     const jenjang = watch('jenjang')
+    const divisi = watch('divisi')
 
     useEffect(() => {
         setValue('jurusan', '')
@@ -395,8 +396,70 @@ export default function RegistrationForm() {
                                 <CardDescription>Isi data di bawah ini dengan jujur tanpa bantuan apapun. Penggunaan AI akan mengakibatkan tidak diterima secara langsung</CardDescription>
                             </CardHeader>
                             <CardContent>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    {/* field */}
+                                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                                    {/* field divisi */}
+                                    <div className="space-y-2">
+                                        <Label>Divisi yang ingin didaftar</Label>
+                                        <Controller 
+                                            control={control}
+                                            name={'divisi'}
+                                            render={({ field }) => (
+                                                <Select onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
+                                                    <SelectTrigger className="w-full">
+                                                        <SelectValue placeholder='Pilih divisi yang kamu inginkan' />
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                        {divisions.map(division => (
+                                                            <SelectItem key={division} value={division}>{division}</SelectItem>
+                                                        ))}
+                                                    </SelectContent>
+                                                </Select>
+                                            )}
+                                        />
+                                        {errors.divisi?.message && (
+                                            <p className="text-sm text-red-400">{errors.divisi.message}</p>
+                                        )}
+                                    </div>
+                                    {/* field moto hidup */}
+                                    <div className="space-y-2">
+                                        <Label>Moto Hidup</Label>
+                                        <Input {...register('moto')} placeholder="moto kehidupan" />
+                                        {errors.moto?.message && (
+                                            <p className="text-sm text-red-400">{errors.moto.message}</p>
+                                        )}
+                                    </div>
+                                    {/* alasan masuk ent */}
+                                    <div className="space-y-2 col-span-2">
+                                        <Label>Alasan Ingin Masuk ENT</Label>
+                                        <Textarea {...register('alasanENT')} placeholder="Alasan masuk ENT" />
+                                        {errors.alasanENT?.message && (
+                                            <p className="text-sm text-red-400">{errors.alasanENT.message}</p>
+                                        )}
+                                    </div>
+                                    {/* alasan masuk divisi tsb */}
+                                    <div className="space-y-2 col-span-2">
+                                        <Label>Alasan Ingin Masuk Ke Divisi {divisi ?? ''}</Label>
+                                        <Textarea {...register('alasanDivisi')} placeholder={`Alasan masuk ke ${divisi ?? ''}`} />
+                                        {errors.alasanDivisi?.message && (
+                                            <p className="text-sm text-red-400">{errors.alasanDivisi.message}</p>
+                                        )}
+                                    </div>
+                                    {/* ketertarikan ke ukm, atau ormawa, atau tim lain */}
+                                    <div className="space-y-2 col-span-2">
+                                        <Label>Apakah Ada Ketertarikan Untuk Join Tim/Organisasi/UKM Lain?</Label>
+                                        <Textarea {...register('minatUKM')} placeholder='ketertarikan terhadap tim atau organisasi, atau UKM lain' />
+                                        {errors.minatUKM?.message && (
+                                            <p className="text-sm text-red-400">{errors.minatUKM.message}</p>
+                                        )}
+                                    </div>
+                                    {/* yakinkan kami */}
+                                    <div className="space-y-2 col-span-2">
+                                        <Label>Yakinkan Kami Mengapa Kami Harus Menerima Kamu?</Label>
+                                        <Textarea {...register('yakinkanKami')} placeholder='ketertarikan terhadap tim atau organisasi, atau UKM lain' />
+                                        {errors.yakinkanKami?.message && (
+                                            <p className="text-sm text-red-400">{errors.yakinkanKami.message}</p>
+                                        )}
+                                    </div>
                                 </div>
                             </CardContent>
                         </>
@@ -404,7 +467,19 @@ export default function RegistrationForm() {
 
                     {/* pengalaman */}
                     {currentStep === 3 && (
-                        <>Hello From step 3</>
+                        <>
+                            <CardHeader>
+                                <CardTitle>Pengalaman</CardTitle>
+                                <CardDescription>Isikan pengalaman yang sudah kamu dapat sebelum mendaftar ENT. Kamu bisa melewatinya jika belum ada</CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                
+                                {/* field buat ngisi klo dia add expereience */}
+                                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+
+                                </div>
+                            </CardContent>
+                        </>
                     )}
 
                     {/* penghargaan */}
