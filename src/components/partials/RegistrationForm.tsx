@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils"
 import { divisions, type RegistrationFormSchema, registrationFormSchema, steps } from "@/types/form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { CalendarIcon, Check, Plus, Trash2 } from "lucide-react"
+import { BriefcaseBusinessIcon, CalendarIcon, Check, Plus, Trash2 } from "lucide-react"
 import { useEffect, useState } from "react"
 import { Controller, useForm, type SubmitHandler, useFieldArray } from "react-hook-form"
 import { toast } from "sonner"
@@ -351,7 +351,7 @@ export default function RegistrationForm() {
                                         )}
                                     </div>
                                     {/* agama */}
-                                    <div className="space-y-2 col-span-2">
+                                    <div className="space-y-2 md:col-span-2">
                                         <Label>Agama</Label>
                                         <Controller 
                                             control={control}
@@ -377,7 +377,7 @@ export default function RegistrationForm() {
                                         )}
                                     </div>
                                     {/* alamat sekarang */}
-                                    <div className="space-y-2 col-span-2">
+                                    <div className="space-y-2 md:col-span-2">
                                         <Label>Alamat Sekarang</Label>
                                         <Textarea {...register('alamatSekarang')} placeholder="Alamat kos atau saat ini" />
                                         {errors.alamatSekarang?.message && (
@@ -385,7 +385,7 @@ export default function RegistrationForm() {
                                         )}
                                     </div>
                                     {/* alamat rumah */}
-                                    <div className="space-y-2 col-span-2">
+                                    <div className="space-y-2 md:col-span-2">
                                         <Label>Alamat Rumah</Label>
                                         <Textarea {...register('alamatRumah')} placeholder="Alamat rumah" />
                                         {errors.alamatRumah?.message && (
@@ -454,7 +454,7 @@ export default function RegistrationForm() {
                                         )}
                                     </div>
                                     {/* alasan masuk ent */}
-                                    <div className="space-y-2 col-span-2">
+                                    <div className="space-y-2 md:col-span-2">
                                         <Label>Alasan Ingin Masuk ENT</Label>
                                         <Textarea {...register('alasanENT')} placeholder="Alasan masuk ENT" />
                                         {errors.alasanENT?.message && (
@@ -462,7 +462,7 @@ export default function RegistrationForm() {
                                         )}
                                     </div>
                                     {/* alasan masuk divisi tsb */}
-                                    <div className="space-y-2 col-span-2">
+                                    <div className="space-y-2 md:col-span-2">
                                         <Label>Alasan Ingin Masuk Ke Divisi {divisi ?? ''}</Label>
                                         <Textarea {...register('alasanDivisi')} placeholder={`Alasan masuk ke ${divisi ?? ''}`} />
                                         {errors.alasanDivisi?.message && (
@@ -470,16 +470,16 @@ export default function RegistrationForm() {
                                         )}
                                     </div>
                                     {/* ketertarikan ke ukm, atau ormawa, atau tim lain */}
-                                    <div className="space-y-2 col-span-2">
-                                        <Label>Apakah Ada Ketertarikan Untuk Join Tim/Organisasi/UKM Lain?</Label>
+                                    <div className="space-y-2 md:col-span-2">
+                                        <Label>Minat Untuk Join Tim/Organisasi/UKM Lain</Label>
                                         <Textarea {...register('minatUKM')} placeholder='ketertarikan terhadap tim atau organisasi, atau UKM lain' />
                                         {errors.minatUKM?.message && (
                                             <p className="text-sm text-red-400">{errors.minatUKM.message}</p>
                                         )}
                                     </div>
                                     {/* yakinkan kami */}
-                                    <div className="space-y-2 col-span-2">
-                                        <Label>Yakinkan Kami Mengapa Kami Harus Menerima Kamu?</Label>
+                                    <div className="space-y-2 md:col-span-2">
+                                        <Label>Mengapa Kami Harus Menerima Kamu?</Label>
                                         <Textarea {...register('yakinkanKami')} placeholder='ketertarikan terhadap tim atau organisasi, atau UKM lain' />
                                         {errors.yakinkanKami?.message && (
                                             <p className="text-sm text-red-400">{errors.yakinkanKami.message}</p>
@@ -512,6 +512,22 @@ export default function RegistrationForm() {
                                             Tambah Pengalaman
                                         </Button>
                                     </div>
+                                    {/* kalo experience = 0 */}
+                                    {fields.length === 0 && (
+                                        <div className="border-2 border-dashed border-gray-200 rounded-lg p-8 text-center bg-gray-50/50">
+                                            <div className="flex flex-col items-center space-y-4">
+                                                <div className="size-16 bg-blue-100 rounded-full flex items-center justify-center">
+                                                    <BriefcaseBusinessIcon className="text-blue-500 size-8" />
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <h4 className="text-lg font-medium text-gray-900">Belum Ada Pengalaman Yang Ditambahkan</h4>
+                                                    <p className="text-sm text-gray-500 max-w-sm">
+                                                        Bagikan penglaman profesional kamu dengan menambahkan pengalaman Anda. Ini membantu kami memahami latar belakang dan kemampuan Anda.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
                                     {/* field buat ngisi klo dia add expereience */}
                                     {fields.map((field, index) => (
                                         <Card key={field.id} className="relative">
@@ -530,6 +546,7 @@ export default function RegistrationForm() {
                                                 </div>
                                             </CardHeader>
                                             <CardContent className="space-y-4">
+                                                {/* field title and position */}
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                                     <div className="space-y-2">
                                                         <Label htmlFor={`experiences.${index}.title`}>Title Experience *</Label>
@@ -547,102 +564,103 @@ export default function RegistrationForm() {
                                                         )}
                                                     </div>
                                                 </div>
-
+                                                {/* start month field */}
                                                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                                <div className="space-y-2">
-                                                    <Label>Start Month *</Label>
-                                                    <Select
-                                                    value={experiences[index]?.startMonth || ""}
-                                                    onValueChange={(value) => setValue(`experiences.${index}.startMonth`, value)}
-                                                    >
-                                                    <SelectTrigger className="w-full">
-                                                        <SelectValue placeholder="Month" />
-                                                    </SelectTrigger>
-                                                    <SelectContent>
-                                                        {months.map((month) => (
-                                                        <SelectItem key={month.value} value={month.value}>
-                                                            {month.label}
-                                                        </SelectItem>
-                                                        ))}
-                                                    </SelectContent>
-                                                    </Select>
-                                                    {errors.experiences?.[index]?.startMonth && (
-                                                    <p className="text-sm text-red-600">{errors.experiences[index]?.startMonth?.message}</p>
-                                                    )}
-                                                </div>
-
-                                                <div className="space-y-2">
-                                                    <Label>Start Year *</Label>
-                                                    <Select
-                                                    value={experiences[index]?.startYear || ""}
-                                                    onValueChange={(value) => setValue(`experiences.${index}.startYear`, value)}
-                                                    >
-                                                    <SelectTrigger className="w-full">
-                                                        <SelectValue placeholder="Year" />
-                                                    </SelectTrigger>
-                                                    <SelectContent>
-                                                        {years.map((year) => (
-                                                        <SelectItem key={year} value={year.toString()}>
-                                                            {year}
-                                                        </SelectItem>
-                                                        ))}
-                                                    </SelectContent>
-                                                    </Select>
-                                                    {errors.experiences?.[index]?.startYear && (
-                                                    <p className="text-sm text-red-600">{errors.experiences[index]?.startYear?.message}</p>
-                                                    )}
-                                                </div>
-
-                                                <div className="space-y-2">
-                                                    <Label>End Month *</Label>
-                                                    <Select
-                                                    value={experiences[index]?.endMonth || ""}
-                                                    onValueChange={(value) => setValue(`experiences.${index}.endMonth`, value)}
-                                                    >
-                                                    <SelectTrigger className="w-full">
-                                                        <SelectValue placeholder="Month" />
-                                                    </SelectTrigger>
-                                                    <SelectContent>
-                                                        {months.map((month) => (
-                                                        <SelectItem key={month.value} value={month.value}>
-                                                            {month.label}
-                                                        </SelectItem>
-                                                        ))}
-                                                    </SelectContent>
-                                                    </Select>
-                                                    {errors.experiences?.[index]?.endMonth && (
-                                                    <p className="text-sm text-red-600">{errors.experiences[index]?.endMonth?.message}</p>
-                                                    )}
-                                                </div>
-
-                                                <div className="space-y-2">
-                                                    <Label>End Year *</Label>
-                                                    <Select
-                                                    value={experiences[index]?.endYear || ""}
-                                                    onValueChange={(value) => setValue(`experiences.${index}.endYear`, value)}
-                                                    >
-                                                    <SelectTrigger className="w-full">
-                                                        <SelectValue placeholder="Year" />
-                                                    </SelectTrigger>
-                                                    <SelectContent>
-                                                        {years.map((year) => (
-                                                        <SelectItem key={year} value={year.toString()}>
-                                                            {year}
-                                                        </SelectItem>
-                                                        ))}
-                                                    </SelectContent>
-                                                    </Select>
-                                                    {errors.experiences?.[index]?.endYear && (
-                                                    <p className="text-sm text-red-600">{errors.experiences[index]?.endYear?.message}</p>
-                                                    )}
-                                                </div>
-                                                <div className="space-y-2 col-span-4">
-                                                    <Label>Deskripsi</Label>
-                                                    <Textarea {...register(`experiences.${index}.description`)} placeholder="jelaskan detail"/>
-                                                    {errors.experiences?.[index]?.description && (
-                                                    <p className="text-sm text-red-600">{errors.experiences[index]?.description?.message}</p>
-                                                    )}
-                                                </div>
+                                                    <div className="space-y-2">
+                                                        <Label>Start Month *</Label>
+                                                        <Select
+                                                        value={experiences[index]?.startMonth || ""}
+                                                        onValueChange={(value) => setValue(`experiences.${index}.startMonth`, value)}
+                                                        >
+                                                        <SelectTrigger className="w-full">
+                                                            <SelectValue placeholder="Month" />
+                                                        </SelectTrigger>
+                                                        <SelectContent>
+                                                            {months.map((month) => (
+                                                            <SelectItem key={month.value} value={month.value}>
+                                                                {month.label}
+                                                            </SelectItem>
+                                                            ))}
+                                                        </SelectContent>
+                                                        </Select>
+                                                        {errors.experiences?.[index]?.startMonth && (
+                                                        <p className="text-sm text-red-600">{errors.experiences[index]?.startMonth?.message}</p>
+                                                        )}
+                                                    </div>
+                                                    {/* start year field */}
+                                                    <div className="space-y-2">
+                                                        <Label>Start Year *</Label>
+                                                        <Select
+                                                        value={experiences[index]?.startYear || ""}
+                                                        onValueChange={(value) => setValue(`experiences.${index}.startYear`, value)}
+                                                        >
+                                                        <SelectTrigger className="w-full">
+                                                            <SelectValue placeholder="Year" />
+                                                        </SelectTrigger>
+                                                        <SelectContent>
+                                                            {years.map((year) => (
+                                                            <SelectItem key={year} value={year.toString()}>
+                                                                {year}
+                                                            </SelectItem>
+                                                            ))}
+                                                        </SelectContent>
+                                                        </Select>
+                                                        {errors.experiences?.[index]?.startYear && (
+                                                        <p className="text-sm text-red-600">{errors.experiences[index]?.startYear?.message}</p>
+                                                        )}
+                                                    </div>
+                                                    {/* end month field */}
+                                                    <div className="space-y-2">
+                                                        <Label>End Month *</Label>
+                                                        <Select
+                                                        value={experiences[index]?.endMonth || ""}
+                                                        onValueChange={(value) => setValue(`experiences.${index}.endMonth`, value)}
+                                                        >
+                                                        <SelectTrigger className="w-full">
+                                                            <SelectValue placeholder="Month" />
+                                                        </SelectTrigger>
+                                                        <SelectContent>
+                                                            {months.map((month) => (
+                                                            <SelectItem key={month.value} value={month.value}>
+                                                                {month.label}
+                                                            </SelectItem>
+                                                            ))}
+                                                        </SelectContent>
+                                                        </Select>
+                                                        {errors.experiences?.[index]?.endMonth && (
+                                                        <p className="text-sm text-red-600">{errors.experiences[index]?.endMonth?.message}</p>
+                                                        )}
+                                                    </div>
+                                                    {/* end year field */}
+                                                    <div className="space-y-2">
+                                                        <Label>End Year *</Label>
+                                                        <Select
+                                                        value={experiences[index]?.endYear || ""}
+                                                        onValueChange={(value) => setValue(`experiences.${index}.endYear`, value)}
+                                                        >
+                                                        <SelectTrigger className="w-full">
+                                                            <SelectValue placeholder="Year" />
+                                                        </SelectTrigger>
+                                                        <SelectContent>
+                                                            {years.map((year) => (
+                                                            <SelectItem key={year} value={year.toString()}>
+                                                                {year}
+                                                            </SelectItem>
+                                                            ))}
+                                                        </SelectContent>
+                                                        </Select>
+                                                        {errors.experiences?.[index]?.endYear && (
+                                                        <p className="text-sm text-red-600">{errors.experiences[index]?.endYear?.message}</p>
+                                                        )}
+                                                    </div>
+                                                    {/* deskripsi field */}
+                                                    <div className="space-y-2 col-span-2 md:col-span-4">
+                                                        <Label>Deskripsi</Label>
+                                                        <Textarea {...register(`experiences.${index}.description`)} placeholder="jelaskan detail"/>
+                                                        {errors.experiences?.[index]?.description && (
+                                                        <p className="text-sm text-red-600">{errors.experiences[index]?.description?.message}</p>
+                                                        )}
+                                                    </div>
                                                 </div>
                                             </CardContent>
                                         </Card>
