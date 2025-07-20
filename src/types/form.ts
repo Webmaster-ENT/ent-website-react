@@ -21,3 +21,59 @@ export const reportFormSchema = z.object({
 })
 
 export type ReportFormSchema = z.infer<typeof reportFormSchema>
+
+/* 
+  Registration Schema
+    - Experiences
+    - Achievements
+*/
+
+export const ExperienceSchema = z.object({
+  id: z.string(),
+  organization: z.string().min(1, "Organisasi wajib diisi"),
+  position: z.string().min(1, "Posisi wajib diisi"),
+  startDate: z.string(),
+  endDate: z.string(),
+  description: z.string().min(1, "Deskripsi wajib diisi"),
+})
+
+export const AchievementSchema = z.object({
+  id: z.string(),
+  name: z.string().min(1, "Nama penghargaan wajib diisi"),
+  organization: z.string().min(1, "Organisasi wajib diisi"),
+  date: z.string(), // bisa ditambah validasi tanggal
+  description: z.string().min(1, "Deskripsi wajib diisi"),
+})
+
+export const registrationFormSchema = z.object({
+  // data diri
+  nama: z.string().min(5, 'Nama lengkap wajib diisi').max(50, 'Nama lengkap maksimal 50 huruf'),
+  nrp: z.string().max(10).regex(/^\d{10}$/, { message: 'NRP harus berisi 10 digit angka' }),
+  jenjang: z.string('Jenjang wajib dipilih'),
+  jurusan: z.string().min(1, 'Jurusan belum dipilih'),
+  tempatLahir: z.string().min(1),
+  tanggalLahir: z.date('Tanggal lahir wajib diisi'),
+  agama: z.string().min(3, 'Agama wajib dipilih'),
+  alamatSekarang: z.string().min(5, 'Alamat saat ini wajib diisi'),
+  alamatRumah: z.string().min(5, 'Alamat rumah tinggal wajib diisi'),
+  email: z.email({ message: "Format email tidak valid" }).regex(/^[a-zA-Z0-9._%+-]+@[a-z]+\.(student\.pens\.ac\.id)$/, {
+    message: "Email harus menggunakan domain @<prodi>.student.pens.ac.id",
+  }),
+  noHp: z.string().regex(/^\+62[0-9]{9,14}$/, {
+    message: "Nomor telephone harus diawali dengan +62 dan angka",
+  }),
+
+  // Deskripsi Diri
+  divisi: z.string(),
+  moto: z.string(),
+  alasanENT: z.string(),
+  alasanDivisi: z.string(),
+  minatUKM: z.string(),
+  yakinkanKami: z.string(),
+
+  // Pengalaman
+  experiences: z.array(ExperienceSchema).optional(),
+  achievements: z.array(AchievementSchema).optional()
+})
+
+export type RegistrationFormSchema = z.infer<typeof registrationFormSchema>
