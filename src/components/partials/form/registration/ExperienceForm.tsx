@@ -158,7 +158,7 @@ export default function ExperienceForm({
                   <div className="space-y-2">
                     <Label>Start Month *</Label>
                     <Select
-                      value={experiences[index]?.startMonth || ""}
+                      value={experiences[index]?.startMonth ?? ""}
                       onValueChange={(value) =>
                         setValue(`experiences.${index}.startMonth`, value)
                       }
@@ -184,7 +184,7 @@ export default function ExperienceForm({
                   <div className="space-y-2">
                     <Label>Start Year *</Label>
                     <Select
-                      value={experiences[index]?.startYear || ""}
+                      value={experiences[index]?.startYear ?? ""}
                       onValueChange={(value) =>
                         setValue(`experiences.${index}.startYear`, value)
                       }
@@ -210,7 +210,7 @@ export default function ExperienceForm({
                   <div className="space-y-2">
                     <Label>End Month *</Label>
                     <Select
-                      value={experiences[index]?.endMonth || ""}
+                      value={experiences[index]?.endMonth ?? ""}
                       onValueChange={(value) =>
                         setValue(`experiences.${index}.endMonth`, value)
                       }
@@ -236,7 +236,7 @@ export default function ExperienceForm({
                   <div className="space-y-2">
                     <Label>End Year *</Label>
                     <Select
-                      value={experiences[index]?.endYear || ""}
+                      value={experiences[index]?.endYear ?? ""}
                       onValueChange={(value) =>
                         setValue(`experiences.${index}.endYear`, value)
                       }

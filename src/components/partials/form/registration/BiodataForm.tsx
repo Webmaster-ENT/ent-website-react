@@ -28,7 +28,6 @@ import { CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { id } from "date-fns/locale";
-import { useEffect } from "react";
 
 interface BiodataFormProps {
   form: UseFormReturn<RegistrationFormSchema>;
@@ -40,15 +39,8 @@ export default function BiodataForm({ form }: BiodataFormProps) {
     register,
     formState: { errors },
     control,
-    setValue,
   } = form;
   const jenjang = watch("jenjang");
-
-  useEffect(() => {
-    if (jenjang) {
-      setValue("jurusan", "");
-    }
-  }, [jenjang, setValue]);
   return (
     <>
       <CardHeader>
