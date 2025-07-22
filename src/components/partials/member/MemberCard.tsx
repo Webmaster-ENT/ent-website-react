@@ -1,6 +1,5 @@
-import React from 'react';
-
 interface MemberCardProps {
+  id: number;
   generation: string;
   name: string;
   role: string;
@@ -9,7 +8,7 @@ interface MemberCardProps {
   isActive: boolean;
 }
 
-const MemberCard: React.FC<MemberCardProps> = ({ generation, name, role, major, image, isActive }) => {
+const MemberCard = ({ generation, name, role, major, image, isActive }: MemberCardProps) => {
   const majorWords = major.split(' ');
   const majorLine1 = majorWords[0];
   const majorLine3 = majorWords.slice(-2).join(' ');

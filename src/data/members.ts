@@ -1,8 +1,12 @@
+import AmelImage from '@/assets/members/amel.png'
+import IkhwanImage from '@/assets/members/ikhwan.png'
+import GaluhImage from '@/assets/members/galuh.png'
+
 export interface Member {
   id: number;
-  generation: string;
+  generation: 'ENT 19th Generation' | 'ENT 18th Generation' | 'ENT 17th Generation' | 'ENT 16th Generation';
   name: string;
-  role: string;
+  role: 'Videographer' | 'Reporter' | 'Webmaster' | 'Photographer' | 'Graphic Design' | 'Illustrator' | 'Copywriter' | 'Content Planner';
   major: string;
   image: string;
   isActive: boolean;
@@ -15,7 +19,7 @@ export const members: Member[] = [
     name: "Amelia",
     role: "Videographer",
     major: "Majoring Multimedia Engineering Technology '24",
-    image: "/members/amel.png",
+    image: AmelImage,
     isActive: true,
   },
   {
@@ -24,7 +28,7 @@ export const members: Member[] = [
     name: "Ikhwan",
     role: "Videographer",
     major: "Majoring Multimedia Engineering Technology '24",
-    image: "/members/ikhwan.png",
+    image: IkhwanImage,
     isActive: false,
   },
   {
@@ -33,7 +37,16 @@ export const members: Member[] = [
     name: "Galuh",
     role: "Videographer",
     major: "Majoring Multimedia Engineering Technology '24",
-    image: "/members/galuh.png",
+    image: GaluhImage,
+    isActive: false,
+  },
+  {
+    id: 4,
+    generation: "ENT 18th Generation",
+    name: "Ali",
+    role: "Videographer",
+    major: "Majoring Multimedia Engineering Technology '24",
+    image: GaluhImage,
     isActive: false,
   },
 ];
