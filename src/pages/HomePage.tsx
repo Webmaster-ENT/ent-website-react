@@ -1,6 +1,7 @@
 import AboutSection from "@/components/partials/AboutSection";
 import DivisionSection from "@/components/partials/division/DivisionSection";
 import Jumbotron from "@/components/partials/Jumbotron";
+import MediaSection from "@/components/partials/MediaSection";
 import MemberSection from "@/components/partials/member/MemberSection";
 
 export default function HomePage() {
@@ -17,6 +18,9 @@ export default function HomePage() {
 
             {/* member section */}
             <MemberSection />
+
+            {/* media section */}
+            <MediaSection />
         </>
     )
 }
