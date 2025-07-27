@@ -1,5 +1,17 @@
 /* API Endpoints */
-export const API_ENDPOINTS = {} as const;
+export const API_ENDPOINTS = {
+  // reports
+  REPORTS: {
+    CREATE: "/reports",
+  },
+
+  // check NRP
+  NEW_MEMBERS: {
+    CREATE: "/new_members",
+    CHECK_NRP: (nrp: string) => `/check-nrp/${nrp}`,
+    CREATE_RESUME_PDF: (nrp: string) => `/new_members/${nrp}`,
+  },
+} as const;
 
 /* API Configuration */
 export const API_CONFIG = {
