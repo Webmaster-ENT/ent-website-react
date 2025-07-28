@@ -1,3 +1,4 @@
+import FAQ from "@/components/partials/portfolio/faq";
 import TabsGuidebook from "@/components/partials/portfolio/tabs-guidebook";
 import TabsPortfolio from "@/components/partials/portfolio/tabs-portfolio";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -37,6 +38,8 @@ export default function GuidebookPage() {
         <TabsGuidebook />
         <TabsPortfolio />
       </Tabs>
+
+      <FAQ />
     </div>
   );
 }
