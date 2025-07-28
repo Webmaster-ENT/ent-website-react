@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import useCheckNRP from "@/hooks/useCheckNRP";
 
 interface ButtonNavigationFormProps {
   prev: () => void;
@@ -11,6 +12,7 @@ export default function ButtonNavigationForm({
   next,
   currentStep,
 }: ButtonNavigationFormProps) {
+  const { isLoading } = useCheckNRP();
   return (
     <div className="flex justify-between items-center w-full">
       <Button
@@ -23,7 +25,7 @@ export default function ButtonNavigationForm({
         Sebelumnya
       </Button>
 
-      <Button type="button" onClick={next} size={"lg"}>
+      <Button type="button" onClick={next} size={"lg"} disabled={isLoading}>
         {currentStep === 4 ? "Daftar ENT" : "Selanjutnya"}
       </Button>
     </div>
