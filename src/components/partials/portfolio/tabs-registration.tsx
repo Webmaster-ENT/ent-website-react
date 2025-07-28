@@ -12,38 +12,15 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router";
 import { useState, type FormEvent } from "react";
-import API from "@/lib/api";
-import { API_ENDPOINTS } from "@/constants/api";
-import axios from "axios";
-
-type RegistrationStatus = "not-found" | "found" | "none";
+import useCheckNRP from "@/hooks/useCheckNRP";
 
 export default function TabsRegistration() {
   const [nrp, setNrp] = useState("");
-  const [isChecking, setIsChecking] = useState<boolean>(false);
-  const [registrationStatus, setRegistrationStatus] =
-    useState<RegistrationStatus>("none");
+  const { status, isLoading, checkNRP } = useCheckNRP();
 
   const handleRegistrationCheck = async (e: FormEvent) => {
     e.preventDefault();
-    setIsChecking(true);
-    await API.get(API_ENDPOINTS.NEW_MEMBERS.CHECK_NRP(nrp))
-      .then(() => {
-        setRegistrationStatus("not-found");
-      })
-      .catch((err: unknown) => {
-        if (axios.isAxiosError(err) && err.response) {
-          const status = err.response.status;
-          if (status === 409) {
-            setRegistrationStatus("found");
-          }
-        } else if (err instanceof Error) {
-          console.error(err.message);
-        }
-      })
-      .finally(() => {
-        setIsChecking(false);
-      });
+    checkNRP(nrp);
   };
 
   return (
@@ -67,19 +44,20 @@ export default function TabsRegistration() {
                 <Input
                   id="nrp"
                   name="nrp"
+                  inputMode="numeric"
                   placeholder="Masukkan NRP Anda"
                   value={nrp}
                   onChange={(e) => setNrp(e.target.value)}
                   required
                 />
               </div>
-              <Button type="submit" className="w-full" disabled={isChecking}>
-                {isChecking ? "Mengecek..." : "Cek Pendaftaran"}
+              <Button type="submit" className="w-full" disabled={isLoading}>
+                {isLoading ? "Mengecek..." : "Cek Pendaftaran"}
               </Button>
             </form>
 
             {/* Registration Status Results */}
-            {registrationStatus === "found" && (
+            {status === "registered" && (
               <div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">
                 <div className="flex items-center gap-2 text-green-800">
                   <CheckCircle className="w-5 h-5" />
@@ -92,7 +70,7 @@ export default function TabsRegistration() {
               </div>
             )}
 
-            {registrationStatus === "not-found" && (
+            {status === "not-registered" && (
               <div className="mt-6 p-4 bg-red-50 border border-red-200 rounded-lg">
                 <div className="flex items-center gap-2 text-red-800">
                   <Users className="w-5 h-5" />
@@ -103,6 +81,21 @@ export default function TabsRegistration() {
                 <p className="text-red-700 mt-2">
                   NRP belum terdaftar. Anda dapat melanjutkan proses
                   pendaftaran.
+                </p>
+              </div>
+            )}
+
+            {status === "error" && (
+              <div className="mt-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+                <div className="flex items-center gap-2 text-red-800">
+                  <Users className="w-5 h-5" />
+                  <span className="font-medium">
+                    Terjadi Kesalahan Jaringan
+                  </span>
+                </div>
+                <p className="text-red-700 mt-2">
+                  Mohon maaf atas ketidaknyamanan Anda. Silahkan coba beberapa
+                  saat lagi.
                 </p>
               </div>
             )}
