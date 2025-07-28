@@ -1,3 +1,4 @@
+import TabsGuidebook from "@/components/partials/portfolio/tabs-guidebook";
 import TabsPortfolio from "@/components/partials/portfolio/tabs-portfolio";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FileText, Palette, Search } from "lucide-react";
@@ -33,6 +34,7 @@ export default function GuidebookPage() {
         </TabsList>
 
         {/* tabs content */}
+        <TabsGuidebook />
         <TabsPortfolio />
       </Tabs>
     </div>
