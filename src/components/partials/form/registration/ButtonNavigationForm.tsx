@@ -26,7 +26,7 @@ export default function ButtonNavigationForm({
       </Button>
 
       <Button type="button" onClick={next} size={"lg"} disabled={isLoading}>
-        {currentStep === 4 ? "Daftar ENT" : "Selanjutnya"}
+        {currentStep === 5 ? "Daftar ENT" : "Selanjutnya"}
       </Button>
     </div>
   );

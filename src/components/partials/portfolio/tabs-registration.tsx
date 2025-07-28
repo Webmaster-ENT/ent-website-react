@@ -12,15 +12,46 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router";
 import { useState, type FormEvent } from "react";
-import useCheckNRP from "@/hooks/useCheckNRP";
+import useCheckNRP, { type RegistrationStatus } from "@/hooks/useCheckNRP";
+import API from "@/lib/api";
+import { API_ENDPOINTS } from "@/constants/api";
+import { toast } from "sonner";
 
 export default function TabsRegistration() {
   const [nrp, setNrp] = useState("");
-  const { status, isLoading, checkNRP } = useCheckNRP();
+  const [status, setStatus] = useState<RegistrationStatus>("idle");
+  const { isLoading, checkNRP } = useCheckNRP();
 
   const handleRegistrationCheck = async (e: FormEvent) => {
     e.preventDefault();
-    checkNRP(nrp);
+    const result = await checkNRP(nrp);
+    switch (result) {
+      case "checking":
+        break;
+      case "registered":
+        setStatus("registered");
+        break;
+      case "not-registered":
+        setStatus("not-registered");
+        break;
+      case "error":
+        setStatus("error");
+        break;
+      default:
+        setStatus("idle");
+        break;
+    }
+  };
+
+  const downloadPDF = async () => {
+    try {
+      await API.get(API_ENDPOINTS.NEW_MEMBERS.CREATE_RESUME_PDF(nrp));
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.error(err.message);
+        toast.error(err.message);
+      }
+    }
   };
 
   return (
@@ -58,7 +89,7 @@ export default function TabsRegistration() {
 
             {/* Registration Status Results */}
             {status === "registered" && (
-              <div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+              <div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg space-y-2">
                 <div className="flex items-center gap-2 text-green-800">
                   <CheckCircle className="w-5 h-5" />
                   <span className="font-medium">Pendaftaran Ditemukan!</span>
@@ -67,6 +98,13 @@ export default function TabsRegistration() {
                   NRP sudah terdaftar. Anda bisa mengunduh PDF dengan mengklik
                   tombol di bawah ini.
                 </p>
+                <Button
+                  variant={"outline"}
+                  onClick={downloadPDF}
+                  className="bg-green-100 border border-green-600 hover:bg-green-50 text-green-800 hover:text-green-700 cursor-pointer"
+                >
+                  Unduh PDF
+                </Button>
               </div>
             )}
 

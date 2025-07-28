@@ -21,6 +21,7 @@ import {
 } from "@/lib/localStorage";
 import useCheckNRP from "@/hooks/useCheckNRP";
 import { toast } from "sonner";
+import PortfolioForm from "./PortfolioForm";
 
 const REGISTRATION_KEY_FORM = "registrationForm";
 const REGISTRATION_KEY_STEP = "registrationStep";
@@ -64,6 +65,9 @@ export default function RegistrationForm() {
         // step 3 & 4
         experiences: [],
         achievements: [],
+
+        // step 5
+        portfolio: "",
       };
 
   // submit form
@@ -177,6 +181,8 @@ export default function RegistrationForm() {
           {currentStep === 4 && (
             <AchievementForm form={form} fieldArray={achievementField} />
           )}
+
+          {currentStep === 5 && <PortfolioForm form={form} />}
 
           {/* navigation button next and previous */}
           <CardFooter>

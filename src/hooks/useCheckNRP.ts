@@ -3,7 +3,7 @@ import API from "@/lib/api";
 import axios from "axios";
 import { useState } from "react";
 
-type RegistrationStatus =
+export type RegistrationStatus =
   | "idle"
   | "checking"
   | "registered"
