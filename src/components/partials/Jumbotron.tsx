@@ -84,7 +84,7 @@ export default function Jumbotron() {
         className="rounded-full text-xl relative inline-flex gap-5 justify-center items-center px-12 py-6 overflow-hidden bg-[#134679] group hover:bg-[#134179] hover:translate-y-1 transition-all ease-in-out"
         asChild
       >
-        <Link to={"/registration"} className="md:mx-auto">
+        <Link to={"/guidebook"} className="md:mx-auto">
           Be Part of ENT
           <span className="absolute right-4 translate-x-[10px] opacity-0 font-bold group-hover:translate-x-0 group-hover:block group-hover:opacity-100 transition-all ease-in-out duration-500">
             <img
