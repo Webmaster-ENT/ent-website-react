@@ -11,7 +11,24 @@ export const API_ENDPOINTS = {
     CHECK_NRP: (nrp: string) => `new_members/check-nrp/${nrp}`,
     CREATE_RESUME_PDF: (nrp: string) => `/new_members/${nrp}`,
   },
+
+  // member
+  MEMBER: {
+    INDEX: "/members",
+    SHOW: (id: string) => `/members/${id}`
+  },
+
+  // division
+  DIVISION: {
+    INDEX: "/division",
+  },
+
+  MAJOR: {
+    INDEX: "/major",
+  }
 } as const;
+
+
 
 /* API Configuration */
 export const API_CONFIG = {
