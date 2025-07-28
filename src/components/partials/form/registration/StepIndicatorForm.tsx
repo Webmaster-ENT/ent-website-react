@@ -4,12 +4,10 @@ import { Check } from "lucide-react";
 
 interface StepIndicatorFormProps {
   currentStep: number;
-  goToStep: (value: number) => void;
 }
 
 export default function StepIndicatorForm({
   currentStep,
-  goToStep,
 }: StepIndicatorFormProps) {
   return (
     <div className="w-full my-12">
@@ -20,7 +18,6 @@ export default function StepIndicatorForm({
             {/* Step Circle */}
             <div className="flex flex-col items-center">
               <button
-                onClick={() => goToStep(step.id)}
                 className={cn(
                   "size-10 rounded-full border-2 flex items-center justify-center text-sm font-medium transition-colors",
                   currentStep === step.id
@@ -71,7 +68,6 @@ export default function StepIndicatorForm({
             {/* Step Circle and Connector */}
             <div className="flex flex-col items-center">
               <button
-                onClick={() => goToStep(step.id)}
                 className={cn(
                   "w-8 h-8 rounded-full border-2 flex items-center justify-center text-xs font-medium transition-colors flex-shrink-0",
                   currentStep === step.id

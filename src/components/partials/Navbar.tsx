@@ -29,25 +29,25 @@ export default function Navbar() {
             {/* Desktop Navigation Links */}
             <div className="hidden md:flex items-center space-x-8">
               <Link
-                to="#"
+                to="/#about"
                 className="text-white hover:text-blue-200 transition-colors"
               >
                 About
               </Link>
               <Link
-                to="#"
+                to="/#division"
                 className="text-white hover:text-blue-200 transition-colors"
               >
                 Division
               </Link>
               <Link
-                to="#"
+                to="#member"
                 className="text-white hover:text-blue-200 transition-colors"
               >
                 Team
               </Link>
               <Link
-                to="#"
+                to="/"
                 className="text-white hover:text-blue-200 transition-colors"
               >
                 Home

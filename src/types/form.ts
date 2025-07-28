@@ -73,6 +73,12 @@ export const steps = [
     description: "Penghargaan yang pernah Anda raih",
     fields: ["achievements"] as const,
   },
+  {
+    id: 5,
+    title: "Portofolio",
+    description: "Link pengumpulan portofolio Anda",
+    fields: "portfolio" as const,
+  },
 ] as const;
 
 const monthEnum = months.map((m) => m.value) as [string, ...string[]];
@@ -146,6 +152,9 @@ export const registrationFormSchema = z
     achievements: z
       .array(AchievementSchema)
       .max(3, "Maksimal 3 penghargaan terbaik"),
+
+    // portfolio
+    portfolio: z.url("Format url tidak valid"),
   })
   .refine((data) => {
     // klo experience user ada

@@ -19,6 +19,9 @@ import {
   removeFromLocalStorage,
   saveToLocalStorage,
 } from "@/lib/localStorage";
+import useCheckNRP from "@/hooks/useCheckNRP";
+import { toast } from "sonner";
+import PortfolioForm from "./PortfolioForm";
 
 const REGISTRATION_KEY_FORM = "registrationForm";
 const REGISTRATION_KEY_STEP = "registrationStep";
@@ -27,33 +30,45 @@ export default function RegistrationForm() {
   const [currentStep, setCurrentStep] = useState<number>(() => {
     return loadFromLocalStorage<number>(REGISTRATION_KEY_STEP) ?? 1;
   });
-  const defaultValues = loadFromLocalStorage<RegistrationFormSchema>(
+
+  const { checkNRP } = useCheckNRP();
+
+  const savedData = loadFromLocalStorage<RegistrationFormSchema>(
     REGISTRATION_KEY_FORM
-  ) ?? {
-    nama: "",
-    nrp: "",
-    email: "",
-    noHp: "",
-    jenjang: "",
-    jurusan: "",
-    tempatLahir: "",
-    tanggalLahir: new Date("2000-01-01"),
-    agama: "",
-    alamatSekarang: "",
-    alamatRumah: "",
+  );
 
-    // step 2
-    divisi: "",
-    moto: "",
-    alasanENT: "",
-    alasanDivisi: "",
-    minatUKM: "",
-    yakinkanKami: "",
+  const defaultValues = savedData
+    ? {
+        ...savedData,
+        tanggalLahir: new Date(savedData.tanggalLahir),
+      }
+    : {
+        nama: "",
+        nrp: "",
+        email: "",
+        noHp: "",
+        jurusan: "",
+        tempatLahir: "",
+        tanggalLahir: new Date("2000-01-01"),
+        agama: "",
+        alamatSekarang: "",
+        alamatRumah: "",
 
-    // step 3 & 4
-    experiences: [],
-    achievements: [],
-  };
+        // step 2
+        divisi: "",
+        moto: "",
+        alasanENT: "",
+        alasanDivisi: "",
+        minatUKM: "",
+        yakinkanKami: "",
+
+        // step 3 & 4
+        experiences: [],
+        achievements: [],
+
+        // step 5
+        portfolio: "",
+      };
 
   // submit form
   const processRegistration: SubmitHandler<RegistrationFormSchema> = async (
@@ -68,11 +83,6 @@ export default function RegistrationForm() {
 
     removeFromLocalStorage(REGISTRATION_KEY_FORM);
     removeFromLocalStorage(REGISTRATION_KEY_STEP);
-  };
-
-  // debugging langsung ke step tertentu
-  const goToStep = (stepId: number) => {
-    setCurrentStep(stepId);
   };
 
   // ini buat form validation make react hook form dan zod
@@ -107,25 +117,36 @@ export default function RegistrationForm() {
 
   // next button
   const next = async () => {
-    // ambil data field yang dibutuhin
-    const fields = steps[currentStep - 1].fields;
-    // cek outputnya dari field yang ada udah ke isi semua belom?
-    const output = await form.trigger(fields as unknown as FieldName[], {
-      shouldFocus: true,
-    });
-    console.log("Validasi berhasil?", output);
-    if (!output) return;
+    // save data
+    const data = form.getValues();
+    saveToLocalStorage(REGISTRATION_KEY_FORM, data);
 
     // buat logic untuk handle api validasi nrp
+    const result = await checkNRP(data.nrp);
+    console.log(`status registration: ${result}`);
+    if (result === "registered") {
+      toast.error(
+        "NRP sudah terdaftar, Anda bisa ke halaman guidebook untuk langsung mencetak resume pdf-nya"
+      );
+      return;
+    } else if (result === "not-registered") {
+      // ambil data field yang dibutuhin
+      const fields = steps[currentStep - 1].fields;
+      // cek outputnya dari field yang ada udah ke isi semua belom?
+      const output = await form.trigger(fields as unknown as FieldName[], {
+        shouldFocus: true,
+      });
+      if (!output) return;
 
-    // kalo udah selesai semua validasi, pindah step form
-    if (currentStep < steps.length) {
-      // save data setelah selesai validasi
-      const data = form.getValues();
-      saveToLocalStorage(REGISTRATION_KEY_FORM, data);
-      setCurrentStep((step) => step + 1);
-    } else {
-      form.handleSubmit(processRegistration)();
+      // kalo udah selesai semua validasi, pindah step form
+      if (currentStep < steps.length) {
+        // save data setelah selesai validasi
+        const data = form.getValues();
+        saveToLocalStorage(REGISTRATION_KEY_FORM, data);
+        setCurrentStep((step) => step + 1);
+      } else {
+        form.handleSubmit(processRegistration)();
+      }
     }
   };
 
@@ -140,7 +161,7 @@ export default function RegistrationForm() {
         Form Pendaftaran ENT
       </h1>
       {/* progress */}
-      <StepIndicatorForm goToStep={goToStep} currentStep={currentStep} />
+      <StepIndicatorForm currentStep={currentStep} />
 
       {/* form content */}
       <form onSubmit={form.handleSubmit(processRegistration)} className="my-5">
@@ -160,6 +181,8 @@ export default function RegistrationForm() {
           {currentStep === 4 && (
             <AchievementForm form={form} fieldArray={achievementField} />
           )}
+
+          {currentStep === 5 && <PortfolioForm form={form} />}
 
           {/* navigation button next and previous */}
           <CardFooter>
