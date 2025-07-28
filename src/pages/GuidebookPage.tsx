@@ -1,6 +1,7 @@
 import FAQ from "@/components/partials/portfolio/faq";
 import TabsGuidebook from "@/components/partials/portfolio/tabs-guidebook";
 import TabsPortfolio from "@/components/partials/portfolio/tabs-portfolio";
+import TabsRegistration from "@/components/partials/portfolio/tabs-registration";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FileText, Palette, Search } from "lucide-react";
 
@@ -36,6 +37,7 @@ export default function GuidebookPage() {
 
         {/* tabs content */}
         <TabsGuidebook />
+        <TabsRegistration />
         <TabsPortfolio />
       </Tabs>
 
