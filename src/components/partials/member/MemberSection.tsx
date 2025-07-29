@@ -7,14 +7,14 @@ const MemberSection = () => {
   const [activeMember, setActiveMember] = useState(0);
   
   // Use the hook to fetch members data
-  const { members: apiMembers, loading, error } = useMembersWithDetails();
+  const { members, loading, error } = useMembersWithDetails();
 
   const handleNext = () => {
-    setActiveMember((prev) => (prev === apiMembers.length - 1 ? 0 : prev + 1));
+    setActiveMember((prev) => (prev === members.length - 1 ? 0 : prev + 1));
   };
 
   const handlePrev = () => {
-    setActiveMember((prev) => (prev === 0 ? apiMembers.length - 1 : prev - 1));
+    setActiveMember((prev) => (prev === 0 ? members.length - 1 : prev - 1));
   };
 
   // Show loading state
@@ -54,7 +54,7 @@ const MemberSection = () => {
   }
 
   // Show empty state
-  if (!apiMembers || apiMembers.length === 0) {
+  if (!members || members.length === 0) {
     return (
       <section
         className="relative w-full min-h-screen flex flex-col items-center justify-center my-32"
@@ -68,13 +68,13 @@ const MemberSection = () => {
   }
 
   // Transform API data to match MemberCard props
-  const transformedMembers = apiMembers.map((member, index) => ({
-    id: parseInt(member.id),
-    generation: "ENT 19th Generation", // Default generation, you might want to add this to API
+  const transformedMembers = members.map((member, index) => ({
+    id: index,
+    generation: `${member.genName}th ENT Generation`, 
     name: member.name,
     role: member.divisionName || "Unknown Division",
     major: `Majoring ${member.majorName || "Unknown Major"}`,
-    image: "/assets/members/default.png", // Default image, you might want to add image field to API
+    image: member.photo, 
     isActive: index === activeMember,
   }));
 

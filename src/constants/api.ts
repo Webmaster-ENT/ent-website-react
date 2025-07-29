@@ -25,7 +25,12 @@ export const API_ENDPOINTS = {
 
   MAJOR: {
     INDEX: "/major",
+  },
+
+  GEN: {
+    INDEX: "/gen",
   }
+  
 } as const;
 
 

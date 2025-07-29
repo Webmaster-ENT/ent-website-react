@@ -1,57 +1,40 @@
-import { API_ENDPOINTS } from "@/constants/api";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { keyBy } from "lodash"; 
-
-// --- Definisi Tipe Data ---
-type Member = {
-    id: string;
-    name: string;
-    divisionId: string;
-    majorId: string;
-};
-
-type Division = {
-    id: string;
-    name: string;
-};
-
-type Major = {
-    id: string;
-    name: string;
-};
-
-type MemberWithDetails = Member & {
-  divisionName?: string;
-  majorName?: string;
-};
+import API from "@/lib/api";
+import type { Member, Division, Major, Gen, MemberWithDetails } from "@/types/member";
 
 // --- Custom Hook ---
 export const useMembersWithDetails = () => {
   const [members, setMembers] = useState<MemberWithDetails[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
         // ambil data member, division, dan major secara paralel menggunakan API
-        const [membersRes, divisionsRes, majorsRes] = await Promise.all([
-          axios.get<Member[]>(API_ENDPOINTS.MEMBER.INDEX), 
-          axios.get<Division[]>(API_ENDPOINTS.DIVISION.INDEX),
-          axios.get<Major[]>(API_ENDPOINTS.MAJOR.INDEX),
+        const [membersRes, divisionsRes, majorsRes, genRes] = await Promise.all([
+          API.get<{ data: Member[] }>("/members"),
+          API.get<{ data: Division[] }>("/division"),
+          API.get<{ data: Major[] }>("/major"),
+          API.get<{ data: Gen[] }>("/gen")
         ]);
 
         // Ubah array division menjadi objek map { id: Division }
-        const divisionMap = keyBy(divisionsRes.data, "id");
+        const divisionMap = keyBy(divisionsRes.data.data, "id");
+
         // Ubah array major menjadi objek map { id: Major }
-        const majorMap = keyBy(majorsRes.data, "id");
+        const majorMap = keyBy(majorsRes.data.data, "id");
+
+        // Ubah array gen menjadi objek map { id: Gen }
+        const genMap = keyBy(genRes.data.data, "id");
 
         // PENTING: Gabungkan data member dengan nama divisinya dan majornya
-        const enrichedMembers: MemberWithDetails[] = membersRes.data.map(member => ({
+        const enrichedMembers: MemberWithDetails[] = membersRes.data.data.map((member: Member) => ({
           ...member,
-          divisionName: divisionMap[member.divisionId]?.name || "Divisi Tidak Diketahui",
-          majorName: majorMap[member.majorId]?.name || "Jurusan Tidak Diketahui",
+          divisionName: divisionMap[member.division_id]?.name || "Divisi Tidak Diketahui",
+          majorName: majorMap[member.major_id]?.name || "Jurusan Tidak Diketahui",
+          genName: genMap[member.gen_id]?.gen || "Generasi Tidak Diketahui",
         }));
 
         // Simpan hasilnya ke dalam state
