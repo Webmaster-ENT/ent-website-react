@@ -22,6 +22,7 @@ import {
 import useCheckNRP from "@/hooks/useCheckNRP";
 import { toast } from "sonner";
 import PortfolioForm from "./PortfolioForm";
+import useRegistForm from "@/hooks/useRegistForm";
 
 const REGISTRATION_KEY_FORM = "registrationForm";
 const REGISTRATION_KEY_STEP = "registrationStep";
@@ -32,6 +33,7 @@ export default function RegistrationForm() {
   });
 
   const { checkNRP } = useCheckNRP();
+  const { submitRegistForm } = useRegistForm();
 
   const savedData = loadFromLocalStorage<RegistrationFormSchema>(
     REGISTRATION_KEY_FORM
@@ -74,8 +76,7 @@ export default function RegistrationForm() {
   const processRegistration: SubmitHandler<RegistrationFormSchema> = async (
     data
   ) => {
-    console.log(data);
-
+    await submitRegistForm(data);
     // generate nrp dlu
     saveToLocalStorage("nrpUser", form.getValues("nrp"));
     // membuka new window
