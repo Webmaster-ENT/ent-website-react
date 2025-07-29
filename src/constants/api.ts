@@ -2,7 +2,19 @@
 export const API_ENDPOINTS = {
   // reports
   REPORTS: {
-    CREATE: "/reports",
+    STORE: "/reports",
+  },
+
+  // Dvision
+  DIVISION: {
+    INDEX: "/division",
+    SHOW: (type: "division" | "subdivision") => `/division?type=${type}`,
+  },
+
+  // major or "prodi"
+  MAJOR: {
+    INDEX: "/major",
+    SHOW: (type: "division" | "subdivision") => `/division?type=${type}`,
   },
 
   // check NRP
