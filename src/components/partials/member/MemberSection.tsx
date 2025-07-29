@@ -1,10 +1,13 @@
 import { useState } from "react";
 import MemberCard from "./MemberCard";
-import { members } from "@/data/members";
+import { useMembersWithDetails } from "@/hooks/useMember";
 
 const MemberSection = () => {
   // Set the initial active member to 0 (first member)
-  const [activeMember, setActiveMember] = useState(0); // Changed from 1 to 0
+  const [activeMember, setActiveMember] = useState(0);
+  
+  // Use the hook to fetch members data
+  const { members, loading, error } = useMembersWithDetails();
 
   const handleNext = () => {
     setActiveMember((prev) => (prev === members.length - 1 ? 0 : prev + 1));
@@ -13,6 +16,67 @@ const MemberSection = () => {
   const handlePrev = () => {
     setActiveMember((prev) => (prev === 0 ? members.length - 1 : prev - 1));
   };
+
+  // Show loading state
+  if (loading) {
+    return (
+      <section
+        className="relative w-full min-h-screen flex flex-col items-center justify-center my-32"
+        id="member"
+      >
+        <div className="flex flex-col items-center space-y-4">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-600"></div>
+          <p className="text-lg text-gray-600">Loading members...</p>
+        </div>
+      </section>
+    );
+  }
+
+  // Show error state
+  if (error) {
+    return (
+      <section
+        className="relative w-full min-h-screen flex flex-col items-center justify-center my-32"
+        id="member"
+      >
+        <div className="flex flex-col items-center space-y-4">
+          <div className="text-red-500 text-xl">⚠️</div>
+          <p className="text-lg text-red-600">Error loading members: {error}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors"
+          >
+            Retry
+          </button>
+        </div>
+      </section>
+    );
+  }
+
+  // Show empty state
+  if (!members || members.length === 0) {
+    return (
+      <section
+        className="relative w-full min-h-screen flex flex-col items-center justify-center my-32"
+        id="member"
+      >
+        <div className="flex flex-col items-center space-y-4">
+          <p className="text-lg text-gray-600">No members found.</p>
+        </div>
+      </section>
+    );
+  }
+
+  // Transform API data to match MemberCard props
+  const transformedMembers = members.map((member, index) => ({
+    id: index,
+    generation: `${member.genName}th ENT Generation`, 
+    name: member.name,
+    role: member.divisionName || "Unknown Division",
+    major: `Majoring ${member.majorName || "Unknown Major"}`,
+    image: member.photo, 
+    isActive: index === activeMember,
+  }));
 
   return (
     <section
@@ -63,7 +127,7 @@ const MemberSection = () => {
       {/* Team Members Section */}
       <div className="relative w-full flex flex-col items-center justify-center">
         <div className="relative h-96 w-full flex items-center justify-center overflow-hidden">
-          {members.map((member, index) => (
+          {transformedMembers.map((member, index) => (
             <div
               key={member.id}
               className={`absolute transition-all duration-500 ease-in-out ${index === activeMember ? "z-10" : "z-0"}`}
@@ -87,7 +151,7 @@ const MemberSection = () => {
             &lt;
           </button>
           <span className="text-2xl font-semibold w-48 text-center">
-            {members[activeMember].role}
+            {transformedMembers[activeMember]?.role || "Unknown Role"}
           </span>
           <button
             onClick={handleNext}
