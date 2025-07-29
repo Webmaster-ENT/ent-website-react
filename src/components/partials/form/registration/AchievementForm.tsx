@@ -15,15 +15,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-import { months, years } from "@/types/dates";
+import { months } from "@/types/dates";
 import type { RegistrationFormSchema } from "@/types/form";
 import { Plus, Trash2, MedalIcon } from "lucide-react";
 import type { UseFieldArrayReturn, UseFormReturn } from "react-hook-form";
 
 interface AchievementFormProps {
   form: UseFormReturn<RegistrationFormSchema>;
-  fieldArray: UseFieldArrayReturn<RegistrationFormSchema, "achievements">;
+  fieldArray: UseFieldArrayReturn<RegistrationFormSchema, "nm_achievements">;
 }
 
 export default function AchievementForm({
@@ -37,15 +36,13 @@ export default function AchievementForm({
     setValue,
   } = form;
   const { append, remove, fields } = fieldArray;
-  const achievements = watch("achievements");
+  const achievements = watch("nm_achievements");
 
   const addAchievement = () => {
     append({
-      title: "",
-      position: "",
-      year: "",
-      month: "",
-      description: "",
+      event: "",
+      grade: "",
+      period: "",
     });
   };
 
@@ -121,31 +118,31 @@ export default function AchievementForm({
                   {/* field title and position */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor={`achievements.${index}.title`}>
+                      <Label htmlFor={`nm_achievements.${index}.event`}>
                         Penghargaan *
                       </Label>
                       <Input
-                        {...register(`achievements.${index}.title`)}
+                        {...register(`nm_achievements.${index}.event`)}
                         placeholder="e.g,. 4C National Competition"
                       />
-                      {errors.achievements?.[index]?.title && (
+                      {errors.nm_achievements?.[index]?.event && (
                         <p className="text-sm text-red-600">
-                          {errors.achievements[index]?.title?.message}
+                          {errors.nm_achievements[index]?.event?.message}
                         </p>
                       )}
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor={`achievements.${index}.position`}>
+                      <Label htmlFor={`nm_achievements.${index}.grade`}>
                         Position *
                       </Label>
                       <Input
-                        {...register(`achievements.${index}.position`)}
+                        {...register(`nm_achievements.${index}.grade`)}
                         placeholder="e.g., Frontend Developer"
                       />
-                      {errors.achievements?.[index]?.position && (
+                      {errors.nm_achievements?.[index]?.grade && (
                         <p className="text-sm text-red-600">
-                          {errors.achievements[index]?.position?.message}
+                          {errors.nm_achievements[index]?.grade?.message}
                         </p>
                       )}
                     </div>
@@ -156,9 +153,9 @@ export default function AchievementForm({
                     <div className="space-y-2">
                       <Label>Bulan *</Label>
                       <Select
-                        value={achievements[index]?.month ?? ""}
+                        value={achievements[index]?.period ?? ""}
                         onValueChange={(value) =>
-                          setValue(`achievements.${index}.month`, value)
+                          setValue(`nm_achievements.${index}.period`, value)
                         }
                       >
                         <SelectTrigger className="w-full">
@@ -172,48 +169,9 @@ export default function AchievementForm({
                           ))}
                         </SelectContent>
                       </Select>
-                      {errors.achievements?.[index]?.month && (
+                      {errors.nm_achievements?.[index]?.period && (
                         <p className="text-sm text-red-600">
-                          {errors.achievements[index]?.month?.message}
-                        </p>
-                      )}
-                    </div>
-                    {/* end year field */}
-                    <div className="space-y-2">
-                      <Label>Tahun *</Label>
-                      <Select
-                        value={achievements[index]?.year ?? ""}
-                        onValueChange={(value) =>
-                          setValue(`achievements.${index}.year`, value)
-                        }
-                      >
-                        <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Year" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {years.map((year) => (
-                            <SelectItem key={year} value={year.toString()}>
-                              {year}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      {errors.achievements?.[index]?.year && (
-                        <p className="text-sm text-red-600">
-                          {errors.achievements[index]?.year?.message}
-                        </p>
-                      )}
-                    </div>
-                    {/* deskripsi field */}
-                    <div className="space-y-2 md:col-span-2">
-                      <Label>Deskripsi</Label>
-                      <Textarea
-                        {...register(`achievements.${index}.description`)}
-                        placeholder="jelaskan detail"
-                      />
-                      {errors.achievements?.[index]?.description && (
-                        <p className="text-sm text-red-600">
-                          {errors.achievements[index]?.description?.message}
+                          {errors.nm_achievements[index]?.period?.message}
                         </p>
                       )}
                     </div>

@@ -40,31 +40,31 @@ export default function RegistrationForm() {
   const defaultValues = savedData
     ? {
         ...savedData,
-        tanggalLahir: new Date(savedData.tanggalLahir),
+        born_date: new Date(savedData.born_date),
       }
     : {
         nama: "",
         nrp: "",
         email: "",
-        noHp: "",
-        jurusan: "",
-        tempatLahir: "",
-        tanggalLahir: new Date("2000-01-01"),
-        agama: "",
-        alamatSekarang: "",
-        alamatRumah: "",
+        phone: "",
+        major_id: "",
+        born_city: "",
+        born_date: new Date("2000-01-01"),
+        religion: "",
+        boarding_address: "",
+        home_address: "",
 
         // step 2
-        divisi: "",
-        moto: "",
-        alasanENT: "",
-        alasanDivisi: "",
-        minatUKM: "",
-        yakinkanKami: "",
+        division: "",
+        motto: "",
+        ent_reason: "",
+        division_reason: "",
+        another_interest: "",
+        believe_us: "",
 
         // step 3 & 4
-        experiences: [],
-        achievements: [],
+        nm_experiences: [],
+        nm_achievements: [],
 
         // step 5
         portfolio: "",
@@ -95,13 +95,13 @@ export default function RegistrationForm() {
   // array field exp
   const experienceField = useFieldArray({
     control: form.control,
-    name: "experiences",
+    name: "nm_experiences",
   });
 
   // array field achievement
   const achievementField = useFieldArray({
     control: form.control,
-    name: "achievements",
+    name: "nm_achievements",
   });
 
   // buat validasi ke next step

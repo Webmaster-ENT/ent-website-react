@@ -15,7 +15,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
 import { months, years } from "@/types/dates";
 import type { RegistrationFormSchema } from "@/types/form";
 import { BriefcaseBusinessIcon, Plus, Trash2 } from "lucide-react";
@@ -23,7 +22,7 @@ import type { UseFieldArrayReturn, UseFormReturn } from "react-hook-form";
 
 interface ExperienceFormProps {
   form: UseFormReturn<RegistrationFormSchema>;
-  fieldArray: UseFieldArrayReturn<RegistrationFormSchema, "experiences">;
+  fieldArray: UseFieldArrayReturn<RegistrationFormSchema, "nm_experiences">;
 }
 
 export default function ExperienceForm({
@@ -36,19 +35,16 @@ export default function ExperienceForm({
     setValue,
     watch,
   } = form;
-  const experiences = watch("experiences");
+  const experiences = watch("nm_experiences");
   const { append, remove, fields } = fieldArray;
 
   const addExperience = () => {
     if (fields.length < 3) {
       append({
-        title: "",
-        description: "",
+        activity: "",
         position: "",
-        startMonth: "",
-        startYear: "",
-        endMonth: "",
-        endYear: "",
+        start_date: "",
+        end_date: "",
       });
     }
   };
@@ -124,43 +120,43 @@ export default function ExperienceForm({
                 {/* field title and position */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor={`experiences.${index}.title`}>
+                    <Label htmlFor={`nm_experiences.${index}.title`}>
                       Title Experience *
                     </Label>
                     <Input
-                      {...register(`experiences.${index}.title`)}
+                      {...register(`nm_experiences.${index}.activity`)}
                       placeholder="e.g., Software Development"
                     />
-                    {errors.experiences?.[index]?.title && (
+                    {errors.nm_experiences?.[index]?.activity && (
                       <p className="text-sm text-red-600">
-                        {errors.experiences[index]?.title?.message}
+                        {errors.nm_experiences[index]?.activity?.message}
                       </p>
                     )}
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor={`experiences.${index}.position`}>
+                    <Label htmlFor={`nm_experiences.${index}.position`}>
                       Position *
                     </Label>
                     <Input
-                      {...register(`experiences.${index}.position`)}
+                      {...register(`nm_experiences.${index}.position`)}
                       placeholder="e.g., Frontend Developer"
                     />
-                    {errors.experiences?.[index]?.position && (
+                    {errors.nm_experiences?.[index]?.position && (
                       <p className="text-sm text-red-600">
-                        {errors.experiences[index]?.position?.message}
+                        {errors.nm_experiences[index]?.position?.message}
                       </p>
                     )}
                   </div>
                 </div>
-                {/* start month field */}
+                {/* start date field */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div className="space-y-2">
                     <Label>Start Month *</Label>
                     <Select
-                      value={experiences[index]?.startMonth ?? ""}
+                      value={experiences[index]?.start_date ?? ""}
                       onValueChange={(value) =>
-                        setValue(`experiences.${index}.startMonth`, value)
+                        setValue(`nm_experiences.${index}.start_date`, value)
                       }
                     >
                       <SelectTrigger className="w-full">
@@ -174,19 +170,19 @@ export default function ExperienceForm({
                         ))}
                       </SelectContent>
                     </Select>
-                    {errors.experiences?.[index]?.startMonth && (
+                    {errors.nm_experiences?.[index]?.start_date && (
                       <p className="text-sm text-red-600">
-                        {errors.experiences[index]?.startMonth?.message}
+                        {errors.nm_experiences[index]?.start_date?.message}
                       </p>
                     )}
                   </div>
-                  {/* start year field */}
+                  {/* end date field */}
                   <div className="space-y-2">
                     <Label>Start Year *</Label>
                     <Select
-                      value={experiences[index]?.startYear ?? ""}
+                      value={experiences[index]?.end_date ?? ""}
                       onValueChange={(value) =>
-                        setValue(`experiences.${index}.startYear`, value)
+                        setValue(`nm_experiences.${index}.end_date`, value)
                       }
                     >
                       <SelectTrigger className="w-full">
@@ -200,74 +196,9 @@ export default function ExperienceForm({
                         ))}
                       </SelectContent>
                     </Select>
-                    {errors.experiences?.[index]?.startYear && (
+                    {errors.nm_experiences?.[index]?.end_date && (
                       <p className="text-sm text-red-600">
-                        {errors.experiences[index]?.startYear?.message}
-                      </p>
-                    )}
-                  </div>
-                  {/* end month field */}
-                  <div className="space-y-2">
-                    <Label>End Month *</Label>
-                    <Select
-                      value={experiences[index]?.endMonth ?? ""}
-                      onValueChange={(value) =>
-                        setValue(`experiences.${index}.endMonth`, value)
-                      }
-                    >
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Month" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {months.map((month) => (
-                          <SelectItem key={month.value} value={month.value}>
-                            {month.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    {errors.experiences?.[index]?.endMonth && (
-                      <p className="text-sm text-red-600">
-                        {errors.experiences[index]?.endMonth?.message}
-                      </p>
-                    )}
-                  </div>
-                  {/* end year field */}
-                  <div className="space-y-2">
-                    <Label>End Year *</Label>
-                    <Select
-                      value={experiences[index]?.endYear ?? ""}
-                      onValueChange={(value) =>
-                        setValue(`experiences.${index}.endYear`, value)
-                      }
-                    >
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Year" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {years.map((year) => (
-                          <SelectItem key={year} value={year.toString()}>
-                            {year}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    {errors.experiences?.[index]?.endYear && (
-                      <p className="text-sm text-red-600">
-                        {errors.experiences[index]?.endYear?.message}
-                      </p>
-                    )}
-                  </div>
-                  {/* deskripsi field */}
-                  <div className="space-y-2 col-span-2 md:col-span-4">
-                    <Label>Deskripsi</Label>
-                    <Textarea
-                      {...register(`experiences.${index}.description`)}
-                      placeholder="jelaskan detail"
-                    />
-                    {errors.experiences?.[index]?.description && (
-                      <p className="text-sm text-red-600">
-                        {errors.experiences[index]?.description?.message}
+                        {errors.nm_experiences[index]?.end_date?.message}
                       </p>
                     )}
                   </div>

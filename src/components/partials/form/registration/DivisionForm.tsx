@@ -29,7 +29,7 @@ export default function DivisionForm({ form }: DivisionFormProps) {
     formState: { errors },
   } = form;
 
-  const divisi = watch("divisi");
+  const divisi = watch("division");
   return (
     <>
       <CardHeader>
@@ -46,7 +46,7 @@ export default function DivisionForm({ form }: DivisionFormProps) {
             <Label>Divisi yang ingin didaftar</Label>
             <Controller
               control={control}
-              name={"divisi"}
+              name={"division"}
               render={({ field }) => (
                 <Select
                   onValueChange={field.onChange}
@@ -66,39 +66,41 @@ export default function DivisionForm({ form }: DivisionFormProps) {
                 </Select>
               )}
             />
-            {errors.divisi?.message && (
-              <p className="text-sm text-red-400">{errors.divisi.message}</p>
+            {errors.division?.message && (
+              <p className="text-sm text-red-400">{errors.division.message}</p>
             )}
           </div>
           {/* field moto hidup */}
           <div className="space-y-2">
             <Label>Moto Hidup</Label>
-            <Input {...register("moto")} placeholder="moto kehidupan" />
-            {errors.moto?.message && (
-              <p className="text-sm text-red-400">{errors.moto.message}</p>
+            <Input {...register("motto")} placeholder="moto kehidupan" />
+            {errors.motto?.message && (
+              <p className="text-sm text-red-400">{errors.motto.message}</p>
             )}
           </div>
           {/* alasan masuk ent */}
           <div className="space-y-2 md:col-span-2">
             <Label>Alasan Ingin Masuk ENT</Label>
             <Textarea
-              {...register("alasanENT")}
+              {...register("ent_reason")}
               placeholder="Alasan masuk ENT"
             />
-            {errors.alasanENT?.message && (
-              <p className="text-sm text-red-400">{errors.alasanENT.message}</p>
+            {errors.ent_reason?.message && (
+              <p className="text-sm text-red-400">
+                {errors.ent_reason.message}
+              </p>
             )}
           </div>
           {/* alasan masuk divisi tsb */}
           <div className="space-y-2 md:col-span-2">
             <Label>Alasan Ingin Masuk Ke Divisi {divisi ?? ""}</Label>
             <Textarea
-              {...register("alasanDivisi")}
+              {...register("division_reason")}
               placeholder={`Alasan masuk ke ${divisi ?? ""}`}
             />
-            {errors.alasanDivisi?.message && (
+            {errors.division_reason?.message && (
               <p className="text-sm text-red-400">
-                {errors.alasanDivisi.message}
+                {errors.division_reason.message}
               </p>
             )}
           </div>
@@ -106,23 +108,25 @@ export default function DivisionForm({ form }: DivisionFormProps) {
           <div className="space-y-2 md:col-span-2">
             <Label>Minat Untuk Join Tim/Organisasi/UKM Lain</Label>
             <Textarea
-              {...register("minatUKM")}
+              {...register("another_interest")}
               placeholder="ketertarikan terhadap tim atau organisasi, atau UKM lain"
             />
-            {errors.minatUKM?.message && (
-              <p className="text-sm text-red-400">{errors.minatUKM.message}</p>
+            {errors.another_interest?.message && (
+              <p className="text-sm text-red-400">
+                {errors.another_interest.message}
+              </p>
             )}
           </div>
           {/* yakinkan kami */}
           <div className="space-y-2 md:col-span-2">
             <Label>Mengapa Kami Harus Menerima Kamu?</Label>
             <Textarea
-              {...register("yakinkanKami")}
+              {...register("believe_us")}
               placeholder="ketertarikan terhadap tim atau organisasi, atau UKM lain"
             />
-            {errors.yakinkanKami?.message && (
+            {errors.believe_us?.message && (
               <p className="text-sm text-red-400">
-                {errors.yakinkanKami.message}
+                {errors.believe_us.message}
               </p>
             )}
           </div>

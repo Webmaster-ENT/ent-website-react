@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { months } from "./dates";
 
 // array pilihan produk
 export const products: string[] = [
@@ -35,17 +34,16 @@ export const steps = [
     title: "Data Diri",
     description: "Informasi terkait biodata Anda",
     fields: [
-      "nama",
+      "name",
       "nrp",
-      "jenjang",
-      "jurusan",
-      "tempatLahir",
-      "tanggalLahir",
-      "agama",
-      "alamatSekarang",
-      "alamatRumah",
+      "major_id",
+      "born_city",
+      "born_date",
+      "religion",
+      "boarding_address",
+      "home_address",
       "email",
-      "noHp",
+      "phone",
     ] as const,
   },
   {
@@ -53,25 +51,25 @@ export const steps = [
     title: "Deskripsi Diri",
     description: "Informasi terkait keinginan Anda dalam ENT",
     fields: [
-      "divisi",
-      "moto",
-      "alasanENT",
-      "alasanDivisi",
-      "minatUKM",
-      "yakinkanKami",
+      "division",
+      "motto",
+      "ent_reason",
+      "division_reason",
+      "another_interest",
+      "believe_us",
     ] as const,
   },
   {
     id: 3,
     title: "Pengalaman",
     description: "Pengalaman yang pernah Anda dapatkan",
-    fields: ["experiences"] as const,
+    fields: ["nm_experiences"] as const,
   },
   {
     id: 4,
     title: "Penghargaan",
     description: "Penghargaan yang pernah Anda raih",
-    fields: ["achievements"] as const,
+    fields: ["nm_achievements"] as const,
   },
   {
     id: 5,
@@ -81,24 +79,17 @@ export const steps = [
   },
 ] as const;
 
-const monthEnum = months.map((m) => m.value) as [string, ...string[]];
-
 export const ExperienceSchema = z.object({
-  title: z.string().min(1, "Nama pengalaman wajib diisi"),
+  activity: z.string().min(1, "Nama pengalaman wajib diisi"),
   position: z.string().min(1, "Posisi wajib diisi"),
-  startYear: z.string().min(1, "Pilih Tahun"),
-  startMonth: z.enum(monthEnum, "Pilih bulan"),
-  endMonth: z.enum(monthEnum, "Pilih bulan"),
-  endYear: z.string().min(1, "Pilih tahun"),
-  description: z.string().min(1, "Deskripsi wajib diisi"),
+  start_date: z.string().min(1, "Pilih Tahun"),
+  end_date: z.string().min(1, "Pilih tahun"),
 });
 
 export const AchievementSchema = z.object({
-  title: z.string().min(1, "Nama pengalaman wajib diisi"),
-  position: z.string().min(1, "Posisi wajib diisi"),
-  year: z.string(),
-  month: z.string(),
-  description: z.string().min(1, "Deskripsi wajib diisi"),
+  event: z.string().min(1, "Nama pengalaman wajib diisi"),
+  grade: z.string().min(1, "Posisi wajib diisi"),
+  period: z.string(),
 });
 
 export const divisions: string[] = [
@@ -115,7 +106,7 @@ export const divisions: string[] = [
 export const registrationFormSchema = z
   .object({
     // data diri
-    nama: z
+    name: z
       .string()
       .min(5, "Nama lengkap wajib diisi")
       .max(50, "Nama lengkap maksimal 50 huruf"),
@@ -123,33 +114,32 @@ export const registrationFormSchema = z
       .string()
       .max(10)
       .regex(/^\d{10}$/, { message: "NRP harus berisi 10 digit angka" }),
-    jenjang: z.string("Jenjang wajib dipilih"),
-    jurusan: z.string().min(1, "Jurusan belum dipilih"),
-    tempatLahir: z.string().min(1),
-    tanggalLahir: z.date("Tanggal lahir wajib diisi"),
-    agama: z.string().min(3, "Agama wajib dipilih"),
-    alamatSekarang: z.string().min(5, "Alamat saat ini wajib diisi"),
-    alamatRumah: z.string().min(5, "Alamat rumah tinggal wajib diisi"),
+    major_id: z.string("Jenjang wajib dipilih"),
+    born_city: z.string().min(1),
+    born_date: z.date("Tanggal lahir wajib diisi"),
+    religion: z.string().min(3, "Agama wajib dipilih"),
+    boarding_address: z.string().min(5, "Alamat saat ini wajib diisi"),
+    home_address: z.string().min(5, "Alamat rumah tinggal wajib diisi"),
     email: z
       .email({ message: "Format email tidak valid" })
       .regex(/^[a-zA-Z0-9._%+-]+@[a-z]+\.(student\.pens\.ac\.id)$/, {
         message: "Email harus menggunakan domain @<prodi>.student.pens.ac.id",
       }),
-    noHp: z.string().regex(/^\+62[0-9]{9,14}$/, {
+    phone: z.string().regex(/^\+62[0-9]{9,14}$/, {
       message: "Nomor telephone harus diawali dengan +62 dan angka",
     }),
 
     // Deskripsi Diri
-    divisi: z.enum(divisions, "Divisi wajib dipilih"),
-    moto: z.string().min(1, "Moto wajib diisi"),
-    alasanENT: z.string().min(1, "Alasan wajib diisi"),
-    alasanDivisi: z.string().min(1, "Alasan wajib diisi"),
-    minatUKM: z.string().min(1, "Minat wajib diisi"),
-    yakinkanKami: z.string().min(1, "Alasan wajib diisi"),
+    motto: z.string().min(1, "Moto wajib diisi"),
+    division: z.enum(divisions, "Divisi wajib dipilih"),
+    ent_reason: z.string().min(1, "Alasan wajib diisi"),
+    division_reason: z.string().min(1, "Alasan wajib diisi"),
+    another_interest: z.string().min(1, "Minat wajib diisi"),
+    believe_us: z.string().min(1, "Alasan wajib diisi"),
 
     // Pengalaman
-    experiences: z.array(ExperienceSchema).max(3, "Maksimal 3 Pengalaman"),
-    achievements: z
+    nm_experiences: z.array(ExperienceSchema).max(3, "Maksimal 3 Pengalaman"),
+    nm_achievements: z
       .array(AchievementSchema)
       .max(3, "Maksimal 3 penghargaan terbaik"),
 
@@ -158,24 +148,16 @@ export const registrationFormSchema = z
   })
   .refine((data) => {
     // klo experience user ada
-    if (data.experiences.length > 0) {
-      const experienceValid = data.experiences.every(
-        (exp) =>
-          exp.description &&
-          exp.endMonth &&
-          exp.endYear &&
-          exp.position &&
-          exp.startMonth &&
-          exp.startYear &&
-          exp.title
+    if (data.nm_experiences.length > 0) {
+      const experienceValid = data.nm_experiences.every(
+        (exp) => exp.activity && exp.end_date && exp.position && exp.start_date
       );
       if (!experienceValid) return false;
     }
     // klo penghargaan user ada
-    if (data.achievements.length > 0) {
-      const achievementValid = data.achievements.every(
-        (acv) =>
-          acv.description && acv.position && acv.year && acv.title && acv.month
+    if (data.nm_achievements.length > 0) {
+      const achievementValid = data.nm_achievements.every(
+        (acv) => acv.event && acv.grade && acv.period
       );
       if (!achievementValid) return false;
     }
