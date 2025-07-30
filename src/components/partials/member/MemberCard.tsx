@@ -6,17 +6,27 @@ interface MemberCardProps {
   major: string;
   image: string;
   isActive: boolean;
+  divisionColor?: 'green' | 'blue' | 'pink' | 'yellow' | 'purple';
 }
 
-const MemberCard = ({ generation, name, role, major, image, isActive }: MemberCardProps) => {
+const MemberCard = ({ generation, name, role, major, image, isActive, divisionColor = 'yellow' }: MemberCardProps) => {
   const majorWords = major.split(' ');
   const majorLine1 = majorWords[0];
   const majorLine3 = majorWords.slice(-2).join(' ');
   const majorLine2 = majorWords.slice(1, -2).join(' ');
 
+  // Color mapping for division backgrounds
+  const colorClasses = {
+    green: 'bg-green-200',
+    blue: 'bg-blue-200',
+    pink: 'bg-pink-200',
+    yellow: 'bg-yellow-200',
+    purple: 'bg-purple-200'
+  };
+
   return (
     <div className={`relative transition-transform duration-500 ${isActive ? 'scale-105' : 'scale-90'}`}>
-      <div className="w-90 h-75 bg-yellow-200 rounded-3xl p-6 flex items-end relative">
+      <div className={`w-90 h-75 ${colorClasses[divisionColor]} rounded-3xl p-6 flex items-end relative`}>
         <div className="w-full h-62 bg-white rounded-2xl shadow-lg relative flex"> {/* Adjusted height to h-72 */}
           <div className="w-1/2 p-4 flex flex-col justify-center">
             <h3 className="text-4xl font-bold">{name}</h3>
@@ -33,7 +43,13 @@ const MemberCard = ({ generation, name, role, major, image, isActive }: MemberCa
         </div>
       </div>
       <div className="absolute top-1 left-9">
-        <span className="text-yellow-600 font-semibold">{generation}</span>
+        <span className={`font-semibold ${
+          divisionColor === 'green' ? 'text-green-600' :
+          divisionColor === 'blue' ? 'text-blue-600' :
+          divisionColor === 'pink' ? 'text-pink-600' :
+          divisionColor === 'yellow' ? 'text-yellow-600' :
+          'text-purple-600'
+        }`}>{generation}</span>
       </div>
     </div>
   );
