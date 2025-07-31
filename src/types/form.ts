@@ -144,7 +144,7 @@ export const registrationFormSchema = z
       .max(3, "Maksimal 3 penghargaan terbaik"),
 
     // portfolio
-    portfolio: z.url("Format url tidak valid"),
+    portofolio: z.url("Format url tidak valid"),
   })
   .refine((data) => {
     // klo experience user ada

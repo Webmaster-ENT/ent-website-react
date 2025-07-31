@@ -32,11 +32,11 @@ export default function PortfolioForm({ form }: PortfolioFormProps) {
           <Label htmlFor="portfolio">Portofolio</Label>
           <Input
             id="portfolio"
-            {...register("portfolio")}
+            {...register("portofolio")}
             placeholder="https://drive.google.com/asdwonsf"
           />
-          {errors.portfolio?.message && (
-            <p className="text-red-400 text-sm">{errors.portfolio.message}</p>
+          {errors.portofolio?.message && (
+            <p className="text-red-400 text-sm">{errors.portofolio.message}</p>
           )}
         </div>
       </CardContent>

@@ -69,14 +69,13 @@ export default function RegistrationForm() {
         nm_achievements: [],
 
         // step 5
-        portfolio: "",
+        portofolio: "",
       };
 
   // submit form
-  const processRegistration: SubmitHandler<RegistrationFormSchema> = async (
-    data
-  ) => {
-    await submitRegistForm(data);
+  const processRegistration: SubmitHandler<RegistrationFormSchema> = (data) => {
+    console.log(data);
+    submitRegistForm(data);
     // generate nrp dlu
     saveToLocalStorage("nrpUser", form.getValues("nrp"));
     // membuka new window

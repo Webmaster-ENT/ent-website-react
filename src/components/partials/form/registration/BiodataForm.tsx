@@ -28,14 +28,34 @@ import { CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { id } from "date-fns/locale";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import API from "@/lib/api";
 
 interface BiodataFormProps {
   form: UseFormReturn<RegistrationFormSchema>;
 }
 
+type Major = {
+  grade: string;
+  id: string;
+  name: string;
+};
+
 export default function BiodataForm({ form }: BiodataFormProps) {
   const [grade, setGrade] = useState<"D3" | "D4">("D3");
+  const [major, setMajor] = useState<Major[]>([]);
+  useEffect(() => {
+    const fetchingDivision = async () => {
+      await API.get<{ data: Major[] }>(`/major?grade=${grade}`).then(
+        (result) => {
+          console.log(result.data.data);
+          setMajor(result.data.data);
+        }
+      );
+    };
+
+    fetchingDivision();
+  }, [grade]);
   const {
     register,
     formState: { errors },
@@ -69,7 +89,10 @@ export default function BiodataForm({ form }: BiodataFormProps) {
           {/* field jenjang */}
           <div className="space-y-2">
             <Label>Jenjang</Label>
-            <Select onValueChange={() => setGrade("D3")} defaultValue={grade}>
+            <Select
+              onValueChange={(value: "D3" | "D4") => setGrade(value)}
+              defaultValue={grade}
+            >
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="Pilih Jenjang" />
               </SelectTrigger>
@@ -96,16 +119,11 @@ export default function BiodataForm({ form }: BiodataFormProps) {
                     <SelectValue placeholder="Pilih Prodi" />
                   </SelectTrigger>
                   <SelectContent>
-                    {grade === "D4" && (
-                      <SelectItem value="Teknologi Game">
-                        Teknologi Game
+                    {major.map((m) => (
+                      <SelectItem key={m.id} value={m.id}>
+                        {m.name}
                       </SelectItem>
-                    )}
-                    {grade === "D3" && (
-                      <SelectItem value="Multimedia Broadcasting">
-                        MMB
-                      </SelectItem>
-                    )}
+                    ))}
                   </SelectContent>
                 </Select>
               )}
