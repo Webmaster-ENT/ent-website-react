@@ -157,7 +157,7 @@ export default function ExperienceForm({
                   </div>
                 </div>
                 {/* start date field */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label>Start Date *</Label>
                     <Controller
