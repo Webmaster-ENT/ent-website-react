@@ -144,7 +144,22 @@ export const registrationFormSchema = z
       .max(3, "Maksimal 3 penghargaan terbaik"),
 
     // portfolio
-    portofolio: z.url("Format url tidak valid"),
+    portofolio: z.url().refine(
+      (url) => {
+        try {
+          const parsed = new URL(url);
+          return (
+            parsed.hostname === "drive.google.com" ||
+            parsed.hostname === "docs.google.com"
+          );
+        } catch {
+          return false;
+        }
+      },
+      {
+        error: "URL harus merupakan link google drive",
+      }
+    ),
   })
   .refine((data) => {
     // klo experience user ada
