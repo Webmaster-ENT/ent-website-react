@@ -43,6 +43,17 @@ export default function RegistrationForm() {
     ? {
         ...savedData,
         born_date: new Date(savedData.born_date),
+        nm_experiences:
+          savedData.nm_experiences?.map((exp) => ({
+            ...exp,
+            start_date: new Date(exp.start_date),
+            end_date: new Date(exp.end_date),
+          })) ?? [],
+        nm_achievements:
+          savedData.nm_achievements?.map((acv) => ({
+            ...acv,
+            period: new Date(acv.period),
+          })) ?? [],
       }
     : {
         nama: "",
