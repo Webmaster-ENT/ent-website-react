@@ -80,7 +80,7 @@ export default function RegistrationForm() {
     // generate nrp dlu
     saveToLocalStorage("nrpUser", form.getValues("nrp"));
     // membuka new window
-    window.open("/success", "_blank");
+    // window.open("/success", "_blank");
 
     removeFromLocalStorage(REGISTRATION_KEY_FORM);
     removeFromLocalStorage(REGISTRATION_KEY_STEP);

@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import {
   Card,
   CardContent,
@@ -9,16 +10,25 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { months, years } from "@/types/dates";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 import type { RegistrationFormSchema } from "@/types/form";
-import { BriefcaseBusinessIcon, Plus, Trash2 } from "lucide-react";
-import type { UseFieldArrayReturn, UseFormReturn } from "react-hook-form";
+import { format } from "date-fns";
+import { id } from "date-fns/locale";
+import {
+  BriefcaseBusinessIcon,
+  CalendarIcon,
+  Plus,
+  Trash2,
+} from "lucide-react";
+import {
+  Controller,
+  type UseFieldArrayReturn,
+  type UseFormReturn,
+} from "react-hook-form";
 
 interface ExperienceFormProps {
   form: UseFormReturn<RegistrationFormSchema>;
@@ -32,10 +42,7 @@ export default function ExperienceForm({
   const {
     register,
     formState: { errors },
-    setValue,
-    watch,
   } = form;
-  const experiences = watch("nm_experiences");
   const { append, remove, fields } = fieldArray;
 
   const addExperience = () => {
@@ -43,8 +50,8 @@ export default function ExperienceForm({
       append({
         activity: "",
         position: "",
-        start_date: "",
-        end_date: "",
+        start_date: new Date(),
+        end_date: new Date(),
       });
     }
   };
@@ -152,24 +159,48 @@ export default function ExperienceForm({
                 {/* start date field */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div className="space-y-2">
-                    <Label>Start Month *</Label>
-                    <Select
-                      value={experiences[index]?.start_date ?? ""}
-                      onValueChange={(value) =>
-                        setValue(`nm_experiences.${index}.start_date`, value)
-                      }
-                    >
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Month" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {months.map((month) => (
-                          <SelectItem key={month.value} value={month.value}>
-                            {month.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    <Label>Start Date *</Label>
+                    <Controller
+                      control={form.control}
+                      name={`nm_experiences.${index}.start_date`}
+                      render={({ field }) => (
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <Button
+                              variant={"outline"}
+                              className={cn(
+                                "w-full pl-3 text-left font-normal",
+                                !field.value && "text-muted-foreground"
+                              )}
+                            >
+                              {field.value ? (
+                                format(field.value, "dd MMMM yyy", {
+                                  locale: id,
+                                })
+                              ) : (
+                                <span>Periode</span>
+                              )}
+                              <CalendarIcon className="ml-auto size-4 opacity-50" />
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-full p-0" align="start">
+                            <Calendar
+                              mode="single"
+                              disabled={(date) =>
+                                date < new Date("2017-01-01") ||
+                                date > new Date()
+                              }
+                              selected={field.value}
+                              onSelect={field.onChange}
+                              defaultMonth={field.value ?? new Date()}
+                              captionLayout="dropdown-years"
+                              startMonth={new Date("2017-01-01")}
+                              endMonth={new Date()}
+                            />
+                          </PopoverContent>
+                        </Popover>
+                      )}
+                    />
                     {errors.nm_experiences?.[index]?.start_date && (
                       <p className="text-sm text-red-600">
                         {errors.nm_experiences[index]?.start_date?.message}
@@ -178,24 +209,48 @@ export default function ExperienceForm({
                   </div>
                   {/* end date field */}
                   <div className="space-y-2">
-                    <Label>Start Year *</Label>
-                    <Select
-                      value={experiences[index]?.end_date ?? ""}
-                      onValueChange={(value) =>
-                        setValue(`nm_experiences.${index}.end_date`, value)
-                      }
-                    >
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Year" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {years.map((year) => (
-                          <SelectItem key={year} value={year.toString()}>
-                            {year}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    <Label>End Date *</Label>
+                    <Controller
+                      control={form.control}
+                      name={`nm_experiences.${index}.end_date`}
+                      render={({ field }) => (
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <Button
+                              variant={"outline"}
+                              className={cn(
+                                "w-full pl-3 text-left font-normal",
+                                !field.value && "text-muted-foreground"
+                              )}
+                            >
+                              {field.value ? (
+                                format(field.value, "dd MMMM yyy", {
+                                  locale: id,
+                                })
+                              ) : (
+                                <span>Periode</span>
+                              )}
+                              <CalendarIcon className="ml-auto size-4 opacity-50" />
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-full p-0" align="start">
+                            <Calendar
+                              mode="single"
+                              disabled={(date) =>
+                                date < new Date("2017-01-01") ||
+                                date > new Date()
+                              }
+                              selected={field.value}
+                              onSelect={field.onChange}
+                              defaultMonth={field.value ?? new Date()}
+                              captionLayout="dropdown-years"
+                              startMonth={new Date("2017-01-01")}
+                              endMonth={new Date()}
+                            />
+                          </PopoverContent>
+                        </Popover>
+                      )}
+                    />
                     {errors.nm_experiences?.[index]?.end_date && (
                       <p className="text-sm text-red-600">
                         {errors.nm_experiences[index]?.end_date?.message}

@@ -82,14 +82,14 @@ export const steps = [
 export const ExperienceSchema = z.object({
   activity: z.string().min(1, "Nama pengalaman wajib diisi"),
   position: z.string().min(1, "Posisi wajib diisi"),
-  start_date: z.string().min(1, "Pilih Tahun"),
-  end_date: z.string().min(1, "Pilih tahun"),
+  start_date: z.date(),
+  end_date: z.date(),
 });
 
 export const AchievementSchema = z.object({
   event: z.string().min(1, "Nama pengalaman wajib diisi"),
   grade: z.string().min(1, "Posisi wajib diisi"),
-  period: z.string(),
+  period: z.date(),
 });
 
 export const divisions: string[] = [
