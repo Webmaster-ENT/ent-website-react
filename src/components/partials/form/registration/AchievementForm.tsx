@@ -8,22 +8,23 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Controller } from "react-hook-form";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-import { months, years } from "@/types/dates";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import type { RegistrationFormSchema } from "@/types/form";
-import { Plus, Trash2, MedalIcon } from "lucide-react";
+import { Plus, Trash2, MedalIcon, CalendarIcon } from "lucide-react";
 import type { UseFieldArrayReturn, UseFormReturn } from "react-hook-form";
+import { cn } from "@/lib/utils";
+import { format } from "date-fns";
+import { id } from "date-fns/locale";
+import { Calendar } from "@/components/ui/calendar";
 
 interface AchievementFormProps {
   form: UseFormReturn<RegistrationFormSchema>;
-  fieldArray: UseFieldArrayReturn<RegistrationFormSchema, "achievements">;
+  fieldArray: UseFieldArrayReturn<RegistrationFormSchema, "nm_achievements">;
 }
 
 export default function AchievementForm({
@@ -31,21 +32,16 @@ export default function AchievementForm({
   fieldArray,
 }: AchievementFormProps) {
   const {
-    watch,
     register,
     formState: { errors },
-    setValue,
   } = form;
   const { append, remove, fields } = fieldArray;
-  const achievements = watch("achievements");
 
   const addAchievement = () => {
     append({
-      title: "",
-      position: "",
-      year: "",
-      month: "",
-      description: "",
+      event: "",
+      grade: "",
+      period: new Date(),
     });
   };
 
@@ -121,31 +117,31 @@ export default function AchievementForm({
                   {/* field title and position */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor={`achievements.${index}.title`}>
+                      <Label htmlFor={`nm_achievements.${index}.event`}>
                         Penghargaan *
                       </Label>
                       <Input
-                        {...register(`achievements.${index}.title`)}
+                        {...register(`nm_achievements.${index}.event`)}
                         placeholder="e.g,. 4C National Competition"
                       />
-                      {errors.achievements?.[index]?.title && (
+                      {errors.nm_achievements?.[index]?.event && (
                         <p className="text-sm text-red-600">
-                          {errors.achievements[index]?.title?.message}
+                          {errors.nm_achievements[index]?.event?.message}
                         </p>
                       )}
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor={`achievements.${index}.position`}>
+                      <Label htmlFor={`nm_achievements.${index}.grade`}>
                         Position *
                       </Label>
                       <Input
-                        {...register(`achievements.${index}.position`)}
+                        {...register(`nm_achievements.${index}.grade`)}
                         placeholder="e.g., Frontend Developer"
                       />
-                      {errors.achievements?.[index]?.position && (
+                      {errors.nm_achievements?.[index]?.grade && (
                         <p className="text-sm text-red-600">
-                          {errors.achievements[index]?.position?.message}
+                          {errors.nm_achievements[index]?.grade?.message}
                         </p>
                       )}
                     </div>
@@ -154,66 +150,54 @@ export default function AchievementForm({
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {/* month field */}
                     <div className="space-y-2">
-                      <Label>Bulan *</Label>
-                      <Select
-                        value={achievements[index]?.month ?? ""}
-                        onValueChange={(value) =>
-                          setValue(`achievements.${index}.month`, value)
-                        }
-                      >
-                        <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Month" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {months.map((month) => (
-                            <SelectItem key={month.value} value={month.value}>
-                              {month.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      {errors.achievements?.[index]?.month && (
-                        <p className="text-sm text-red-600">
-                          {errors.achievements[index]?.month?.message}
-                        </p>
-                      )}
-                    </div>
-                    {/* end year field */}
-                    <div className="space-y-2">
-                      <Label>Tahun *</Label>
-                      <Select
-                        value={achievements[index]?.year ?? ""}
-                        onValueChange={(value) =>
-                          setValue(`achievements.${index}.year`, value)
-                        }
-                      >
-                        <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Year" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {years.map((year) => (
-                            <SelectItem key={year} value={year.toString()}>
-                              {year}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      {errors.achievements?.[index]?.year && (
-                        <p className="text-sm text-red-600">
-                          {errors.achievements[index]?.year?.message}
-                        </p>
-                      )}
-                    </div>
-                    {/* deskripsi field */}
-                    <div className="space-y-2 md:col-span-2">
-                      <Label>Deskripsi</Label>
-                      <Textarea
-                        {...register(`achievements.${index}.description`)}
-                        placeholder="jelaskan detail"
+                      <Label>Periode *</Label>
+                      <Controller
+                        control={form.control}
+                        name={`nm_achievements.${index}.period`}
+                        render={({ field }) => (
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <Button
+                                variant={"outline"}
+                                className={cn(
+                                  "w-full pl-3 text-left font-normal",
+                                  !field.value && "text-muted-foreground"
+                                )}
+                              >
+                                {field.value ? (
+                                  format(field.value, "dd MMMM yyy", {
+                                    locale: id,
+                                  })
+                                ) : (
+                                  <span>Periode</span>
+                                )}
+                                <CalendarIcon className="ml-auto size-4 opacity-50" />
+                              </Button>
+                            </PopoverTrigger>
+                            <PopoverContent
+                              className="w-full p-0"
+                              align="start"
+                            >
+                              <Calendar
+                                mode="single"
+                                disabled={(date) =>
+                                  date < new Date("2017-01-01") ||
+                                  date > new Date()
+                                }
+                                selected={field.value}
+                                onSelect={field.onChange}
+                                defaultMonth={field.value ?? new Date()}
+                                captionLayout="dropdown-years"
+                                startMonth={new Date("2017-01-01")}
+                                endMonth={new Date()}
+                              />
+                            </PopoverContent>
+                          </Popover>
+                        )}
                       />
-                      {errors.achievements?.[index]?.description && (
+                      {errors.nm_achievements?.[index]?.period && (
                         <p className="text-sm text-red-600">
-                          {errors.achievements[index]?.description?.message}
+                          {errors.nm_achievements[index]?.period?.message}
                         </p>
                       )}
                     </div>

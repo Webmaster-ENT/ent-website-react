@@ -22,6 +22,7 @@ import {
 import useCheckNRP from "@/hooks/useCheckNRP";
 import { toast } from "sonner";
 import PortfolioForm from "./PortfolioForm";
+import useRegistForm from "@/hooks/useRegistForm";
 
 const REGISTRATION_KEY_FORM = "registrationForm";
 const REGISTRATION_KEY_STEP = "registrationStep";
@@ -32,6 +33,7 @@ export default function RegistrationForm() {
   });
 
   const { checkNRP } = useCheckNRP();
+  const { submitRegistForm } = useRegistForm();
 
   const savedData = loadFromLocalStorage<RegistrationFormSchema>(
     REGISTRATION_KEY_FORM
@@ -40,46 +42,55 @@ export default function RegistrationForm() {
   const defaultValues = savedData
     ? {
         ...savedData,
-        tanggalLahir: new Date(savedData.tanggalLahir),
+        born_date: new Date(savedData.born_date),
+        nm_experiences:
+          savedData.nm_experiences?.map((exp) => ({
+            ...exp,
+            start_date: new Date(exp.start_date),
+            end_date: new Date(exp.end_date),
+          })) ?? [],
+        nm_achievements:
+          savedData.nm_achievements?.map((acv) => ({
+            ...acv,
+            period: new Date(acv.period),
+          })) ?? [],
       }
     : {
         nama: "",
         nrp: "",
         email: "",
-        noHp: "",
-        jurusan: "",
-        tempatLahir: "",
-        tanggalLahir: new Date("2000-01-01"),
-        agama: "",
-        alamatSekarang: "",
-        alamatRumah: "",
+        phone: "",
+        major_id: "",
+        born_city: "",
+        born_date: new Date("2000-01-01"),
+        religion: "",
+        boarding_address: "",
+        home_address: "",
 
         // step 2
-        divisi: "",
-        moto: "",
-        alasanENT: "",
-        alasanDivisi: "",
-        minatUKM: "",
-        yakinkanKami: "",
+        division: "",
+        motto: "",
+        ent_reason: "",
+        division_reason: "",
+        another_interest: "",
+        believe_us: "",
 
         // step 3 & 4
-        experiences: [],
-        achievements: [],
+        nm_experiences: [],
+        nm_achievements: [],
 
         // step 5
-        portfolio: "",
+        portofolio: "",
       };
 
   // submit form
-  const processRegistration: SubmitHandler<RegistrationFormSchema> = async (
-    data
-  ) => {
+  const processRegistration: SubmitHandler<RegistrationFormSchema> = (data) => {
     console.log(data);
-
+    submitRegistForm(data);
     // generate nrp dlu
     saveToLocalStorage("nrpUser", form.getValues("nrp"));
     // membuka new window
-    window.open("/success", "_blank");
+    // window.open("/success", "_blank");
 
     removeFromLocalStorage(REGISTRATION_KEY_FORM);
     removeFromLocalStorage(REGISTRATION_KEY_STEP);
@@ -95,13 +106,13 @@ export default function RegistrationForm() {
   // array field exp
   const experienceField = useFieldArray({
     control: form.control,
-    name: "experiences",
+    name: "nm_experiences",
   });
 
   // array field achievement
   const achievementField = useFieldArray({
     control: form.control,
-    name: "achievements",
+    name: "nm_achievements",
   });
 
   // buat validasi ke next step

@@ -28,19 +28,40 @@ import { CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { id } from "date-fns/locale";
+import { useEffect, useState } from "react";
+import API from "@/lib/api";
 
 interface BiodataFormProps {
   form: UseFormReturn<RegistrationFormSchema>;
 }
 
+type Major = {
+  grade: string;
+  id: string;
+  name: string;
+};
+
 export default function BiodataForm({ form }: BiodataFormProps) {
+  const [grade, setGrade] = useState<"D3" | "D4">("D3");
+  const [major, setMajor] = useState<Major[]>([]);
+  useEffect(() => {
+    const fetchingDivision = async () => {
+      await API.get<{ data: Major[] }>(`/major?grade=${grade}`).then(
+        (result) => {
+          console.log(result.data.data);
+          setMajor(result.data.data);
+        }
+      );
+    };
+
+    fetchingDivision();
+  }, [grade]);
   const {
-    watch,
     register,
     formState: { errors },
     control,
   } = form;
-  const jenjang = watch("jenjang");
+  // const jenjang = watch("jenjang");
   return (
     <>
       <CardHeader>
@@ -52,9 +73,9 @@ export default function BiodataForm({ form }: BiodataFormProps) {
           {/* field nama */}
           <div className="space-y-2">
             <Label htmlFor="nama">Nama</Label>
-            <Input id="nama" {...register("nama")} placeholder="john doe" />
-            {errors.nama?.message && (
-              <p className="text-red-400 text-sm">{errors.nama.message}</p>
+            <Input id="nama" {...register("name")} placeholder="john doe" />
+            {errors.name?.message && (
+              <p className="text-red-400 text-sm">{errors.name.message}</p>
             )}
           </div>
           {/* field nrp */}
@@ -68,62 +89,47 @@ export default function BiodataForm({ form }: BiodataFormProps) {
           {/* field jenjang */}
           <div className="space-y-2">
             <Label>Jenjang</Label>
-            <Controller
-              control={control}
-              name={"jenjang"}
-              render={({ field }) => (
-                <Select
-                  onValueChange={field.onChange}
-                  value={field.value}
-                  defaultValue={field.value}
-                >
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Pilih Jenjang" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="D3">D3</SelectItem>
-                    <SelectItem value="D4">D4</SelectItem>
-                  </SelectContent>
-                </Select>
-              )}
-            />
-            {errors.jenjang?.message && (
-              <p className="text-red-400 text-sm">{errors.jenjang.message}</p>
-            )}
+            <Select
+              onValueChange={(value: "D3" | "D4") => setGrade(value)}
+              defaultValue={grade}
+            >
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Pilih Jenjang" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="D3">D3</SelectItem>
+                <SelectItem value="D4">D4</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
           {/* field prodi */}
           <div className="space-y-2">
             <Label>Program Studi</Label>
             <Controller
               control={control}
-              name={"jurusan"}
+              name={"major_id"}
               render={({ field }) => (
                 <Select
                   onValueChange={field.onChange}
                   value={field.value}
                   defaultValue={field.value}
-                  disabled={!jenjang}
+                  disabled={!grade}
                 >
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Pilih Prodi" />
                   </SelectTrigger>
                   <SelectContent>
-                    {jenjang === "D4" && (
-                      <SelectItem value="Teknologi Game">
-                        Teknologi Game
+                    {major.map((m) => (
+                      <SelectItem key={m.id} value={m.id}>
+                        {m.name}
                       </SelectItem>
-                    )}
-                    {jenjang === "D3" && (
-                      <SelectItem value="Multimedia Broadcasting">
-                        MMB
-                      </SelectItem>
-                    )}
+                    ))}
                   </SelectContent>
                 </Select>
               )}
             />
-            {errors.jurusan?.message && (
-              <p className="text-red-400 text-sm">{errors.jurusan.message}</p>
+            {errors.major_id?.message && (
+              <p className="text-red-400 text-sm">{errors.major_id.message}</p>
             )}
           </div>
           {/* tempat lahir */}
@@ -131,13 +137,11 @@ export default function BiodataForm({ form }: BiodataFormProps) {
             <Label htmlFor="tempatLahir">Tempat Lahir</Label>
             <Input
               id="tempatLahir"
-              {...register("tempatLahir")}
+              {...register("born_city")}
               placeholder="Surabaya"
             />
-            {errors.tempatLahir?.message && (
-              <p className="text-red-400 text-sm">
-                {errors.tempatLahir.message}
-              </p>
+            {errors.born_city?.message && (
+              <p className="text-red-400 text-sm">{errors.born_city.message}</p>
             )}
           </div>
           {/* tanggal lahir */}
@@ -145,7 +149,7 @@ export default function BiodataForm({ form }: BiodataFormProps) {
             <Label>Tanggal Lahir</Label>
             <Controller
               control={control}
-              name={"tanggalLahir"}
+              name={"born_date"}
               render={({ field }) => (
                 <Popover>
                   <PopoverTrigger asChild>
@@ -182,10 +186,8 @@ export default function BiodataForm({ form }: BiodataFormProps) {
                 </Popover>
               )}
             />
-            {errors.tanggalLahir?.message && (
-              <p className="text-red-400 text-sm">
-                {errors.tanggalLahir.message}
-              </p>
+            {errors.born_date?.message && (
+              <p className="text-red-400 text-sm">{errors.born_date.message}</p>
             )}
           </div>
           {/* agama */}
@@ -193,7 +195,7 @@ export default function BiodataForm({ form }: BiodataFormProps) {
             <Label>Agama</Label>
             <Controller
               control={control}
-              name={"agama"}
+              name={"religion"}
               render={({ field }) => (
                 <Select
                   onValueChange={field.onChange}
@@ -214,30 +216,33 @@ export default function BiodataForm({ form }: BiodataFormProps) {
                 </Select>
               )}
             />
-            {errors.agama?.message && (
-              <p className="text-red-400 text-sm">{errors.agama.message}</p>
+            {errors.religion?.message && (
+              <p className="text-red-400 text-sm">{errors.religion.message}</p>
             )}
           </div>
           {/* alamat sekarang */}
           <div className="space-y-2 md:col-span-2">
             <Label>Alamat Sekarang</Label>
             <Textarea
-              {...register("alamatSekarang")}
+              {...register("boarding_address")}
               placeholder="Alamat kos atau saat ini"
             />
-            {errors.alamatSekarang?.message && (
+            {errors.boarding_address?.message && (
               <p className="text-red-400 text-sm">
-                {errors.alamatSekarang.message}
+                {errors.boarding_address.message}
               </p>
             )}
           </div>
           {/* alamat rumah */}
           <div className="space-y-2 md:col-span-2">
             <Label>Alamat Rumah</Label>
-            <Textarea {...register("alamatRumah")} placeholder="Alamat rumah" />
-            {errors.alamatRumah?.message && (
+            <Textarea
+              {...register("home_address")}
+              placeholder="Alamat rumah"
+            />
+            {errors.home_address?.message && (
               <p className="text-red-400 text-sm">
-                {errors.alamatRumah.message}
+                {errors.home_address.message}
               </p>
             )}
           </div>
@@ -256,9 +261,9 @@ export default function BiodataForm({ form }: BiodataFormProps) {
           {/* telephone */}
           <div className="space-y-2">
             <Label>Nomor Telephone</Label>
-            <Input {...register("noHp")} placeholder="+628123456789" />
-            {errors.noHp?.message && (
-              <p className="text-red-400 text-sm">{errors.noHp.message}</p>
+            <Input {...register("phone")} placeholder="+628123456789" />
+            {errors.phone?.message && (
+              <p className="text-red-400 text-sm">{errors.phone.message}</p>
             )}
           </div>
         </div>

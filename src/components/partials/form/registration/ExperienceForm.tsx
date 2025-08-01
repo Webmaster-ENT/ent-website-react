@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import {
   Card,
   CardContent,
@@ -9,21 +10,29 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-import { months, years } from "@/types/dates";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 import type { RegistrationFormSchema } from "@/types/form";
-import { BriefcaseBusinessIcon, Plus, Trash2 } from "lucide-react";
-import type { UseFieldArrayReturn, UseFormReturn } from "react-hook-form";
+import { format } from "date-fns";
+import { id } from "date-fns/locale";
+import {
+  BriefcaseBusinessIcon,
+  CalendarIcon,
+  Plus,
+  Trash2,
+} from "lucide-react";
+import {
+  Controller,
+  type UseFieldArrayReturn,
+  type UseFormReturn,
+} from "react-hook-form";
 
 interface ExperienceFormProps {
   form: UseFormReturn<RegistrationFormSchema>;
-  fieldArray: UseFieldArrayReturn<RegistrationFormSchema, "experiences">;
+  fieldArray: UseFieldArrayReturn<RegistrationFormSchema, "nm_experiences">;
 }
 
 export default function ExperienceForm({
@@ -33,22 +42,16 @@ export default function ExperienceForm({
   const {
     register,
     formState: { errors },
-    setValue,
-    watch,
   } = form;
-  const experiences = watch("experiences");
   const { append, remove, fields } = fieldArray;
 
   const addExperience = () => {
     if (fields.length < 3) {
       append({
-        title: "",
-        description: "",
+        activity: "",
         position: "",
-        startMonth: "",
-        startYear: "",
-        endMonth: "",
-        endYear: "",
+        start_date: new Date(),
+        end_date: new Date(),
       });
     }
   };
@@ -124,150 +127,133 @@ export default function ExperienceForm({
                 {/* field title and position */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor={`experiences.${index}.title`}>
+                    <Label htmlFor={`nm_experiences.${index}.title`}>
                       Title Experience *
                     </Label>
                     <Input
-                      {...register(`experiences.${index}.title`)}
+                      {...register(`nm_experiences.${index}.activity`)}
                       placeholder="e.g., Software Development"
                     />
-                    {errors.experiences?.[index]?.title && (
+                    {errors.nm_experiences?.[index]?.activity && (
                       <p className="text-sm text-red-600">
-                        {errors.experiences[index]?.title?.message}
+                        {errors.nm_experiences[index]?.activity?.message}
                       </p>
                     )}
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor={`experiences.${index}.position`}>
+                    <Label htmlFor={`nm_experiences.${index}.position`}>
                       Position *
                     </Label>
                     <Input
-                      {...register(`experiences.${index}.position`)}
+                      {...register(`nm_experiences.${index}.position`)}
                       placeholder="e.g., Frontend Developer"
                     />
-                    {errors.experiences?.[index]?.position && (
+                    {errors.nm_experiences?.[index]?.position && (
                       <p className="text-sm text-red-600">
-                        {errors.experiences[index]?.position?.message}
+                        {errors.nm_experiences[index]?.position?.message}
                       </p>
                     )}
                   </div>
                 </div>
-                {/* start month field */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {/* start date field */}
+                <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label>Start Month *</Label>
-                    <Select
-                      value={experiences[index]?.startMonth ?? ""}
-                      onValueChange={(value) =>
-                        setValue(`experiences.${index}.startMonth`, value)
-                      }
-                    >
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Month" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {months.map((month) => (
-                          <SelectItem key={month.value} value={month.value}>
-                            {month.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    {errors.experiences?.[index]?.startMonth && (
-                      <p className="text-sm text-red-600">
-                        {errors.experiences[index]?.startMonth?.message}
-                      </p>
-                    )}
-                  </div>
-                  {/* start year field */}
-                  <div className="space-y-2">
-                    <Label>Start Year *</Label>
-                    <Select
-                      value={experiences[index]?.startYear ?? ""}
-                      onValueChange={(value) =>
-                        setValue(`experiences.${index}.startYear`, value)
-                      }
-                    >
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Year" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {years.map((year) => (
-                          <SelectItem key={year} value={year.toString()}>
-                            {year}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    {errors.experiences?.[index]?.startYear && (
-                      <p className="text-sm text-red-600">
-                        {errors.experiences[index]?.startYear?.message}
-                      </p>
-                    )}
-                  </div>
-                  {/* end month field */}
-                  <div className="space-y-2">
-                    <Label>End Month *</Label>
-                    <Select
-                      value={experiences[index]?.endMonth ?? ""}
-                      onValueChange={(value) =>
-                        setValue(`experiences.${index}.endMonth`, value)
-                      }
-                    >
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Month" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {months.map((month) => (
-                          <SelectItem key={month.value} value={month.value}>
-                            {month.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    {errors.experiences?.[index]?.endMonth && (
-                      <p className="text-sm text-red-600">
-                        {errors.experiences[index]?.endMonth?.message}
-                      </p>
-                    )}
-                  </div>
-                  {/* end year field */}
-                  <div className="space-y-2">
-                    <Label>End Year *</Label>
-                    <Select
-                      value={experiences[index]?.endYear ?? ""}
-                      onValueChange={(value) =>
-                        setValue(`experiences.${index}.endYear`, value)
-                      }
-                    >
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Year" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {years.map((year) => (
-                          <SelectItem key={year} value={year.toString()}>
-                            {year}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    {errors.experiences?.[index]?.endYear && (
-                      <p className="text-sm text-red-600">
-                        {errors.experiences[index]?.endYear?.message}
-                      </p>
-                    )}
-                  </div>
-                  {/* deskripsi field */}
-                  <div className="space-y-2 col-span-2 md:col-span-4">
-                    <Label>Deskripsi</Label>
-                    <Textarea
-                      {...register(`experiences.${index}.description`)}
-                      placeholder="jelaskan detail"
+                    <Label>Start Date *</Label>
+                    <Controller
+                      control={form.control}
+                      name={`nm_experiences.${index}.start_date`}
+                      render={({ field }) => (
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <Button
+                              variant={"outline"}
+                              className={cn(
+                                "w-full pl-3 text-left font-normal",
+                                !field.value && "text-muted-foreground"
+                              )}
+                            >
+                              {field.value ? (
+                                format(field.value, "dd MMMM yyy", {
+                                  locale: id,
+                                })
+                              ) : (
+                                <span>Periode</span>
+                              )}
+                              <CalendarIcon className="ml-auto size-4 opacity-50" />
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-full p-0" align="start">
+                            <Calendar
+                              mode="single"
+                              disabled={(date) =>
+                                date < new Date("2017-01-01") ||
+                                date > new Date()
+                              }
+                              selected={field.value}
+                              onSelect={field.onChange}
+                              defaultMonth={field.value ?? new Date()}
+                              captionLayout="dropdown-years"
+                              startMonth={new Date("2017-01-01")}
+                              endMonth={new Date()}
+                            />
+                          </PopoverContent>
+                        </Popover>
+                      )}
                     />
-                    {errors.experiences?.[index]?.description && (
+                    {errors.nm_experiences?.[index]?.start_date && (
                       <p className="text-sm text-red-600">
-                        {errors.experiences[index]?.description?.message}
+                        {errors.nm_experiences[index]?.start_date?.message}
+                      </p>
+                    )}
+                  </div>
+                  {/* end date field */}
+                  <div className="space-y-2">
+                    <Label>End Date *</Label>
+                    <Controller
+                      control={form.control}
+                      name={`nm_experiences.${index}.end_date`}
+                      render={({ field }) => (
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <Button
+                              variant={"outline"}
+                              className={cn(
+                                "w-full pl-3 text-left font-normal",
+                                !field.value && "text-muted-foreground"
+                              )}
+                            >
+                              {field.value ? (
+                                format(field.value, "dd MMMM yyy", {
+                                  locale: id,
+                                })
+                              ) : (
+                                <span>Periode</span>
+                              )}
+                              <CalendarIcon className="ml-auto size-4 opacity-50" />
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-full p-0" align="start">
+                            <Calendar
+                              mode="single"
+                              disabled={(date) =>
+                                date < new Date("2017-01-01") ||
+                                date > new Date()
+                              }
+                              selected={field.value}
+                              onSelect={field.onChange}
+                              defaultMonth={field.value ?? new Date()}
+                              captionLayout="dropdown-years"
+                              startMonth={new Date("2017-01-01")}
+                              endMonth={new Date()}
+                            />
+                          </PopoverContent>
+                        </Popover>
+                      )}
+                    />
+                    {errors.nm_experiences?.[index]?.end_date && (
+                      <p className="text-sm text-red-600">
+                        {errors.nm_experiences[index]?.end_date?.message}
                       </p>
                     )}
                   </div>
