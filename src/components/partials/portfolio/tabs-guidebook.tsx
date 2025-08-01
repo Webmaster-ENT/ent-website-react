@@ -124,7 +124,7 @@ export default function TabsGuidebook() {
                   </p>
                 </div>
               </div>
-              <div className="flex items-start gap-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
+              {/* <div className="flex items-start gap-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
                 <div className="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-semibold flex-shrink-0">
                   3
                 </div>
@@ -135,7 +135,7 @@ export default function TabsGuidebook() {
                     ada di dalam lab wajib menerima berkas tersebut
                   </p>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
 
