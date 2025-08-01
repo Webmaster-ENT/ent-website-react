@@ -24,13 +24,13 @@ const MediaSection = () => {
                 Don't forget to share, like, and subscribe to our YouTube channel
               </p>
               <div className="flex items-center space-x-4">
-                <a href="https://www.instagram.com/your-profile" target="_blank" rel="noopener noreferrer" className="bg-white p-3 rounded-full transition-transform transform hover:scale-110">
+                <a href="https://www.instagram.com/entcrews" target="_blank" rel="noopener noreferrer" className="bg-white p-3 rounded-full transition-transform transform hover:scale-110">
                   <img src="/icons/instagram.svg" alt="Instagram" className="h-6 w-6" />
                 </a>
-                <a href="https://www.youtube.com/your-channel" target="_blank" rel="noopener noreferrer" className="bg-white p-3 rounded-full transition-transform transform hover:scale-110">
+                <a href="https://www.youtube.com/@entcrews" target="_blank" rel="noopener noreferrer" className="bg-white p-3 rounded-full transition-transform transform hover:scale-110">
                   <img src="/icons/youtube.svg" alt="YouTube" className="h-6 w-6" />
                 </a>
-                <a href="https://www.tiktok.com/@your-profile" target="_blank" rel="noopener noreferrer" className="bg-white p-3 rounded-full transition-transform transform hover:scale-110">
+                <a href="https://www.tiktok.com/@entcrews" target="_blank" rel="noopener noreferrer" className="bg-white p-3 rounded-full transition-transform transform hover:scale-110">
                   <img src="/icons/tiktok.svg" alt="TikTok" className="h-6 w-6" />
                 </a>
               </div>
