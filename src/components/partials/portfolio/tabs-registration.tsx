@@ -13,8 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router";
 import { useState, type FormEvent } from "react";
 import useCheckNRP, { type RegistrationStatus } from "@/hooks/useCheckNRP";
-import API from "@/lib/api";
-import { API_ENDPOINTS } from "@/constants/api";
+import { API_CONFIG, API_ENDPOINTS } from "@/constants/api";
 import { toast } from "sonner";
 
 export default function TabsRegistration() {
@@ -45,7 +44,10 @@ export default function TabsRegistration() {
 
   const downloadPDF = async () => {
     try {
-      await API.get(API_ENDPOINTS.NEW_MEMBERS.CREATE_RESUME_PDF(nrp));
+      window.open(
+        `${API_CONFIG.BASE_URL}${API_ENDPOINTS.NEW_MEMBERS.CREATE_RESUME_PDF(nrp)}`,
+        "_blank"
+      );
     } catch (err: unknown) {
       if (err instanceof Error) {
         console.error(err.message);
@@ -65,7 +67,7 @@ export default function TabsRegistration() {
               Cek Status Pendaftaran
             </CardTitle>
             <CardDescription>
-              Masukkan email Anda untuk mengecek status pendaftaran
+              Masukkan NRP Anda untuk mengecek status pendaftaran
             </CardDescription>
           </CardHeader>
           <CardContent>

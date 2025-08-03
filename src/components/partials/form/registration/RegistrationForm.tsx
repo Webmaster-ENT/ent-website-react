@@ -23,6 +23,7 @@ import useCheckNRP from "@/hooks/useCheckNRP";
 import { toast } from "sonner";
 import PortfolioForm from "./PortfolioForm";
 import useRegistForm from "@/hooks/useRegistForm";
+import { API_CONFIG, API_ENDPOINTS } from "@/constants/api";
 
 const REGISTRATION_KEY_FORM = "registrationForm";
 const REGISTRATION_KEY_STEP = "registrationStep";
@@ -90,7 +91,10 @@ export default function RegistrationForm() {
     // generate nrp dlu
     saveToLocalStorage("nrpUser", form.getValues("nrp"));
     // membuka new window
-    // window.open("/success", "_blank");
+    window.open(
+      `${API_CONFIG.BASE_URL}${API_ENDPOINTS.NEW_MEMBERS.CREATE_RESUME_PDF(loadFromLocalStorage("nrpUser")!)}`,
+      "_blank"
+    );
 
     removeFromLocalStorage(REGISTRATION_KEY_FORM);
     removeFromLocalStorage(REGISTRATION_KEY_STEP);
