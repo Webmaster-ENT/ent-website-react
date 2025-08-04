@@ -109,7 +109,7 @@ export default function FAQ() {
               <AccordionContent>
                 Update kecil dapat dilakukan dengan menghubungi tim support
                 kami. Untuk perubahan besar, Anda mungkin perlu mengirimkan
-                aplikasi baru. Hubungi kami di support@entpens.com untuk
+                aplikasi baru. Hubungi contact person untuk
                 bantuan.
               </AccordionContent>
             </AccordionItem>
