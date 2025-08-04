@@ -119,9 +119,23 @@ export default function Navbar() {
                 Home
               </Link>
               <div className="p-4">
-                <Button className="w-full rounded-full bg-gradient-to-r from-[#134679] to-[#226DB8] text-white hover:opacity-90 py-3 font-medium">
-                  <Link to={"/report"}>Pengajuan Liputan</Link>
-                </Button>
+                <Dialog open={open} onOpenChange={setOpen}>
+                  <DialogTrigger
+                    asChild
+                    className="w-full rounded-full bg-gradient-to-r from-[#134679] to-[#226DB8] text-white hover:opacity-90 py-3 font-medium"
+                  >
+                    <Button>Pengajuan Liputan</Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-h-[60vh] sm:max-h-[70vh] overflow-y-auto">
+                    <DialogHeader>
+                      <DialogTitle>Pengajuan Liputan</DialogTitle>
+                      <DialogDescription>
+                        Please fill these fields below
+                      </DialogDescription>
+                    </DialogHeader>
+                    <ContactForm onSuccess={() => setOpen(false)} />
+                  </DialogContent>
+                </Dialog>
               </div>
             </div>
           </div>
