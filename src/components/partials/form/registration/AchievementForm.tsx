@@ -14,6 +14,13 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import type { RegistrationFormSchema } from "@/types/form";
 import { Plus, Trash2, MedalIcon, CalendarIcon } from "lucide-react";
 import type { UseFieldArrayReturn, UseFormReturn } from "react-hook-form";
@@ -133,11 +140,31 @@ export default function AchievementForm({
 
                     <div className="space-y-2">
                       <Label htmlFor={`nm_achievements.${index}.grade`}>
-                        Position *
+                        Grade *
                       </Label>
-                      <Input
-                        {...register(`nm_achievements.${index}.grade`)}
-                        placeholder="e.g., Frontend Developer"
+                      <Controller
+                        control={form.control}
+                        name={`nm_achievements.${index}.grade`}
+                        render={({ field }) => (
+                          <Select
+                            onValueChange={field.onChange}
+                            value={field.value}
+                          >
+                            <SelectTrigger>
+                              <SelectValue placeholder="Pilih Grade" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="Juara 1">Juara 1</SelectItem>
+                              <SelectItem value="Juara 2">Juara 2</SelectItem>
+                              <SelectItem value="Juara 3">Juara 3</SelectItem>
+                              <SelectItem value="Juara Harapan">Juara Harapan</SelectItem>
+                              <SelectItem value="Finalis">Finalis</SelectItem>
+                              <SelectItem value="Semi-Finalis">Semi-Finalis</SelectItem>
+                              <SelectItem value="Peserta">Peserta</SelectItem>
+                              <SelectItem value="Lain-lain">Lain-lain</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        )}  
                       />
                       {errors.nm_achievements?.[index]?.grade && (
                         <p className="text-sm text-red-600">

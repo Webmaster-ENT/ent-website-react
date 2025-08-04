@@ -5,17 +5,20 @@ interface AccordionProps {
     icon: string
     title: string
     description: string
-    color?: 'green' | 'blue' | 'pink' | 'yellow' | 'purple'
+    color?: 'green' | 'blue' | 'pink' | 'yellow' | 'purple' | 'red' | 'orange' | 'cyan'
     isOpen: boolean
     onToggle: () => void
 }
 
 const colorMap: Record<string, string> = {
     green: '#C6FFA7',
-    blue: '#A7FFF5',
+    cyan: '#A7FFF5',
     pink: '#FFA7E5',
     yellow: '#FFFFA7',
-    purple: '#B7A7FF'
+    purple: '#B7A7FF',
+    red: '#EE5252',
+    orange: '#FDA889',
+    blue: '#7D93ED'
 } 
 
 export default function DivisionAccordion({ img, icon, title, description, color = 'green', isOpen, onToggle }: AccordionProps) {

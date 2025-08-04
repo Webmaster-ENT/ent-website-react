@@ -29,9 +29,6 @@ export const API_ENDPOINTS = {
     INDEX: "/members",
     SHOW: (id: string) => `/members/${id}`,
   },
-
-  // division
-
   GEN: {
     INDEX: "/gen",
   },

@@ -22,25 +22,25 @@ export default function AddressCard() {
           </Button>
 
           <Button variant="ghost" size="icon" className="h-12 w-12 rounded-full hover:bg-blue-50" asChild>
-            <Link to="#" aria-label="LinkedIn">
+            <Link target="_blank" to="https://www.linkedin.com/company/eepis-news-and-network-team/" aria-label="LinkedIn">
               <img src={'/icons/linkedin.svg'} alt="linkedin.svg" width={24} height={24} />
             </Link>
           </Button>
 
           <Button variant="ghost" size="icon" className="h-12 w-12 rounded-full hover:bg-pink-50" asChild>
-            <Link to="#" aria-label="Instagram">
+            <Link target="_blank" to="https://www.instagram.com/entcrews" aria-label="Instagram">
               <img src={'/icons/instagram.svg'} alt="instagram.svg" width={24} height={24} />
             </Link>
           </Button>
 
           <Button variant="ghost" size="icon" className="h-12 w-12 rounded-full hover:bg-red-50" asChild>
-            <Link to="#" aria-label="YouTube">
+            <Link target="_blank" to="https://www.youtube.com/@entcrews" aria-label="YouTube">
               <img src={'/icons/youtube.svg'} alt="youtube.svg" width={24} height={24} />
             </Link>
           </Button>
 
           <Button variant="ghost" size="icon" className="h-12 w-12 rounded-full hover:bg-gray-100" asChild>
-            <Link to="#" aria-label="TikTok">
+            <Link target="_blank" to="https://www.tiktok.com/@entcrews" aria-label="TikTok">
               <img src={'/icons/tiktok.svg'} alt="tiktok.svg" width={24} height={24} />
             </Link>
           </Button>

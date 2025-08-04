@@ -10,12 +10,15 @@ const MemberSection = () => {
   const { members, loading, error } = useMembersWithDetails();
 
   // Division color mapping based on divisions.ts
-  const divisionColorMap: {[key: string]: 'green' | 'blue' | 'pink' | 'yellow' | 'purple'} = {
-    'journalist': 'green',
-    'content planner': 'blue', 
+  const divisionColorMap: {[key: string]: 'green' | 'blue' | 'pink' | 'yellow' | 'purple' | 'red' | 'orange' | 'cyan'} = {
+    'Graphic Design': 'green',
+    'Illustrator': 'blue', 
     'Webmaster': 'pink',
     'Reporter': 'purple',
-    'Videographer': 'yellow'
+    'Videographer': 'yellow',
+    'Fotographer' : 'cyan',
+    'Copywriter' : 'red',
+    'Content Planner' : 'orange'
   };
 
   // Group members by division

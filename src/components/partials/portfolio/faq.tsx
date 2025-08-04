@@ -64,25 +64,21 @@ export default function FAQ() {
 
             <AccordionItem value="item-3">
               <AccordionTrigger>
-                Bisakah saya menyimpan progress dan melanjutkan nanti?
+                Apakah mahasiswa semester 3 ke atas bisa mendaftar ke ENT?
               </AccordionTrigger>
               <AccordionContent>
-                Ya! Progress Anda akan otomatis tersimpan saat Anda
-                menyelesaikan setiap langkah. Anda dapat kembali ke aplikasi
-                Anda kapan saja dalam 30 hari menggunakan alamat email yang
-                sama.
+                Maaf, tetapi ENT hanya membuka pendaftaran untuk mahasiswa baru (freshmen).
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-4">
               <AccordionTrigger>
-                Apa yang terjadi jika aplikasi saya ditolak?
+                Apa benefit yang didapatkan jika bergabung ke ENT?
               </AccordionTrigger>
               <AccordionContent>
-                Jika aplikasi Anda ditolak, Anda akan menerima email dengan
-                alasan spesifik dan panduan tentang cara mengatasi masalah apa
-                pun. Anda dapat mengirimkan kembali aplikasi Anda setelah
-                melakukan koreksi yang diperlukan.
+                Kamu akan mendapatkan pengalaman yang berharga di bidang jurnalistik, 
+                memperbagus portofolio untuk dimasukkan ke CV atau LinkedIn, 
+                serta akses ke lab ENT yang berada di ruangan PS-01.11.
               </AccordionContent>
             </AccordionItem>
 
@@ -101,9 +97,8 @@ export default function FAQ() {
               </AccordionTrigger>
               <AccordionContent>
                 Anda dapat mengecek status aplikasi menggunakan tab "Cek Status"
-                di halaman utama. Cukup masukkan alamat email yang Anda gunakan
-                saat pendaftaran untuk melihat status terkini dan pembaruan apa
-                pun.
+                di halaman pendaftaran. Cukup masukkan NRP yang Anda gunakan
+                saat pendaftaran untuk melihat status pendaftaran anda.
               </AccordionContent>
             </AccordionItem>
 
@@ -114,7 +109,7 @@ export default function FAQ() {
               <AccordionContent>
                 Update kecil dapat dilakukan dengan menghubungi tim support
                 kami. Untuk perubahan besar, Anda mungkin perlu mengirimkan
-                aplikasi baru. Hubungi kami di support@entpens.com untuk
+                aplikasi baru. Hubungi contact person untuk
                 bantuan.
               </AccordionContent>
             </AccordionItem>
@@ -175,6 +170,17 @@ export default function FAQ() {
                 terpenting adalah antusiasme, kemauan belajar, dan kreativitas.
                 Portofolio tidak harus profesional, tetapi harus menunjukkan
                 potensi dan dedikasi Anda.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-13">
+              <AccordionTrigger>
+                Apakah ada Contact Person terkait pendaftaran yang bisa dihubungi?
+              </AccordionTrigger>
+              <AccordionContent>
+                Silakan hubungi contact person berikut jika ada pertanyaan lebih lanjut: <br></br>
+                • Rafif Nuha: +62 821-3409-0397 <br></br>
+                • Azzahra: +62 857-8978-1172
               </AccordionContent>
             </AccordionItem>
           </Accordion>
