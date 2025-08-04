@@ -14,7 +14,11 @@ import AchievementForm from "./AchievementForm";
 import StepIndicatorForm from "./StepIndicatorForm";
 import ButtonNavigationForm from "./ButtonNavigationForm";
 // import { useDebounce } from "use-debounce";
-import { loadFromLocalStorage, saveToLocalStorage } from "@/lib/localStorage";
+import {
+  loadFromLocalStorage,
+  removeFromLocalStorage,
+  saveToLocalStorage,
+} from "@/lib/localStorage";
 import useCheckNRP from "@/hooks/useCheckNRP";
 import { toast } from "sonner";
 import PortfolioForm from "./PortfolioForm";
@@ -83,21 +87,15 @@ export default function RegistrationForm() {
 
   // submit form
   const processRegistration: SubmitHandler<RegistrationFormSchema> = (data) => {
-    console.log(data);
+    console.table(data);
     submitRegistForm(data);
     // // generate nrp dlu
     saveToLocalStorage("nrpUser", form.getValues("nrp"));
     navigate("/", {
       replace: true,
     });
-    // // membuka new window
-    // window.open(
-    //   `${API_CONFIG.BASE_URL}${API_ENDPOINTS.NEW_MEMBERS.CREATE_RESUME_PDF(loadFromLocalStorage("nrpUser")!)}`,
-    //   "_blank"
-    // );
-
-    // removeFromLocalStorage(REGISTRATION_KEY_FORM);
-    // removeFromLocalStorage(REGISTRATION_KEY_STEP);
+    removeFromLocalStorage(REGISTRATION_KEY_FORM);
+    removeFromLocalStorage(REGISTRATION_KEY_STEP);
   };
 
   // ini buat form validation make react hook form dan zod
