@@ -9,7 +9,7 @@ export default function Jumbotron() {
   const [isNetworkHovered, setIsNetworkHovered] = useState<boolean>();
 
   return (
-    <div className="flex relative md:items-center items-start max-sm:px-6 flex-col justify-evenly min-h-screen max-h- w-full select-none">
+    <div className="flex relative md:items-center items-start max-sm:px-6 flex-col justify-evenly min-h-screen max-h- w-full select-none" id="home">
       {/* decorative elements */}
       <BouncingSquares
         isFlip={false}
