@@ -27,25 +27,15 @@ export const API_ENDPOINTS = {
   // member
   MEMBER: {
     INDEX: "/members",
-    SHOW: (id: string) => `/members/${id}`
+    SHOW: (id: string) => `/members/${id}`,
   },
 
   // division
-  DIVISION: {
-    INDEX: "/division",
-  },
-
-  MAJOR: {
-    INDEX: "/major",
-  },
 
   GEN: {
     INDEX: "/gen",
-  }
-  
+  },
 } as const;
-
-
 
 /* API Configuration */
 export const API_CONFIG = {
