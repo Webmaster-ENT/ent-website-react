@@ -22,6 +22,25 @@ export const reportFormSchema = z.object({
 
 export type ReportFormSchema = z.infer<typeof reportFormSchema>;
 
+export const contactFormSchema = z.object({
+  sender_name: z.string(),
+  sender_phone: z.string().regex(/^\+62[0-9]{9,14}$/, {
+    message: "Phone must start with +62 and contain only numbers",
+  }),
+  activity: z.string(),
+  start_date: z.date(),
+  end_date: z.date(),
+  place: z.string(),
+  product: z.array(z.enum(products)),
+  description: z.string(),
+  name_contact_person: z.string(),
+  phone_contact_person: z.string().regex(/^\+62[0-9]{9,14}$/, {
+    message: "Phone must start with +62 and contain only numbers",
+  }),
+});
+
+export type ContactFormSchema = z.infer<typeof contactFormSchema>;
+
 /* 
   Registration Schema
     - Experiences

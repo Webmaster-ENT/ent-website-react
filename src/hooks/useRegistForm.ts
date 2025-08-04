@@ -1,5 +1,6 @@
-import { API_ENDPOINTS } from "@/constants/api";
+import { API_CONFIG, API_ENDPOINTS } from "@/constants/api";
 import API from "@/lib/api";
+import { loadFromLocalStorage } from "@/lib/localStorage";
 import type { RegistrationFormSchema } from "@/types/form";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -16,7 +17,11 @@ export default function useRegistForm() {
           {
             action: {
               label: "Unduh",
-              onClick: () => console.log(""),
+              onClick: () =>
+                window.open(
+                  `${API_CONFIG.BASE_URL}${API_ENDPOINTS.NEW_MEMBERS.CREATE_RESUME_PDF(loadFromLocalStorage("nrpUser")!)}`,
+                  "_blank"
+                ),
             },
           }
         );
