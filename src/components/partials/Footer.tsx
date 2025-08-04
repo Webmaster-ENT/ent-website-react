@@ -5,24 +5,30 @@ import { AnimatePresence, motion } from 'motion/react'
 import AddressCard from "./AddressCard"
 
 export default function Footer() {
-    const [isButtonPlusClicked, setIsButtonClicked] = useState<boolean>(false)
+    const [isAddressCardVisible, setIsAddressCardVisible] = useState<boolean>(true)
 
     return (
-        <footer className="relative w-full h-[500px] overflow-hidden">
+        <footer className="relative w-full h-[400px] sm:h-[500px] overflow-hidden">
             <video loop muted playsInline autoPlay disableRemotePlayback className="absolute inset-0 w-full h-full object-cover z-0">
                 <source src="/videos/footer.mp4" type="video/mp4" />
             </video>
-            <div className="relative z-20 bg-black/45 h-full md:px-20 md:py-24">
-                <div className="z-40 h-full flex items-end justify-between">
-                    <h1 className="text-5xl text-white">Live Your Day With <br />Dicipline And Creativity</h1>
+            <div className="relative z-20 bg-black/45 h-full px-4 py-8 sm:px-8 sm:py-12 md:px-20 md:py-24">
+                <div className="z-40 h-full flex justify-between">
+                    <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white leading-tight self-center translate-y-16">
+                        Live Your Day With <br />Dicipline And Creativity
+                    </h1>
                 </div>
             </div>
             {/* plus button */}
-            <Button onClick={() => setIsButtonClicked(!isButtonPlusClicked)} className="absolute z-40 right-20 bottom-24 rounded-full bg-white text-blue-500 cursor-pointer hover:bg-slate-100" size={'icon'}>
+            <Button
+                onClick={() => setIsAddressCardVisible(!isAddressCardVisible)}
+                className="absolute z-40 right-4 bottom-4 sm:right-8 sm:bottom-8 md:right-20 md:bottom-24 rounded-full bg-white text-blue-500 cursor-pointer hover:bg-slate-100"
+                size={'icon'}
+            >
                 <AnimatePresence mode="wait">
-                    {isButtonPlusClicked ? (
+                    {isAddressCardVisible ? (
                         <motion.div
-                            key="plus"
+                            key="x"
                             initial={{ rotate: 90, opacity: 0 }}
                             animate={{ rotate: 0, opacity: 1 }}
                             exit={{ rotate: -90, opacity: 0 }}
@@ -32,7 +38,7 @@ export default function Footer() {
                         </motion.div>
                     ) : (
                         <motion.div
-                            key={'x'}
+                            key={'plus'}
                             initial={{ rotate: -90, opacity: 0 }}
                             animate={{ rotate: 0, opacity: 1 }}
                             exit={{ rotate: 90, opacity: 0 }}
@@ -45,13 +51,13 @@ export default function Footer() {
             </Button>
             {/* card */}
             <motion.div
-                initial={{ y: 500 }}
-                animate={isButtonPlusClicked ? { y: 0 } : { y: 500 }}
+                initial={{ y: 0 }}
+                animate={isAddressCardVisible ? { y: 0 } : { y: 500 }}
                 transition={{ duration: 0.75, ease: 'linear' }}
-                className="absolute z-30 bottom-28 right-24 w-fit"
+                className="absolute z-30 bottom-16 right-4 left-4 sm:bottom-20 sm:right-8 sm:left-auto md:bottom-28 md:right-24 w-auto sm:w-fit"
             >
                 <AddressCard />
-            </motion.div> 
+            </motion.div>
         </footer>
     )
 }

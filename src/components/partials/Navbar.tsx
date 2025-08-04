@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { Menu, X } from "lucide-react";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import {
   Dialog,
   DialogContent,
@@ -15,6 +15,29 @@ import ContactForm from "./form/ContactForm";
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
+  const location = useLocation();
+
+  const scrollToSection = (sectionId: string) => {
+    // If we're not on the homepage, navigate there first
+    if (location.pathname !== '/') {
+      window.location.href = `/#${sectionId}`;
+      return;
+    }
+
+    // If we're on the homepage, scroll to the section
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+  };
+
+  const handleNavClick = (sectionId: string) => {
+    scrollToSection(sectionId);
+    setIsMobileMenuOpen(false);
+  };
 
   return (
     <nav className="px-6 sticky top-6 z-50">
@@ -28,30 +51,30 @@ export default function Navbar() {
           <div className="flex items-center space-x-8">
             {/* Desktop Navigation Links */}
             <div className="hidden md:flex items-center space-x-8">
-              <Link
-                to="/#about"
-                className="text-white hover:text-blue-200 transition-colors"
-              >
-                About
-              </Link>
-              <Link
-                to="/#division"
-                className="text-white hover:text-blue-200 transition-colors"
-              >
-                Division
-              </Link>
-              <Link
-                to="#member"
-                className="text-white hover:text-blue-200 transition-colors"
-              >
-                Team
-              </Link>
-              <Link
-                to="/"
+              <button
+                onClick={() => handleNavClick('home')}
                 className="text-white hover:text-blue-200 transition-colors"
               >
                 Home
-              </Link>
+              </button>
+              <button
+                onClick={() => handleNavClick('about')}
+                className="text-white hover:text-blue-200 transition-colors"
+              >
+                About
+              </button>
+              <button
+                onClick={() => handleNavClick('division')}
+                className="text-white hover:text-blue-200 transition-colors"
+              >
+                Division
+              </button>
+              <button
+                onClick={() => handleNavClick('member')}
+                className="text-white hover:text-blue-200 transition-colors"
+              >
+                Team
+              </button>
             </div>
 
             {/* Desktop CTA Button */}
@@ -94,30 +117,30 @@ export default function Navbar() {
         {isMobileMenuOpen && (
           <div className="md:hidden absolute right-6 left-6 mt-4 rounded-2xl bg-white shadow-lg border border-gray-200 overflow-hidden">
             <div className="flex flex-col">
-              <Link
-                to="#"
-                className="px-6 py-4 text-gray-700 hover:bg-gray-50 border-b border-gray-100"
-              >
-                About
-              </Link>
-              <Link
-                to="#"
-                className="px-6 py-4 text-gray-700 hover:bg-gray-50 border-b border-gray-100"
-              >
-                Division
-              </Link>
-              <Link
-                to="#"
-                className="px-6 py-4 text-gray-700 hover:bg-gray-50 border-b border-gray-100"
-              >
-                Team
-              </Link>
-              <Link
-                to="#"
-                className="px-6 py-4 text-gray-700 hover:bg-gray-50 border-b border-gray-100"
+              <button
+                onClick={() => handleNavClick('home')}
+                className="px-6 py-4 text-gray-700 hover:bg-gray-50 border-b border-gray-100 w-full text-left"
               >
                 Home
-              </Link>
+              </button>
+              <button
+                onClick={() => handleNavClick('about')}
+                className="px-6 py-4 text-gray-700 hover:bg-gray-50 border-b border-gray-100 w-full text-left"
+              >
+                About
+              </button>
+              <button
+                onClick={() => handleNavClick('division')}
+                className="px-6 py-4 text-gray-700 hover:bg-gray-50 border-b border-gray-100 w-full text-left"
+              >
+                Division
+              </button>
+              <button
+                onClick={() => handleNavClick('member')}
+                className="px-6 py-4 text-gray-700 hover:bg-gray-50 border-b border-gray-100 w-full text-left"
+              >
+                Team
+              </button>
               <div className="p-4">
                 <Dialog open={open} onOpenChange={setOpen}>
                   <DialogTrigger
