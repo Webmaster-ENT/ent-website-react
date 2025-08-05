@@ -115,9 +115,22 @@ export default function TabsGuidebook() {
                 </div>
                 <div>
                   <h4 className="font-medium text-green-900">
-                    Konfirmasi Penerimaan
+                    Konfirmasi Pengumpulan Berkas
                   </h4>
                   <p className="text-sm text-green-800 mt-1">
+                    Jangan lupa konfirmasi ke Contact Person terlebih dahulu sebelum mengumpulkan berkas
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                <div className="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-semibold flex-shrink-0">
+                  3 
+                </div>
+                <div>
+                  <h4 className="font-medium text-blue-900">
+                    Konfirmasi Penerimaan Berkas
+                  </h4>
+                  <p className="text-sm text-blue-800 mt-1">
                     Berkas yang sudah diterima di lab dikonfirmasi dengan
                     menulis nama dan tanda tangan peserta pada lembar yang sudah
                     disediakan
