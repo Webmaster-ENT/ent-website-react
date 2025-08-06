@@ -1,10 +1,26 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Link } from "react-router"
+import { useEffect, useState } from "react"
 
 export default function AddressCard() {
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    // Delay the animation slightly to ensure smooth transition
+    const timer = setTimeout(() => {
+      setIsVisible(true)
+    }, 100)
+
+    return () => clearTimeout(timer)
+  }, [])
+
   return (
-    <Card className="w-full max-w-md mx-auto bg-white px-4 py-4 sm:px-6 sm:py-5 md:px-8 md:py-5 rounded-2xl z-30">
+    <Card className={`w-full max-w-md mx-auto bg-white px-4 py-4 sm:px-6 sm:py-5 md:px-8 md:py-5 rounded-2xl z-30 transition-all duration-700 ease-out ${
+      isVisible
+        ? 'lg:translate-y-0 lg:opacity-100'
+        : 'lg:translate-y-8 lg:opacity-0'
+    }`}>
       <CardHeader className="pb-3 sm:pb-4">
         <CardTitle className="text-xl sm:text-2xl font-bold text-blue-900">Address</CardTitle>
       </CardHeader>

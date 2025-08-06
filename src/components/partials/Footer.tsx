@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from 'motion/react'
 import AddressCard from "./AddressCard"
 
 export default function Footer() {
-    const [isAddressCardVisible, setIsAddressCardVisible] = useState<boolean>(true)
+    const [isAddressCardVisible, setIsAddressCardVisible] = useState<boolean>(false)
 
     return (
         <footer className="relative w-full h-[400px] sm:h-[500px] overflow-hidden">
