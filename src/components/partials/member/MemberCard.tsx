@@ -1,3 +1,5 @@
+import { shortenNameForMemberCard } from '../../../lib/nameShortener';
+
 interface MemberCardProps {
   id: number;
   generation: string;
@@ -10,6 +12,8 @@ interface MemberCardProps {
 }
 
 const MemberCard = ({ generation, name, role, major, image, isActive, divisionColor }: MemberCardProps) => {
+  // Shorten name if it has more than 2 words OR if any word has more than 10 characters
+  const displayName = shortenNameForMemberCard(name);
   const majorWords = major.split(' ');
   const majorLine1 = majorWords[0];
   const majorLine3 = majorWords.slice(-2).join(' ');
@@ -44,7 +48,7 @@ const MemberCard = ({ generation, name, role, major, image, isActive, divisionCo
       <div className={`w-90 h-75 ${divisionColor ? colorClasses[divisionColor] : ''}  rounded-3xl p-6 flex items-end relative`}>
         <div className="w-full h-62 bg-white rounded-2xl shadow-lg relative flex"> {/* Adjusted height to h-72 */}
           <div className="w-1/2 p-4 flex flex-col justify-center">
-            <h3 className="text-4xl font-bold">{name}</h3>
+            <h3 className="text-4xl font-bold">{displayName}</h3>
             <p className="text-2xl text-gray-600">{role}</p>
             <div className="text-sm text-gray-400 mt-2">
               <p>{majorLine1}</p>

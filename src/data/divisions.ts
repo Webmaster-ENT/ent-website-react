@@ -11,7 +11,7 @@ const group1: DivisionItem[] = [
     {
         id: 1,
         title: 'Graphic Designer',
-        description: 'The Graphic Design Division is responsible for creating visual content that represents the identity. This includes designing posters, social media posts, and other. Members of this division must be creative and skilled in design software to effectively communicate through visuals.',
+        description: 'The Graphic Design Division is responsible for creating visual content that reflects and strengthens the identity of the student activity unit. This includes designing posters, social media posts, and various other visual materials. Members are expected to be creative and proficient in design software to communicate messages effectively through strong and cohesive visuals.',
         img: '/icons/dg-thumbnail.png',
         icon: '/icons/dg-icon.png',
         color: 'green'
@@ -19,15 +19,15 @@ const group1: DivisionItem[] = [
     {
         id: 2,
         title: 'Photographer',
-        description: 'The Photography Division captures important moments from campus events and activities through compelling photographs. Members are expected to master camera equipment and basic editing techniques to produce high-quality visual documentation that will become a need for publication.',
+        description: 'The Photography Division is responsible for capturing meaningful moments from events and activities held by the student activity unit through compelling visual storytelling. Members are expected to be proficient with camera equipment and possess basic photo editing skills to produce high-quality visual documentation. Their work serves as a vital resource for the publication and archival needs of the unit.',
         img: '/icons/fg-thumbnail.png',
         icon: '/icons/fg-icon.png',
         color: 'cyan'
     },
     {
         id: 3,
-        title: 'Web Master',
-        description: 'The Webmaster Division is in charge of managing and maintaining the organization’s website. This includes uploading content, ensuring smooth navigation, and handling technical aspects. Members should have basic knowledge of web development.',
+        title: 'Webmaster',
+        description: 'The Webmaster Division is responsible for overseeing and maintaining the organization’s official website. This includes curating and uploading content, optimizing user navigation, and managing technical functionalities. Prospective members are expected to possess a foundational understanding of web development and a willingness to continuously adapt to evolving digital technologies.',
         img: '/icons/wm-thumbnail.png',
         icon: '/icons/wm-icon.png',
         color: 'pink'
@@ -35,7 +35,7 @@ const group1: DivisionItem[] = [
     {
         id: 4,
         title: 'Copywriter',
-        description: 'The Copywriter Division focuses on crafting written content that informs, persuades, or entertains the audience. Members work on creating compelling copy for social media posts, scripts, promotional materials, and other written formats to effectively deliver the intended message.',
+        description: 'The Copywriter Division is dedicated to producing impactful written content that informs, persuades, and engages the audience. Members are responsible for developing compelling copy across various platforms, such as social media captions, promotional scripts, campaign materials, and other textual formats. This division ensures clear, creative, and effective message delivery. Strong language skills and a keen sense of tone, audience, and purpose are essential in this role.',
         img: '/icons/cw-thumbnail.png',
         icon: '/icons/cw-icon.png',
         color: 'red'
@@ -46,7 +46,7 @@ const group2: DivisionItem[] = [
     {
         id: 1,
         title: 'Reporter',
-        description: "The Reporter Division is responsible for gathering, writing, and editing news or articles related to campus. Members conduct interviews, write reports, and help maintain the credibility and journalistic integrity of the organization’s media publications.",
+        description: "The Reporter Division is responsible for gathering, writing, and editing news or articles related to campus life and activities. Members conduct interviews, craft informative reports, and contribute to maintaining the credibility and journalistic integrity of the student activity unit’s media platforms. Strong writing skills, curiosity, and attention to factual accuracy are essential in this role.",
         img: '/icons/rp-thumbnail.png',
         icon: '/icons/rp-icon.png',
         color: 'purple'
@@ -54,7 +54,7 @@ const group2: DivisionItem[] = [
     {
         id: 2,
         title: 'Videographer',
-        description: 'The Videography Division focuses on producing video content such as event documentation,  and  probably some creative projects. Members work on shooting, and editing videos to engage the audience and convey messages effectively through moving images.',
+        description: 'The Videography Division focuses on producing video content, including event documentation and creative projects. Members are responsible for shooting and editing videos that engage the audience and effectively convey messages through visual storytelling. A good sense of timing, composition, and basic editing skills are essential in this role to ensure high-quality and impactful results.',
         img: '/icons/vg-thumbnail.png',
         icon: '/icons/vg-icon.png',
         color: 'yellow'
@@ -62,7 +62,7 @@ const group2: DivisionItem[] = [
     {
         id: 3,
         title: 'Illustrator',
-        description: 'The Illustrator Division is responsible for creating visual illustrations that complement and enhance various content needs. Members produce original artwork that help communicate ideas in a visually engaging and creative way.',
+        description: 'The Illustrator Division is responsible for creating visual illustrations that complement and enhance the content produced by the student activity unit. Members develop original artwork that communicates ideas in a visually engaging, creative, and cohesive manner. A strong sense of design, creativity, and attention to detail are essential in this role.',
         img: '/icons/il-thumbnail.png',
         icon: '/icons/il-icon.png',
         color: 'blue'
@@ -70,7 +70,7 @@ const group2: DivisionItem[] = [
     {
         id: 4,
         title: 'Content Planner',
-        description: 'The Content Planner Division is in charge of ideating and organizing content strategies. Members develop content calendars, brainstorm campaign ideas, and coordinate with other divisions to ensure cohesive and timely content delivery that aligns with overall communication goals.',
+        description: 'The Content Planner Division is responsible for developing and organizing content strategies that align with the communication goals of the student activity unit. Members create content calendars, brainstorm campaign concepts, and collaborate with other divisions to ensure cohesive, consistent, and timely content delivery. Strategic thinking, creativity, and strong coordination skills are essential in this role.',
         img: '/icons/pk-thumbnail.png',
         icon: '/icons/pk-icon.png',
         color: 'orange'
@@ -81,7 +81,7 @@ const accordionMobile: DivisionItem[] = [
     {
         id: 1,
         title: 'Graphic Designer',
-        description: 'The Graphic Design Division is responsible for creating visual content that represents the identity. This includes designing posters, social media posts, and other. Members of this division must be creative and skilled in design software to effectively communicate through visuals.',
+        description: 'The Graphic Design Division is responsible for creating visual content that reflects and strengthens the identity of the student activity unit. This includes designing posters, social media posts, and various other visual materials. Members are expected to be creative and proficient in design software to communicate messages effectively through strong and cohesive visuals.',
         img: '/icons/dg-thumbnail.png',
         icon: '/icons/dg-icon.png',
         color: 'green'
@@ -89,15 +89,15 @@ const accordionMobile: DivisionItem[] = [
     {
         id: 2,
         title: 'Photographer',
-        description: 'The Photography Division captures important moments from campus events and activities through compelling photographs. Members are expected to master camera equipment and basic editing techniques to produce high-quality visual documentation that will become a need for publication.',
+        description: 'The Photography Division is responsible for capturing meaningful moments from events and activities held by the student activity unit through compelling visual storytelling. Members are expected to be proficient with camera equipment and possess basic photo editing skills to produce high-quality visual documentation. Their work serves as a vital resource for the publication and archival needs of the unit.',
         img: '/icons/fg-thumbnail.png',
         icon: '/icons/fg-icon.png',
         color: 'cyan'
     },
     {
         id: 3,
-        title: 'Web Master',
-        description: 'The Webmaster Division is in charge of managing and maintaining the organization’s website. This includes uploading content, ensuring smooth navigation, and handling technical aspects. Members should have basic knowledge of web development.',
+        title: 'Webmaster',
+        description: 'The Webmaster Division is responsible for overseeing and maintaining the organization’s official website. This includes curating and uploading content, optimizing user navigation, and managing technical functionalities. Prospective members are expected to possess a foundational understanding of web development and a willingness to continuously adapt to evolving digital technologies.',
         img: '/icons/wm-thumbnail.png',
         icon: '/icons/wm-icon.png',
         color: 'pink'
@@ -105,7 +105,7 @@ const accordionMobile: DivisionItem[] = [
         {
         id: 4,
         title: 'Reporter',
-        description: "The Reporter Division is responsible for gathering, writing, and editing news or articles related to campus. Members conduct interviews, write reports, and help maintain the credibility and journalistic integrity of the organization’s media publications.",
+        description: "The Reporter Division is responsible for gathering, writing, and editing news or articles related to campus life and activities. Members conduct interviews, craft informative reports, and contribute to maintaining the credibility and journalistic integrity of the student activity unit’s media platforms. Strong writing skills, curiosity, and attention to factual accuracy are essential in this role.",
         img: '/icons/rp-thumbnail.png',
         icon: '/icons/rp-icon.png',
         color: 'purple'
@@ -113,7 +113,7 @@ const accordionMobile: DivisionItem[] = [
     {
         id: 5,
         title: 'Videographer',
-        description: 'The Videography Division focuses on producing video content such as event documentation,  and  probably some creative projects. Members work on shooting, and editing videos to engage the audience and convey messages effectively through moving images.',
+        description: 'The Videography Division focuses on producing video content, including event documentation and creative projects. Members are responsible for shooting and editing videos that engage the audience and effectively convey messages through visual storytelling. A good sense of timing, composition, and basic editing skills are essential in this role to ensure high-quality and impactful results.',
         img: '/icons/vg-thumbnail.png',
         icon: '/icons/vg-icon.png',
         color: 'yellow'
@@ -121,7 +121,7 @@ const accordionMobile: DivisionItem[] = [
     {
         id: 6,
         title: 'Copywriter',
-        description: 'The Videography Division focuses on producing video content such as event documentation,  and  probably some creative projects. Members work on shooting, and editing videos to engage the audience and convey messages effectively through moving images.',
+        description: 'The Copywriter Division is dedicated to producing impactful written content that informs, persuades, and engages the audience. Members are responsible for developing compelling copy across various platforms, such as social media captions, promotional scripts, campaign materials, and other textual formats. This division ensures clear, creative, and effective message delivery. Strong language skills and a keen sense of tone, audience, and purpose are essential in this role.',
         img: '/icons/cw-thumbnail.png',
         icon: '/icons/cw-icon.png',
         color: 'red'
@@ -129,7 +129,7 @@ const accordionMobile: DivisionItem[] = [
     {
         id: 7,
         title: 'Illustrator',
-        description: 'The Videography Division focuses on producing video content such as event documentation,  and  probably some creative projects. Members work on shooting, and editing videos to engage the audience and convey messages effectively through moving images.',
+        description: 'The Illustrator Division is responsible for creating visual illustrations that complement and enhance the content produced by the student activity unit. Members develop original artwork that communicates ideas in a visually engaging, creative, and cohesive manner. A strong sense of design, creativity, and attention to detail are essential in this role.',
         img: '/icons/il-thumbnail.png',
         icon: '/icons/il-icon.png',
         color: 'blue'
@@ -137,7 +137,7 @@ const accordionMobile: DivisionItem[] = [
     {
         id: 8,
         title: 'Content Planner',
-        description: 'The Videography Division focuses on producing video content such as event documentation,  and  probably some creative projects. Members work on shooting, and editing videos to engage the audience and convey messages effectively through moving images.',
+        description: 'The Content Planner Division is responsible for developing and organizing content strategies that align with the communication goals of the student activity unit. Members create content calendars, brainstorm campaign concepts, and collaborate with other divisions to ensure cohesive, consistent, and timely content delivery. Strategic thinking, creativity, and strong coordination skills are essential in this role.',
         img: '/icons/pk-thumbnail.png',
         icon: '/icons/pk-icon.png',
         color: 'orange'
