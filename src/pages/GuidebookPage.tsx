@@ -1,9 +1,8 @@
 import FAQ from "@/components/partials/portfolio/faq";
 import TabsGuidebook from "@/components/partials/portfolio/tabs-guidebook";
-import TabsPortfolio from "@/components/partials/portfolio/tabs-portfolio";
 import TabsRegistration from "@/components/partials/portfolio/tabs-registration";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { FileText, Palette, Search } from "lucide-react";
+import { FileText, Search } from "lucide-react";
 
 export default function GuidebookPage() {
   return (
@@ -18,27 +17,24 @@ export default function GuidebookPage() {
         </p>
       </div>
 
-      {/* tabs continer */}
+      {/* tabs container */}
       <Tabs defaultValue="guidebook" className="w-full">
-        <TabsList className="grid w-full grid-cols-3 mb-8">
+        <TabsList className="grid w-full grid-cols-2 mb-8">
           <TabsTrigger value="guidebook" className="flex items-center gap-2">
             <FileText className="w-4 h-4" />
-            <span className="hidden sm:inline">Panduan</span>
-          </TabsTrigger>
-          <TabsTrigger value="portfolio" className="flex items-center gap-2">
-            <Palette className="w-4 h-4" />
-            <span className="hidden sm:inline">Portofolio</span>
+            <span className="hidden sm:inline">Panduan & Portofolio</span>
+            <span className="sm:hidden">Panduan</span>
           </TabsTrigger>
           <TabsTrigger value="check" className="flex items-center gap-2">
             <Search className="w-4 h-4" />
-            <span className="hidden sm:inline">Cek Status</span>
+            <span className="hidden sm:inline">Cek Status Kelulusan</span>
+            <span className="sm:hidden">Cek Status</span>
           </TabsTrigger>
         </TabsList>
 
         {/* tabs content */}
         <TabsGuidebook />
         <TabsRegistration />
-        <TabsPortfolio />
       </Tabs>
 
       <FAQ />
