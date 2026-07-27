@@ -78,7 +78,7 @@ export default function FAQ() {
               <AccordionContent>
                 Kamu akan mendapatkan pengalaman yang berharga di bidang jurnalistik, 
                 memperbagus portofolio untuk dimasukkan ke CV atau LinkedIn, 
-                serta akses ke lab ENT yang berada di ruangan PS-01.11.
+                serta akses ke lab ENT yang berada di ruangan PS 10.11.
               </AccordionContent>
             </AccordionItem>
 
@@ -119,7 +119,7 @@ export default function FAQ() {
                 Kapan jadwal pengumpulan berkas?
               </AccordionTrigger>
               <AccordionContent>
-                Berkas dapat dikumpulkan ke lab ENT pada pukul 14.00 - 17.30.
+                Berkas dapat dikumpulkan ke Ruangan PS 10.11 pada pukul 14.00 - 17.30.
                 Pastikan Anda datang tepat waktu dan membawa semua dokumen yang
                 sudah disiapkan dalam map-L bening.
               </AccordionContent>

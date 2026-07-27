@@ -79,7 +79,7 @@ export default function TabsGuidebook() {
             </div>
             <h4 className="font-semibold text-gray-900 mb-2">3. Pengumpulan Fisik</h4>
             <p className="text-sm text-gray-600 flex-grow mb-4">
-              Masukkan seluruh dokumen ke dalam Map-L Bening, bawa ke Lab ENT (Gedung D3 Lt. 2), dan lakukan konfirmasi kehadiran.
+              Masukkan seluruh dokumen ke dalam Map-L Bening, bawa ke Ruangan PS 10.11, dan lakukan konfirmasi kehadiran.
             </p>
             <span className="text-xs font-semibold text-green-600 mt-auto bg-green-50 px-2 py-1 rounded w-fit">
               Pukul 14.00 - 17.30 WIB
@@ -451,7 +451,7 @@ export default function TabsGuidebook() {
                 </div>
                 <div>
                   <h4 className="font-semibold text-xs text-gray-900">Pengiriman Berkas</h4>
-                  <p className="text-[11px] text-gray-600 mt-0.5">Bawa berkas ke Lab ENT pada pukul 14.00 - 17.30 WIB.</p>
+                  <p className="text-[11px] text-gray-600 mt-0.5">Bawa berkas ke Ruangan PS 10.11 pada pukul 14.00 - 17.30 WIB.</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">

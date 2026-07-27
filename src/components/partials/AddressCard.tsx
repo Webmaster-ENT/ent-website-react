@@ -26,7 +26,7 @@ export default function AddressCard() {
       </CardHeader>
       <CardContent className="space-y-4 sm:space-y-6">
         <div className="text-sm sm:text-base text-blue-900 leading-relaxed">
-          Gedung Pasca Sarjana Politeknik Elektronika Negeri Surabaya, Lt. 1, Ruangan PS1011, Jl. Raya ITS, Keputih,
+          Gedung Pasca Sarjana Politeknik Elektronika Negeri Surabaya, Lt. 10, Ruangan PS 10.11, Jl. Raya ITS, Keputih,
           Kec. Sukolilo, Surabaya, Jawa Timur 60111.
         </div>
 

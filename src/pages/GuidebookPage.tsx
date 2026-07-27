@@ -27,7 +27,7 @@ export default function GuidebookPage() {
           </TabsTrigger>
           <TabsTrigger value="check" className="flex items-center gap-2">
             <Search className="w-4 h-4" />
-            <span className="hidden sm:inline">Cek Status Kelulusan</span>
+            <span className="hidden sm:inline">Cek Status Pendaftaran</span>
             <span className="sm:hidden">Cek Status</span>
           </TabsTrigger>
         </TabsList>
