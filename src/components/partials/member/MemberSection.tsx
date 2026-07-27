@@ -34,6 +34,19 @@ const MemberSection = () => {
       return acc;
     }, {} as {[key: string]: typeof members});
 
+    // Sort members in each division by generation descending (largest first)
+    // and alphabetically by name as secondary sorting.
+    Object.keys(grouped).forEach((division) => {
+      grouped[division].sort((a, b) => {
+        const genA = Number(a.genName) || 0;
+        const genB = Number(b.genName) || 0;
+        if (genB !== genA) {
+          return genB - genA;
+        }
+        return (a.name || "").localeCompare(b.name || "");
+      });
+    });
+
     return grouped;
   }, [members]);
 

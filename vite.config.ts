@@ -13,5 +13,12 @@ export default defineConfig({
   },
   server: {
     port: 5173,
+    proxy: {
+      "/api": {
+        target: "https://api.ent.pens.ac.id",
+        changeOrigin: true,
+        secure: false,
+      },
+    },
   },
 });
