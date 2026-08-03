@@ -29,7 +29,7 @@ export default function DivisionSection() {
         className="right-36 top-42"
       />
       <img
-        src={"/icons/star.svg"}
+        src={"/ikons/star.svg"}
         alt="star.svg"
         width={20}
         height={20}
@@ -54,7 +54,7 @@ export default function DivisionSection() {
         {/* decorative components */}
         <div className="absolute right-5 w-[140px] h-[87px]">
           <img
-            src={"/icons/rafa.svg"}
+            src={"/ikons/rafa.svg"}
             alt="rafa.svg"
             className="object-cover rounded-full rounded-br-none"
           />

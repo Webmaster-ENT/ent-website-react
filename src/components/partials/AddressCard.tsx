@@ -33,31 +33,31 @@ export default function AddressCard() {
         <div className="flex items-center gap-2 sm:gap-3 pt-2 sm:pt-4 flex-wrap">
           <Button variant="ghost" size="icon" className="h-10 w-10 sm:h-12 sm:w-12 rounded-full hover:bg-green-50" asChild>
             <Link target="_blank" to={'https://www.whatsapp.com'}>
-                <img src={'/icons/whatsapp.svg'} alt="whatsapp.svg" width={20} height={20} className="sm:w-6 sm:h-6" />
+                <img src={'/ikons/whatsapp.svg'} alt="whatsapp.svg" width={20} height={20} className="sm:w-6 sm:h-6" />
             </Link>
           </Button>
 
           <Button variant="ghost" size="icon" className="h-10 w-10 sm:h-12 sm:w-12 rounded-full hover:bg-blue-50" asChild>
             <Link target="_blank" to="https://www.linkedin.com/company/eepis-news-and-network-team/" aria-label="LinkedIn">
-              <img src={'/icons/linkedin.svg'} alt="linkedin.svg" width={20} height={20} className="sm:w-6 sm:h-6" />
+              <img src={'/ikons/linkedin.svg'} alt="linkedin.svg" width={20} height={20} className="sm:w-6 sm:h-6" />
             </Link>
           </Button>
 
           <Button variant="ghost" size="icon" className="h-10 w-10 sm:h-12 sm:w-12 rounded-full hover:bg-pink-50" asChild>
             <Link target="_blank" to="https://www.instagram.com/entcrews" aria-label="Instagram">
-              <img src={'/icons/instagram.svg'} alt="instagram.svg" width={20} height={20} className="sm:w-6 sm:h-6" />
+              <img src={'/ikons/instagram.svg'} alt="instagram.svg" width={20} height={20} className="sm:w-6 sm:h-6" />
             </Link>
           </Button>
 
           <Button variant="ghost" size="icon" className="h-10 w-10 sm:h-12 sm:w-12 rounded-full hover:bg-red-50" asChild>
             <Link target="_blank" to="https://www.youtube.com/@entcrews" aria-label="YouTube">
-              <img src={'/icons/youtube.svg'} alt="youtube.svg" width={20} height={20} className="sm:w-6 sm:h-6" />
+              <img src={'/ikons/youtube.svg'} alt="youtube.svg" width={20} height={20} className="sm:w-6 sm:h-6" />
             </Link>
           </Button>
 
           <Button variant="ghost" size="icon" className="h-10 w-10 sm:h-12 sm:w-12 rounded-full hover:bg-gray-100" asChild>
             <Link target="_blank" to="https://www.tiktok.com/@entcrews" aria-label="TikTok">
-              <img src={'/icons/tiktok.svg'} alt="tiktok.svg" width={20} height={20} className="sm:w-6 sm:h-6" />
+              <img src={'/ikons/tiktok.svg'} alt="tiktok.svg" width={20} height={20} className="sm:w-6 sm:h-6" />
             </Link>
           </Button>
         </div>

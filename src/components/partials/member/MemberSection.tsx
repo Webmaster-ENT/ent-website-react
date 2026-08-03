@@ -11,12 +11,12 @@ const MemberSection = () => {
 
   // Division color mapping based on divisions.ts
   const divisionColorMap: {[key: string]: 'green' | 'blue' | 'pink' | 'yellow' | 'purple' | 'red' | 'orange' | 'cyan'} = {
-    'Graphic Design': 'green',
+    'Graphic Designer': 'green',
     'Illustrator': 'blue', 
     'Webmaster': 'pink',
     'Reporter': 'purple',
     'Videographer': 'yellow',
-    'Fotographer' : 'cyan',
+    'Photographer' : 'cyan',
     'Copywriter' : 'red',
     'Content Planner' : 'orange'
   };
@@ -25,7 +25,14 @@ const MemberSection = () => {
   const membersByDivision = useMemo(() => {
     if (!members || members.length === 0) return {};
     
-    const grouped = members.reduce((acc, member) => {
+    // Sort members by generation descending
+    const sortedMembers = [...members].sort((a, b) => {
+      const genA = Number(a.genName) || 0;
+      const genB = Number(b.genName) || 0;
+      return genB - genA;
+    });
+
+    const grouped = sortedMembers.reduce((acc, member) => {
       const division = member.divisionName || 'Unknown Division';
       if (!acc[division]) {
         acc[division] = [];
@@ -115,19 +122,19 @@ const MemberSection = () => {
       {/* Decorative components */}
       <div className="hidden md:flex">
         <img
-          src={"/icons/rafa.svg"}
+          src={"/ikons/rafa.svg"}
           alt="Decorative Person 1"
           className="absolute left-36 top-10 w-auto h-auto object-cover rounded-full"
         />
         <img
-          src={"/icons/rafa.svg"}
+          src={"/ikons/rafa.svg"}
           alt="Decorative Person 2"
           className="absolute right-36 top-42 w-auto h-auto object-cover rounded-full"
         />
       </div>
 
       <img
-        src={"/icons/star.svg"}
+        src={"/ikons/star.svg"}
         alt="star"
         width={20}
         height={20}
@@ -206,6 +213,10 @@ const MemberSection = () => {
                       divisionColorMap[division] === 'blue' ? 'text-blue-600' :
                       divisionColorMap[division] === 'pink' ? 'text-pink-600' :
                       divisionColorMap[division] === 'yellow' ? 'text-yellow-600' :
+                      divisionColorMap[division] === 'purple' ? 'text-purple-600' :
+                      divisionColorMap[division] === 'red' ? 'text-red-600' :
+                      divisionColorMap[division] === 'orange' ? 'text-orange-600' :
+                      divisionColorMap[division] === 'cyan' ? 'text-cyan-600' :
                       'text-gray-600'
                     }`}>
                       {division}

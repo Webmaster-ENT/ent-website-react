@@ -25,13 +25,13 @@ const MediaSection = () => {
               </p>
               <div className="flex items-center space-x-4">
                 <a href="https://www.instagram.com/entcrews" target="_blank" rel="noopener noreferrer" className="bg-white p-3 rounded-full transition-transform transform hover:scale-110">
-                  <img src="/icons/instagram.svg" alt="Instagram" className="h-6 w-6" />
+                  <img src="/ikons/instagram.svg" alt="Instagram" className="h-6 w-6" />
                 </a>
                 <a href="https://www.youtube.com/@entcrews" target="_blank" rel="noopener noreferrer" className="bg-white p-3 rounded-full transition-transform transform hover:scale-110">
-                  <img src="/icons/youtube.svg" alt="YouTube" className="h-6 w-6" />
+                  <img src="/ikons/youtube.svg" alt="YouTube" className="h-6 w-6" />
                 </a>
                 <a href="https://www.tiktok.com/@entcrews" target="_blank" rel="noopener noreferrer" className="bg-white p-3 rounded-full transition-transform transform hover:scale-110">
-                  <img src="/icons/tiktok.svg" alt="TikTok" className="h-6 w-6" />
+                  <img src="/ikons/tiktok.svg" alt="TikTok" className="h-6 w-6" />
                 </a>
               </div>
             </div>
