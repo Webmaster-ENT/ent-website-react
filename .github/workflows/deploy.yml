@@ -18,7 +18,7 @@ jobs:
         node-version: '20'
         cache: 'npm'
 
-    - name: Install Dependencies & Build
+    - name: Install Dependencies & Build Locally (Optional)
       run: |
         npm install
         npm run build
