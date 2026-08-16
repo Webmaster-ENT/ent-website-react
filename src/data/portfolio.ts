@@ -1,11 +1,11 @@
 import {
-  PenTool,
-  FileText,
-  Camera,
-  Video,
-  Palette,
   Calendar,
+  Camera,
   Code,
+  FileText,
+  Palette,
+  PenTool,
+  Video,
   type LucideIcon,
 } from "lucide-react";
 
@@ -50,7 +50,7 @@ export const portfolioRequirements: PortfolioRequirements[] = [
   {
     division: "Illustrator",
     icon: PenTool,
-    portfolio: "CV + Ilustrasi 2D/3D tema Hari Pendidikan",
+    portfolio: "CV + Ilustrasi 2D/3D tema Hari Anak Nasional + Portofolio",
     color: "bg-indigo-500",
   },
   {
