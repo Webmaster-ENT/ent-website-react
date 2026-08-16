@@ -38,7 +38,7 @@ export const portfolioRequirements: PortfolioRequirements[] = [
   {
     division: "Videografer",
     icon: Video,
-    portfolio: "1 video perkenalan (max 1 menit)",
+    portfolio: "3 Karya Video",
     color: "bg-red-500",
   },
   {
