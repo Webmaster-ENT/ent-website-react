@@ -36,7 +36,7 @@ export const API_ENDPOINTS = {
 
 /* API Configuration */
 export const API_CONFIG = {
-  BASE_URL: "http://api.ent.pens.ac.id/api/v1",
+  BASE_URL: "https://api.ent.pens.ac.id/api/v1",
   TIMEOUT: 10_000,
   RETRY_ATTEMPTS: 3,
 };
