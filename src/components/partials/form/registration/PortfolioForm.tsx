@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import type { RegistrationFormSchema } from "@/types/form";
 import type { UseFormReturn } from "react-hook-form";
-import { AlertCircle, ExternalLink, Sparkles } from "lucide-react";
+import { AlertCircle, ExternalLink } from "lucide-react";
 import { portfolioRequirements } from "@/data/portfolio";
 
 interface PortfolioFormProps {

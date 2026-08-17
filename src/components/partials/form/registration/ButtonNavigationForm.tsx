@@ -7,6 +7,7 @@ interface ButtonNavigationFormProps {
   currentStep: number;
   isSubmitting: boolean;
   isCheckingNrp: boolean;
+  isDisabled?: boolean;
 }
 
 export default function ButtonNavigationForm({
@@ -15,6 +16,7 @@ export default function ButtonNavigationForm({
   currentStep,
   isSubmitting,
   isCheckingNrp,
+  isDisabled = false,
 }: ButtonNavigationFormProps) {
   return (
     <div className="flex justify-between items-center w-full">
@@ -32,7 +34,7 @@ export default function ButtonNavigationForm({
         type="button"
         onClick={next}
         size={"lg"}
-        disabled={isSubmitting || isCheckingNrp}
+        disabled={isSubmitting || isCheckingNrp || isDisabled}
       >
         {isSubmitting ? (
           <span className="flex items-center gap-2">

@@ -200,6 +200,12 @@ export default function RegistrationForm() {
     saveToLocalStorage(REGISTRATION_KEY_STEP, currentStep);
   }, [currentStep]);
 
+  // Cek apakah step saat ini memiliki error
+  const currentStepFields = steps[currentStep - 1]?.fields ?? [];
+  const hasStepErrors = currentStepFields.some((field) => {
+    return Boolean(form.formState.errors[field as keyof RegistrationFormSchema]);
+  });
+
   return (
     <div className="pt-28">
       {/* header */}
@@ -253,6 +259,7 @@ export default function RegistrationForm() {
               currentStep={currentStep}
               isSubmitting={isSubmitting}
               isCheckingNrp={isCheckingNrp}
+              isDisabled={hasStepErrors}
             />
           </CardFooter>
         </Card>
