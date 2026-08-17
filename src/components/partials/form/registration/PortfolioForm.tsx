@@ -47,7 +47,6 @@ export default function PortfolioForm({ form }: PortfolioFormProps) {
               <div className="space-y-1">
                 <h4 className="text-base font-bold text-amber-950 flex items-center gap-1.5">
                   <span>Wajib Periksa Ketentuan Portofolio!</span>
-                  <Sparkles className="w-4 h-4 text-amber-600 inline" />
                 </h4>
                 <p className="text-xs sm:text-sm text-amber-900 leading-relaxed">
                   Setiap divisi memiliki persyaratan portofolio yang berbeda. Pastikan karya Anda sudah sesuai panduan sebelum mengumpulkan.
