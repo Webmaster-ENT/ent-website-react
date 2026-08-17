@@ -237,9 +237,14 @@ export const registrationFormSchema = z.object({
     .string()
     .trim()
     .url("Format URL tidak valid")
-    .refine((val) => val.startsWith("https://"), {
-      message: "URL portofolio harus diawali dengan https://",
-    }),
+    .refine(
+      (val) =>
+        /^https:\/\/(drive\.google\.com|docs\.google\.com)\/.+$/i.test(val),
+      {
+        message:
+          "Link portofolio harus berupa tautan Google Drive yang valid (contoh: https://drive.google.com/...)",
+      }
+    ),
 });
 
 export type RegistrationFormSchema = z.infer<typeof registrationFormSchema>;
