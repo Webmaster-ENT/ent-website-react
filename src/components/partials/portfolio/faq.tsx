@@ -179,8 +179,8 @@ export default function FAQ() {
               </AccordionTrigger>
               <AccordionContent>
                 Silakan hubungi contact person berikut jika ada pertanyaan lebih lanjut: <br></br>
-                • Rafif Nuha: +62 821-3409-0397 <br></br>
-                • Azzahra: +62 857-8978-1172
+                • Renade: <a href="https://wa.me/6285736717591">+62 857-3671-7591</a> <br></br>
+                • Dayu: <a href="https://wa.me/6282330021032">+62 823-3002-1032</a>
               </AccordionContent>
             </AccordionItem>
           </Accordion>
