@@ -96,7 +96,7 @@ export default function FAQ() {
                 Bagaimana cara mengecek status aplikasi saya?
               </AccordionTrigger>
               <AccordionContent>
-                Anda dapat mengecek status aplikasi menggunakan tab "Cek Status"
+                Anda dapat mengecek status aplikasi menggunakan tab "Pendaftaran"
                 di halaman pendaftaran. Cukup masukkan NRP yang Anda gunakan
                 saat pendaftaran untuk melihat status pendaftaran anda.
               </AccordionContent>
