@@ -30,6 +30,34 @@ import { CheckCircle2, Loader2 } from "lucide-react";
 const REGISTRATION_KEY_FORM = "registrationForm";
 const REGISTRATION_KEY_STEP = "registrationStep";
 
+const INITIAL_FORM_VALUES: RegistrationFormSchema = {
+  name: "",
+  nrp: "",
+  email: "",
+  phone: "",
+  major_id: "",
+  born_city: "",
+  born_date: new Date("2000-01-01"),
+  religion: "",
+  boarding_address: "",
+  home_address: "",
+
+  // step 2
+  division: "" as any,
+  motto: "",
+  ent_reason: "",
+  division_reason: "",
+  another_interest: "",
+  believe_us: "",
+
+  // step 3 & 4
+  nm_experiences: [],
+  nm_achievements: [],
+
+  // step 5
+  portofolio: "",
+};
+
 export default function RegistrationForm() {
   const [currentStep, setCurrentStep] = useState<number>(() => {
     return loadFromLocalStorage<number>(REGISTRATION_KEY_STEP) ?? 1;
@@ -62,43 +90,21 @@ export default function RegistrationForm() {
             period: acv.period ? new Date(acv.period) : new Date(),
           })) ?? [],
       }
-    : {
-        name: "",
-        nrp: "",
-        email: "",
-        phone: "",
-        major_id: "",
-        born_city: "",
-        born_date: new Date("2000-01-01"),
-        religion: "",
-        boarding_address: "",
-        home_address: "",
+    : INITIAL_FORM_VALUES;
 
-        // step 2
-        division: "" as any,
-        motto: "",
-        ent_reason: "",
-        division_reason: "",
-        another_interest: "",
-        believe_us: "",
-
-        // step 3 & 4
-        nm_experiences: [],
-        nm_achievements: [],
-
-        // step 5
-        portofolio: "",
-      };
+  const isSubmittedRef = useState({ current: false })[0];
 
   // submit form
   const processRegistration: SubmitHandler<RegistrationFormSchema> = async (data) => {
     console.table(data);
     const { success, errors } = await submitRegistForm(data);
     if (success) {
+      isSubmittedRef.current = true;
       saveToLocalStorage("nrpUser", data.nrp);
       removeFromLocalStorage(REGISTRATION_KEY_FORM);
       removeFromLocalStorage(REGISTRATION_KEY_STEP);
-      form.reset();
+      form.reset(INITIAL_FORM_VALUES);
+      setCurrentStep(1);
       setLastSavedTime(null);
       navigate(`/success?nrp=${data.nrp}`, {
         replace: true,
@@ -123,6 +129,7 @@ export default function RegistrationForm() {
   // temporary save otomatis ke local storage setiap kali form berubah
   useEffect(() => {
     const subscription = form.watch((value) => {
+      if (isSubmittedRef.current) return;
       setIsSaving(true);
       saveToLocalStorage(REGISTRATION_KEY_FORM, value);
       const timer = setTimeout(() => {
@@ -137,7 +144,7 @@ export default function RegistrationForm() {
       return () => clearTimeout(timer);
     });
     return () => subscription.unsubscribe();
-  }, [form]);
+  }, [form, isSubmittedRef]);
 
   // array field exp
   const experienceField = useFieldArray({
