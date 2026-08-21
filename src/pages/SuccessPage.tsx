@@ -1,9 +1,10 @@
-import { CheckCircle2, Download, Home, Search } from "lucide-react";
+import { Download, Home, Search } from "lucide-react";
 import { useEffect } from "react";
 import { Link, useSearchParams } from "react-router";
 import { Button } from "@/components/ui/button";
 import { API_CONFIG, API_ENDPOINTS } from "@/constants/api";
 import { toast } from "sonner";
+import BouncingSquares from "@/components/animations/BouncingSquare";
 
 export default function SuccessPage() {
   const [searchParams] = useSearchParams();
@@ -12,8 +13,6 @@ export default function SuccessPage() {
   useEffect(() => {
     if (nrp) {
       toast.success("Pendaftaran Berhasil! PDF Resume siap diunduh.");
-
-      // Attempt automatic download after a small delay
       const timer = setTimeout(() => {
         try {
           const downloadUrl = `${API_CONFIG.BASE_URL}${API_ENDPOINTS.NEW_MEMBERS.CREATE_RESUME_PDF(nrp)}`;
@@ -22,7 +21,6 @@ export default function SuccessPage() {
           console.error("Failed to auto-download PDF:", err);
         }
       }, 1500);
-
       return () => clearTimeout(timer);
     }
   }, [nrp]);
@@ -37,69 +35,88 @@ export default function SuccessPage() {
   };
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-gray-50 dark:bg-gray-900 px-4 py-12">
-      <div className="max-w-md w-full bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 p-8 text-center space-y-6 animate-fade-in">
-        {/* Animated Check Icon */}
-        <div className="mx-auto flex items-center justify-center h-20 w-20 rounded-full bg-emerald-50 dark:bg-emerald-950/30 text-emerald-500">
-          <CheckCircle2 className="h-12 w-12" />
-        </div>
+    <div className="relative min-h-[calc(100vh-80px)] w-full flex items-center justify-center px-4 py-16 overflow-hidden bg-[url('/pattern.svg')] bg-no-repeat bg-cover bg-white">
+      {/* Decorative squares — sama seperti hero landing page */}
+      <BouncingSquares isFlip={false} isMobile={false} size="lg" className="left-12 top-24 pointer-events-none opacity-80" />
+      <BouncingSquares isFlip={true} isMobile={false} size="lg" className="right-12 bottom-20 pointer-events-none opacity-80" />
+      <BouncingSquares isFlip={true} isMobile={true} size="sm" className="right-4 top-16 pointer-events-none opacity-75" />
+      <BouncingSquares isFlip={false} isMobile={true} size="sm" className="left-4 bottom-16 pointer-events-none opacity-75" />
 
-        <div className="space-y-2">
-          <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">
-            Pendaftaran Berhasil!
-          </h1>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            Terima kasih telah mendaftar EEPIS News and Network Team (ENT).
-          </p>
-        </div>
-
-        <div className="p-4 bg-gray-50 dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 text-left space-y-2">
-          <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400">
-            <span>Status:</span>
-            <span className="font-semibold text-emerald-600 dark:text-emerald-400">Terdaftar</span>
-          </div>
-          {nrp && (
-            <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400">
-              <span>NRP Anda:</span>
-              <span className="font-mono font-semibold text-gray-800 dark:text-gray-200">{nrp}</span>
+      <div className="relative z-10 max-w-lg w-full">
+        <div className="bg-white border-2 border-[#134679]/15 rounded-2xl p-6 sm:p-10 text-center animate-fade-in">
+          {/* Icon — solid navy, ring putih, sedikit rotate biar ga "sempurna" */}
+          <div className="relative mx-auto h-20 w-20 mb-6">
+            <div className="relative h-20 w-20 rotate-[-4deg] rounded-full bg-[#134679] flex items-center justify-center ring-4 ring-white shadow-[3px_3px_0px_0px_rgba(19,70,121,0.25)]">
+              <svg viewBox="0 0 24 24" className="h-9 w-9 rotate-[4deg]" fill="none" stroke="white" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12.5 L10 17.5 L19 6.5" />
+              </svg>
             </div>
-          )}
-        </div>
+          </div>
 
-        <p className="text-xs text-gray-400 dark:text-gray-500">
-          Unduhan dokumen PDF resume Anda akan dimulai secara otomatis. Jika tidak, silakan klik tombol unduh di bawah ini.
-        </p>
+          {/* Headline — big & bold, samain hero landing */}
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-[#134679] leading-tight mb-3">
+            Pendaftaran
+            <br />
+            Berhasil!
+          </h1>
+          <p className="text-sm text-gray-500 max-w-sm mx-auto mb-8">
+            Terima kasih telah mendaftar di{" "}
+            <span className="font-semibold text-gray-800">EEPIS News and Network Team</span>.
+          </p>
 
-        {/* Action Buttons */}
-        <div className="flex flex-col gap-3 pt-2">
-          <Button
-            onClick={handleDownloadManual}
-            className="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-3 rounded-xl cursor-pointer transition-colors"
-          >
-            <Download className="w-4 h-4" />
-            Unduh PDF Resume
-          </Button>
+          {/* Info block — border tegas, bukan bg abu soft */}
+          <div className="border-2 border-[#134679]/15 rounded-xl p-4 text-left space-y-2.5 mb-6">
+            <div className="flex justify-between items-center text-xs">
+              <span className="text-gray-500 font-medium">Status Pendaftaran</span>
+              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-teal-400 text-[#134679]">
+                Terdaftar
+              </span>
+            </div>
+            {nrp && (
+              <div className="flex justify-between items-center text-xs pt-2.5 border-t-2 border-[#134679]/10">
+                <span className="text-gray-500 font-medium">NRP Anda</span>
+                <span className="font-mono font-bold text-[#134679] bg-[#134679]/5 px-2.5 py-1 rounded border border-[#134679]/15">
+                  {nrp}
+                </span>
+              </div>
+            )}
+          </div>
 
-          <div className="grid grid-cols-2 gap-3">
-            <Link to={`/guidebook?tab=check&nrp=${nrp}`} className="w-full">
-              <Button
-                variant="outline"
-                className="w-full flex items-center justify-center gap-2 border border-gray-200 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 font-medium py-2.5 rounded-xl cursor-pointer text-xs"
-              >
-                <Search className="w-3.5 h-3.5" />
-                Cek Status
-              </Button>
-            </Link>
+          <p className="text-xs text-gray-400 mb-6">
+            Unduhan dokumen PDF resume Anda akan dimulai secara otomatis. Jika tidak berjalan, silakan klik tombol di bawah ini.
+          </p>
 
-            <Link to="/" className="w-full">
-              <Button
-                variant="outline"
-                className="w-full flex items-center justify-center gap-2 border border-gray-200 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 font-medium py-2.5 rounded-xl cursor-pointer text-xs"
-              >
-                <Home className="w-3.5 h-3.5" />
-                Ke Beranda
-              </Button>
-            </Link>
+          {/* CTA — solid navy, bukan gradient */}
+          <div className="flex flex-col gap-3">
+            <Button
+              onClick={handleDownloadManual}
+              className="w-full flex items-center justify-center gap-2 rounded-full py-6 text-base font-bold bg-[#134679] text-white hover:bg-[#0f3a63] transition-colors cursor-pointer"
+            >
+              <Download className="w-5 h-5" />
+              Unduh PDF Resume
+            </Button>
+
+            <div className="grid grid-cols-2 gap-3">
+              <Link to={`/guidebook?tab=check&nrp=${nrp}`} className="w-full">
+                <Button
+                  variant="outline"
+                  className="w-full flex items-center justify-center gap-2 rounded-full py-5 font-semibold text-xs sm:text-sm border-2 border-[#134679]/20 text-[#134679] hover:bg-[#134679]/5 hover:border-[#134679] transition-colors cursor-pointer"
+                >
+                  <Search className="w-4 h-4" />
+                  Cek Status
+                </Button>
+              </Link>
+
+              <Link to="/" className="w-full">
+                <Button
+                  variant="outline"
+                  className="w-full flex items-center justify-center gap-2 rounded-full py-5 font-semibold text-xs sm:text-sm border-2 border-[#134679]/20 text-[#134679] hover:bg-[#134679]/5 hover:border-[#134679] transition-colors cursor-pointer"
+                >
+                  <Home className="w-4 h-4" />
+                  Ke Beranda
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </div>

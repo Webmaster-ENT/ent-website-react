@@ -37,24 +37,23 @@ export default function PortfolioForm({ form }: PortfolioFormProps) {
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
-        {/* Eye-catching Highlight Alert */}
-        <div className="relative overflow-hidden rounded-xl border-2 border-amber-400/80 bg-gradient-to-br from-amber-50 via-orange-50/50 to-amber-100/60 p-5 shadow-md">
+        <div className="relative overflow-hidden rounded-2xl border border-[#134679]/25 dark:border-blue-500/30 bg-gradient-to-br from-[#134679]/5 via-blue-50/50 to-teal-500/10 dark:from-[#134679]/20 dark:via-background dark:to-teal-950/20 p-5 sm:p-6 shadow-sm">
           <div className="flex flex-col sm:flex-row items-start justify-between gap-4">
-            <div className="flex items-start gap-3">
-              <div className="p-2 rounded-lg bg-amber-500 text-white shadow-sm flex-shrink-0 mt-0.5 animate-pulse">
+            <div className="flex items-start gap-3.5">
+              <div className="p-2.5 rounded-xl bg-gradient-to-tr from-[#134679] to-[#226DB8] text-white shadow-sm flex-shrink-0 mt-0.5">
                 <AlertCircle className="w-5 h-5" />
               </div>
-              <div className="space-y-1">
-                <h4 className="text-base font-bold text-amber-950 flex items-center gap-1.5">
+              <div className="space-y-1.5">
+                <h4 className="text-base font-semibold text-foreground flex items-center gap-2">
                   <span>Wajib Periksa Ketentuan Portofolio!</span>
                 </h4>
-                <p className="text-xs sm:text-sm text-amber-900 leading-relaxed">
+                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
                   Setiap divisi memiliki persyaratan portofolio yang berbeda. Pastikan karya Anda sudah sesuai panduan sebelum mengumpulkan.
                 </p>
                 {selectedDivision && currentRequirement && (
-                  <div className="mt-2.5 inline-block bg-white/90 border border-amber-200 rounded-md px-3 py-1.5 text-xs text-amber-950 shadow-sm">
-                    <span className="font-semibold text-amber-800">Divisi Pilihan ({selectedDivision}):</span>{" "}
-                    <span className="font-medium">{currentRequirement.portfolio}</span>
+                  <div className="mt-2.5 inline-block bg-background/80 dark:bg-card/80 backdrop-blur-sm border border-[#134679]/20 dark:border-blue-500/30 rounded-xl px-3.5 py-2 text-xs shadow-xs">
+                    <span className="font-semibold text-[#134679] dark:text-blue-400">Divisi Pilihan ({selectedDivision}):</span>{" "}
+                    <span className="font-medium text-foreground">{currentRequirement.portfolio}</span>
                   </div>
                 )}
               </div>
@@ -64,33 +63,33 @@ export default function PortfolioForm({ form }: PortfolioFormProps) {
               type="button"
               variant="default"
               size="sm"
-              className="bg-amber-600 hover:bg-amber-700 text-white font-medium shadow-sm transition-all flex items-center gap-1.5 shrink-0 self-stretch sm:self-auto cursor-pointer"
+              className="rounded-full bg-gradient-to-r from-[#134679] to-[#226DB8] hover:opacity-90 text-white font-medium shadow-sm transition-all flex items-center gap-1.5 shrink-0 self-stretch sm:self-auto cursor-pointer py-2 px-4"
               onClick={() => window.open("/guidebook?tab=portfolio", "_blank")}
             >
-              <span>Lihat Ketentuan Portofolio</span>
-              <ExternalLink className="w-4 h-4" />
+              <span>Lihat Ketentuan</span>
+              <ExternalLink className="w-3.5 h-3.5" />
             </Button>
           </div>
         </div>
 
         {/* Input Form */}
         <div className="space-y-2">
-          <Label htmlFor="portfolio" className="text-sm font-semibold text-gray-800">
-            Tautan Google Drive Portofolio <span className="text-red-500">*</span>
+          <Label htmlFor="portfolio" className="text-sm font-medium text-foreground">
+            Tautan Google Drive Portofolio <span className="text-destructive">*</span>
           </Label>
           <Input
             id="portfolio"
             {...register("portofolio")}
             placeholder="https://drive.google.com/drive/folders/..."
-            className="focus-visible:ring-amber-500 font-mono text-sm"
+            className="font-mono text-sm"
           />
           {errors.portofolio?.message ? (
-            <p className="text-red-500 text-xs sm:text-sm font-medium flex items-center gap-1 mt-1">
+            <p className="text-destructive text-xs sm:text-sm font-medium flex items-center gap-1 mt-1">
               {errors.portofolio.message}
             </p>
           ) : (
-            <p className="text-xs text-gray-500 leading-normal">
-              Pastikan akses folder Google Drive disetel ke <span className="font-medium text-gray-700">"Anyone with the link can view"</span> (Siapa saja yang memiliki link dapat melihat).
+            <p className="text-xs text-muted-foreground leading-normal">
+              Pastikan akses folder Google Drive disetel ke <span className="font-medium text-foreground">"Anyone with the link can view"</span> (Siapa saja yang memiliki link dapat melihat).
             </p>
           )}
         </div>
