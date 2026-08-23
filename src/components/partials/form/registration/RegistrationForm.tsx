@@ -223,7 +223,7 @@ export default function RegistrationForm() {
       <StepIndicatorForm currentStep={currentStep} />
 
       {/* draft saved status indicator */}
-      <div className="flex justify-end items-center px-2 py-1 -mb-2 text-xs h-6">
+      <div translate="no" className="flex justify-end items-center px-2 py-1 -mb-2 text-xs h-6 notranslate">
         {isSaving ? (
           <span className="flex items-center gap-1.5 text-amber-600 font-medium animate-pulse">
             <Loader2 className="size-3.5 animate-spin text-amber-500" />
@@ -232,7 +232,7 @@ export default function RegistrationForm() {
         ) : lastSavedTime ? (
           <span className="flex items-center gap-1.5 text-emerald-600 font-medium">
             <CheckCircle2 className="size-3.5 text-emerald-500" />
-            Draft tersimpan ({lastSavedTime})
+            {`Draft tersimpan (${lastSavedTime})`}
           </span>
         ) : null}
       </div>

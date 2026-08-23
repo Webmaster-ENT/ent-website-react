@@ -10,13 +10,14 @@ export function CharCounter({ current = 0, max, className }: CharCounterProps) {
   const isOver = current > max;
   return (
     <span
+      translate="no"
       className={cn(
-        "text-xs text-right whitespace-nowrap transition-colors select-none",
+        "text-xs text-right whitespace-nowrap transition-colors select-none notranslate",
         isOver ? "text-red-500 font-semibold" : "text-gray-400",
         className
       )}
     >
-      {current} / {max}
+      {`${current ?? 0} / ${max}`}
     </span>
   );
 }

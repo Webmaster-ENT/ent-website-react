@@ -7,12 +7,14 @@ import GuidebookPage from "@/pages/GuidebookPage";
 import HomePage from "@/pages/HomePage";
 import RegistrationPage from "@/pages/RegistrationPage";
 import SuccessPage from "@/pages/SuccessPage";
+import ErrorPage from "@/pages/ErrorPage";
 import { createBrowserRouter } from "react-router";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
