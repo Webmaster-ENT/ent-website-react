@@ -46,7 +46,7 @@ export default function ButtonNavigationForm({
             <Loader2 className="w-4 h-4 animate-spin" />
             Mengecek...
           </span>
-        ) : currentStep === 5 ? (
+        ) : currentStep === 6 ? (
           "Daftar ENT"
         ) : (
           "Selanjutnya"

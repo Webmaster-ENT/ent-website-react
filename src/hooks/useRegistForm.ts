@@ -76,7 +76,7 @@ export default function useRegistForm() {
         errorMsg = err.message;
       }
       
-      // Polish raw SQL duplicate entry errors
+      // Polish raw SQL duplicate entry errors and validation errors
       const lowerError = errorMsg.toLowerCase();
       if (lowerError.includes("duplicate entry") || lowerError.includes("1062") || lowerError.includes("integrity constraint violation")) {
         if (lowerError.includes("email")) {
@@ -91,6 +91,8 @@ export default function useRegistForm() {
         } else {
           errorMsg = "Data yang Anda masukkan (NRP/Email/No. HP) sudah terdaftar.";
         }
+      } else if (lowerError.includes("phone") && (lowerError.includes("format") || lowerError.includes("invalid") || lowerError.includes("match"))) {
+        errorMsg = "Format nomor telepon tidak valid. Pastikan menggunakan awalan +62 (bukan 08) dan berisi 9-14 digit angka.";
       }
       
       toast.error(errorMsg);

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -13,10 +14,11 @@ import { MultiSelect } from "@/components/MultiSelect";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { contactFormSchema, type ContactFormSchema } from "@/types/form";
-import { type LucideIcon } from "lucide-react";
+import { type LucideIcon, Loader2 } from "lucide-react";
 import { MicVocalIcon, FilmIcon, NewspaperIcon, VoteIcon } from "lucide-react";
 import useContactForm from "@/hooks/useContactForm";
 import { DateToTime } from "@/components/DateToTime";
+import { formatPhoneNumber } from "@/lib/formatPhone";
 interface ContactFormProps {
   onSuccess: () => void;
 }
@@ -35,6 +37,7 @@ const productList: product[] = [
 ];
 
 export default function ContactForm({ onSuccess }: ContactFormProps) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { signToTelegram } = useContactForm();
 
   const newForm = useForm<ContactFormSchema>({
@@ -54,14 +57,16 @@ export default function ContactForm({ onSuccess }: ContactFormProps) {
   });
 
   const newHandleSubmitForm = async (data: ContactFormSchema) => {
-    await signToTelegram(data)
-      .then(() => {
-        console.table(data);
-        onSuccess();
-      })
-      .catch(() => {
-        console.error("Kesalahan dalam mengirim form");
-      });
+    setIsSubmitting(true);
+    try {
+      await signToTelegram(data);
+      console.table(data);
+      onSuccess();
+    } catch {
+      console.error("Kesalahan dalam mengirim form");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -92,7 +97,12 @@ export default function ContactForm({ onSuccess }: ContactFormProps) {
             <FormItem>
               <FormLabel>Nomor Telephone</FormLabel>
               <FormControl>
-                <Input placeholder="+6281234567890" {...field} />
+                <Input
+                  placeholder="+6281234567890 (atau ketik 08...)"
+                  value={field.value ?? ""}
+                  onChange={(e) => field.onChange(formatPhoneNumber(e.target.value))}
+                  onBlur={field.onBlur}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -214,15 +224,31 @@ export default function ContactForm({ onSuccess }: ContactFormProps) {
             <FormItem>
               <FormLabel>Nomor Telephone</FormLabel>
               <FormControl>
-                <Input placeholder="+6281234567890" {...field} />
+                <Input
+                  placeholder="+6281234567890 (atau ketik 08...)"
+                  value={field.value ?? ""}
+                  onChange={(e) => field.onChange(formatPhoneNumber(e.target.value))}
+                  onBlur={field.onBlur}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
         {/* button */}
-        <Button type="submit" className="w-full bg-[#134679]">
-          Kirim
+        <Button
+          type="submit"
+          disabled={isSubmitting}
+          className="w-full bg-[#134679] hover:bg-[#0e355c] transition-all flex items-center justify-center gap-2"
+        >
+          {isSubmitting ? (
+            <>
+              <Loader2 className="w-4 h-4 animate-spin" />
+              Mengirim Laporan...
+            </>
+          ) : (
+            "Kirim"
+          )}
         </Button>
       </form>
     </Form>

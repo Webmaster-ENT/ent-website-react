@@ -22,6 +22,7 @@ import {
 import useCheckNRP from "@/hooks/useCheckNRP";
 import { toast } from "sonner";
 import PortfolioForm from "./PortfolioForm";
+import SummaryForm from "./SummaryForm";
 import useRegistForm from "@/hooks/useRegistForm";
 import { useNavigate } from "react-router";
 
@@ -166,17 +167,40 @@ export default function RegistrationForm() {
     if (currentStep > 1) {
       setCurrentStep((step) => step - 1);
       saveToLocalStorage<number>(REGISTRATION_KEY_STEP, currentStep - 1);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
   // next button
   const next = async () => {
+    // Jika sudah di step terakhir (Ringkasan), jalankan submit
+    if (currentStep === steps.length) {
+      form.handleSubmit(processRegistration)();
+      return;
+    }
+
     // 1. Trigger validasi field untuk step aktif terlebih dahulu
-    const fields = steps[currentStep - 1].fields;
-    const output = await form.trigger(fields as unknown as FieldName[], {
-      shouldFocus: true,
-    });
-    if (!output) return;
+    const fields = steps[currentStep - 1]?.fields ?? [];
+    if (fields.length > 0) {
+      const output = await form.trigger(fields as unknown as FieldName[], {
+        shouldFocus: true,
+      });
+      if (!output) {
+        // Auto-scroll ke input error pertama
+        setTimeout(() => {
+          const firstErrorEl = document.querySelector(
+            '[aria-invalid="true"], .text-red-400, .text-destructive'
+          );
+          if (firstErrorEl) {
+            firstErrorEl.scrollIntoView({ behavior: "smooth", block: "center" });
+            if (firstErrorEl instanceof HTMLElement) {
+              firstErrorEl.focus();
+            }
+          }
+        }, 50);
+        return;
+      }
+    }
 
     const data = form.getValues();
 
@@ -195,11 +219,10 @@ export default function RegistrationForm() {
     // 3. Simpan data ke LocalStorage
     saveToLocalStorage(REGISTRATION_KEY_FORM, data);
 
-    // 4. Pindah step atau kirim formulir
+    // 4. Pindah ke step berikutnya
     if (currentStep < steps.length) {
       setCurrentStep((step) => step + 1);
-    } else {
-      form.handleSubmit(processRegistration)();
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
@@ -256,7 +279,19 @@ export default function RegistrationForm() {
             <AchievementForm form={form} fieldArray={achievementField} />
           )}
 
+          {/* portofolio */}
           {currentStep === 5 && <PortfolioForm form={form} />}
+
+          {/* ringkasan / review sebelum submit */}
+          {currentStep === 6 && (
+            <SummaryForm
+              form={form}
+              onJumpToStep={(stepNumber) => {
+                setCurrentStep(stepNumber);
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+            />
+          )}
 
           {/* navigation button next and previous */}
           <CardFooter>

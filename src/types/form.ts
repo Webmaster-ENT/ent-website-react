@@ -11,7 +11,7 @@ export const products: string[] = [
 export const reportFormSchema = z.object({
   reportName: z.string().min(2),
   reportTelephone: z.string().regex(/^\+62[0-9]{9,14}$/, {
-    message: "Phone must start with +62 and contain only numbers",
+    message: "Nomor telepon harus diawali dengan +62 (bukan 08) dan hanya berisi angka",
   }),
   eventName: z.string().min(2),
   eventDate: z.date(),
@@ -25,7 +25,7 @@ export type ReportFormSchema = z.infer<typeof reportFormSchema>;
 export const contactFormSchema = z.object({
   sender_name: z.string(),
   sender_phone: z.string().regex(/^\+62[0-9]{9,14}$/, {
-    message: "Phone must start with +62 and contain only numbers",
+    message: "Nomor telepon harus diawali dengan +62 (bukan 08) dan hanya berisi angka",
   }),
   activity: z.string(),
   start_date: z.date(),
@@ -35,7 +35,7 @@ export const contactFormSchema = z.object({
   description: z.string(),
   name_contact_person: z.string(),
   phone_contact_person: z.string().regex(/^\+62[0-9]{9,14}$/, {
-    message: "Phone must start with +62 and contain only numbers",
+    message: "Nomor telepon harus diawali dengan +62 (bukan 08) dan hanya berisi angka",
   }),
 });
 
@@ -95,6 +95,12 @@ export const steps = [
     title: "Portofolio",
     description: "Link pengumpulan portofolio Anda",
     fields: ["portofolio"] as const,
+  },
+  {
+    id: 6,
+    title: "Ringkasan",
+    description: "Cek kembali data sebelum mendaftar",
+    fields: [] as const,
   },
 ] as const;
 
@@ -194,8 +200,8 @@ export const registrationFormSchema = z.object({
     .string()
     .trim()
     .regex(
-      /^(\+62|08)[0-9]{8,13}$/,
-      "Nomor telepon harus diawali +62 atau 08 (9-14 digit angka)"
+      /^\+62[0-9]{9,14}$/,
+      "Nomor telepon harus diawali dengan +62 (bukan 08) dan berisi 9-14 digit angka"
     ),
 
   // Essay
