@@ -67,18 +67,28 @@ export default function MagazineSection() {
                         // --- DIGITAL MAGAZINE LAYOUT (Two Columns) ---
                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                             {/* Left Column: Text & Button */}
-                            <div className="lg:col-span-6 flex flex-col space-y-6 text-left order-2 lg:order-1">
-                                <h2 className="text-3xl md:text-4xl font-bold text-[#134679] leading-snug">
-                                    COREMAGZ<br/>Edisi Terbaru
-                                </h2>
-                                <p className="text-base md:text-lg text-gray-600 leading-relaxed">
-                                    Majalah kampus kami selalu berupaya untuk memahami dan mendokumentasikan peran mahasiswa dalam proses inovasi yang terus berkembang di kampus ini. Kami berkomitmen untuk menjadi jendela yang memberikan wawasan tentang cerita-cerita inspiratif, ide cemerlang, serta berita terbaru seputar PENS.
+                            <div className="lg:col-span-6 flex flex-col space-y-4 md:space-y-6 text-center lg:text-left order-2 lg:order-1 items-center lg:items-start">
+                                <div className="text-center lg:text-justify">
+                                    <h2 className="text-4xl md:text-5xl font-bold text-[#134679] leading-snug">
+                                        Capturing Movement. <span className="text-[#f4cb01]">Spotlighting</span> Impact.
+                                    </h2>
+                                    <p className="text-lg md:text-xl font-medium text-[#134679] mt-2 opacity-80">
+                                        Issue XI | January–July 2026
+                                    </p>
+                                </div>
+                                <p className="text-base md:text-lg text-gray-600 leading-relaxed text-center lg:text-justify">
+                                    Ideas evolve. Creativity takes shape. Collaborations spark change. At PENS, there’s always a story in motion.
+                                    <br></br><br></br>
+                                    In Issue XI, Coremagz brings those stories to the forefront which highlighting the ideas, works, and innovations shaped by students, and turning campus moments into stories worth experiencing, sharing, and remembering.
                                 </p>
                                 <div className="pt-2">
-                                    <iframe src=""></iframe>
-                                    <a href="https://online.fliphtml5.com/nxabo/COREMAGZ-EDISI-XI-JANUARI-JULI-2026/#p=1">
-                                        <button className="px-6 py-3 bg-[#134679] text-white rounded-xl font-medium hover:bg-blue-900 transition-colors shadow-lg shadow-blue-900/20">
-                                            Baca Selengkapnya
+                                    <a href="https://online.fliphtml5.com/nxabo/COREMAGZ-EDISI-XI-JANUARI-JULI-2026/#p=1" className="inline-block">
+                                        <button className="group flex items-center justify-center px-6 py-3 bg-[#134679] text-white rounded-xl font-medium hover:bg-blue-900 transition-all duration-300 shadow-lg shadow-blue-900/20">
+                                            <span>Read More</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-0 h-5 group-hover:w-5 group-hover:ml-2 transition-all duration-300 opacity-0 group-hover:opacity-100 overflow-hidden">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                            </svg>
                                         </button>
                                     </a>
                                 </div>
@@ -96,25 +106,38 @@ export default function MagazineSection() {
                         // --- AR EXPERIENCE LAYOUT (Two Columns) ---
                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                             {/* Left Column: Text & Button */}
-                            <div className="lg:col-span-6 flex flex-col space-y-6 text-left order-2 lg:order-1">
-                                <h2 className="text-3xl md:text-4xl font-bold text-[#134679] leading-snug">
-                                    ENT AR Experience<br/>Interactive WebGL
-                                </h2>
-                                <p className="text-base md:text-lg text-gray-600 leading-relaxed">
-                                    Jelajahi karya inovatif dan cerita interaktif dari ENT langsung dari browser Anda. Pengalaman Augmented Reality (AR) ini dapat dimainkan tanpa perlu instalasi tambahan. Uncover secrets and dive into our immersive world.
+                            <div className="lg:col-span-6 flex flex-col space-y-4 md:space-y-6 text-center lg:text-left order-2 lg:order-1 items-center lg:items-start">
+                                <div className="text-center lg:text-justify">
+                                    <h2 className="text-4xl md:text-5xl font-bold text-[#134679] leading-snug">
+                                        ENT  <span className="text-[#f4cb01]">AR</span> EXPERIENCE
+                                    </h2>
+                                    <p className="text-lg md:text-xl font-medium text-[#134679] mt-2 opacity-80">
+                                        More Than a Page. An Experience.
+                                    </p>
+                                </div>
+                                <p className="text-base md:text-lg text-gray-600 leading-relaxed text-center lg:text-justify">
+                                    What if a page could do more than tell a story?
+                                    <br></br><br></br>
+                                    Through Augmented Reality, ENT transforms Coremagz into an interactive experience where stories come to life, visuals go beyond the page, and technology becomes part of the story.
                                 </p>
-                                {/* <div className="pt-2">
-                                    <button className="px-6 py-3 bg-[#134679] text-white rounded-xl font-medium hover:bg-blue-900 transition-colors shadow-lg shadow-blue-900/20">
-                                        Mainkan Sekarang
-                                    </button>
-                                </div> */}
+                                <div className="pt-2">
+                                    <a href="https://online.fliphtml5.com/nxabo/COREMAGZ-EDISI-XI-JANUARI-JULI-2026/#p=1" className="inline-block">
+                                        <button className="group flex items-center justify-center px-6 py-3 bg-[#134679] text-white rounded-xl font-medium hover:bg-blue-900 transition-all duration-300 shadow-lg shadow-blue-900/20">
+                                            <span>Read More</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-0 h-5 group-hover:w-5 group-hover:ml-2 transition-all duration-300 opacity-0 group-hover:opacity-100 overflow-hidden">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                            </svg>
+                                        </button>
+                                    </a>
+                                </div>
                             </div>
 
                             {/* Right Column: Viewer Placeholder */}
                             <div className="lg:col-span-6 order-1 lg:order-2 w-full max-w-md mx-auto lg:max-w-none relative group">
                                 <div className="absolute -inset-1 bg-gradient-to-r from-[#134679] to-cyan-600 rounded-[2.5rem] blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
                                 
-                                <div className="relative w-full aspect-[9/16] sm:aspect-[3/4] bg-black rounded-[2.5rem] flex flex-col items-center justify-center overflow-hidden shadow-2xl border border-gray-100/10">
+                                <div className="relative w-full aspect-[9/16] sm:aspect-[3/4] bg-black rounded-[2.5rem] flex flex-col items-center justify-center overflow-hidden shadow-2xl">
                                     <iframe
                                         ref={iframeRef}
                                         src="https://2kpv9.zappar-us.io/4038639736034260939/"
