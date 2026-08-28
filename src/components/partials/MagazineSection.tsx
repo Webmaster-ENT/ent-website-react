@@ -120,17 +120,6 @@ export default function MagazineSection() {
                                     <br></br><br></br>
                                     Through Augmented Reality, ENT transforms Coremagz into an interactive experience where stories come to life, visuals go beyond the page, and technology becomes part of the story.
                                 </p>
-                                <div className="pt-2">
-                                    <a href="https://online.fliphtml5.com/nxabo/COREMAGZ-EDISI-XI-JANUARI-JULI-2026/#p=1" className="inline-block">
-                                        <button className="group flex items-center justify-center px-6 py-3 bg-[#134679] text-white rounded-xl font-medium hover:bg-blue-900 transition-all duration-300 shadow-lg shadow-blue-900/20">
-                                            <span>Read More</span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-0 h-5 group-hover:w-5 group-hover:ml-2 transition-all duration-300 opacity-0 group-hover:opacity-100 overflow-hidden">
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                                            </svg>
-                                        </button>
-                                    </a>
-                                </div>
                             </div>
 
                             {/* Right Column: Viewer Placeholder */}
