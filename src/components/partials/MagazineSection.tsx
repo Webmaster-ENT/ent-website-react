@@ -88,7 +88,7 @@ export default function MagazineSection() {
                                 <a href="https://online.fliphtml5.com/nxabo/COREMAGZ-EDISI-XI-JANUARI-JULI-2026/#p=1" target="_blank" rel="noopener noreferrer" className="block relative cursor-pointer">
                                     <div className="absolute -inset-1 bg-gradient-to-r from-[#134679] to-cyan-600 rounded-[2.5rem] blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
                                     <div className="relative w-full aspect-[3/4] md:aspect-[4/3] lg:aspect-[3/4] bg-white rounded-[2.5rem] flex flex-col items-center justify-center overflow-hidden shadow-2xl group-hover:shadow-[#134679]/30 transition-shadow duration-300">
-                                        <img src="magazines/CoverCoremagzXI.png" alt="Cover Coremagz XI" className="w-full h-full object-cover" />
+                                        <img src="magazines/CoverCoremagzXI.jpg" alt="Cover Coremagz XI" className="w-full h-full object-cover" />
                                         
                                         {/* Hover Overlay - Call to Action */}
                                         <div className="absolute inset-0 bg-[#134679]/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center text-white p-6">
