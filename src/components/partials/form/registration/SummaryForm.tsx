@@ -23,7 +23,6 @@ import {
   Building,
   Heart,
   HelpCircle,
-  Sparkles,
   AlertCircle,
 } from "lucide-react";
 import { format } from "date-fns";
