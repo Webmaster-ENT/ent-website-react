@@ -31,7 +31,6 @@ import { id } from "date-fns/locale";
 import { useEffect, useState } from "react";
 import API from "@/lib/api";
 import { CharCounter } from "@/components/ui/char-counter";
-import { formatPhoneNumber } from "@/lib/formatPhone";
 
 interface BiodataFormProps {
   form: UseFormReturn<RegistrationFormSchema>;
@@ -284,27 +283,16 @@ export default function BiodataForm({ form }: BiodataFormProps) {
           {/* telephone */}
           <div className="space-y-1">
             <Label htmlFor="phone">Nomor WhatsApp / HP</Label>
-            <Controller
-              control={control}
-              name="phone"
-              render={({ field }) => (
-                <Input
-                  id="phone"
-                  value={field.value ?? ""}
-                  onChange={(e) => {
-                    const formatted = formatPhoneNumber(e.target.value);
-                    field.onChange(formatted);
-                  }}
-                  onBlur={field.onBlur}
-                  placeholder="+628123456789 (atau ketik 08...)"
-                />
-              )}
+            <Input
+              id="phone"
+              {...register("phone")}
+              placeholder="+628123456789"
             />
             {errors.phone?.message ? (
               <p className="text-red-400 text-xs mt-1 font-medium">{errors.phone.message}</p>
             ) : (
               <p className="text-muted-foreground text-[11px]">
-                Ketik 08... atau +62..., sistem akan otomatis menyesuaikan format.
+                Wajib diawali dengan +62 (contoh: +628123456789)
               </p>
             )}
           </div>

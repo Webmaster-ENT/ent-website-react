@@ -18,7 +18,6 @@ import { type LucideIcon, Loader2 } from "lucide-react";
 import { MicVocalIcon, FilmIcon, NewspaperIcon, VoteIcon } from "lucide-react";
 import useContactForm from "@/hooks/useContactForm";
 import { DateToTime } from "@/components/DateToTime";
-import { formatPhoneNumber } from "@/lib/formatPhone";
 interface ContactFormProps {
   onSuccess: () => void;
 }
@@ -98,10 +97,8 @@ export default function ContactForm({ onSuccess }: ContactFormProps) {
               <FormLabel>Nomor Telephone</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="+6281234567890 (atau ketik 08...)"
-                  value={field.value ?? ""}
-                  onChange={(e) => field.onChange(formatPhoneNumber(e.target.value))}
-                  onBlur={field.onBlur}
+                  placeholder="+628123456789"
+                  {...field}
                 />
               </FormControl>
               <FormMessage />
@@ -225,10 +222,8 @@ export default function ContactForm({ onSuccess }: ContactFormProps) {
               <FormLabel>Nomor Telephone</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="+6281234567890 (atau ketik 08...)"
-                  value={field.value ?? ""}
-                  onChange={(e) => field.onChange(formatPhoneNumber(e.target.value))}
-                  onBlur={field.onBlur}
+                  placeholder="+628123456789"
+                  {...field}
                 />
               </FormControl>
               <FormMessage />
