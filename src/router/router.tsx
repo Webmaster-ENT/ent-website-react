@@ -1,7 +1,7 @@
 // layout
 import HomeLayout from "@/layouts/HomeLayout";
 import RootLayout from "@/layouts/RootLayout";
-import GuidebookPage from "@/pages/GuidebookPage";
+import GuidebookClosedPage from "@/pages/GuidebookClosedPage";
 
 // page
 import HomePage from "@/pages/HomePage";
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
           },
           {
             path: "/guidebook",
-            element: <GuidebookPage />,
+            element: <GuidebookClosedPage />,
           },
           {
             path: "/registration",
