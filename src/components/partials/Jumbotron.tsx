@@ -3,10 +3,28 @@ import { Link } from "react-router";
 import BouncingSquares from "../animations/BouncingSquare";
 import { Button } from "../ui/button";
 import { motion } from "motion/react";
+import { REGISTRATION_CONFIG } from "@/constants/config";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "../ui/dialog";
+import { AlertCircle } from "lucide-react";
 
 export default function Jumbotron() {
   const [isNewsHovered, setIsNewsHovered] = useState<boolean>();
   const [isNetworkHovered, setIsNetworkHovered] = useState<boolean>();
+  const [isClosedModalOpen, setIsClosedModalOpen] = useState<boolean>(false);
+
+  const handleCtaClick = (e: React.MouseEvent) => {
+    if (!REGISTRATION_CONFIG.isOpen) {
+      e.preventDefault();
+      setIsClosedModalOpen(true);
+    }
+  };
 
   return (
     <div className="flex relative md:items-center items-start max-sm:px-6 flex-col justify-evenly min-h-screen max-h- w-full select-none" id="home">
@@ -81,8 +99,9 @@ export default function Jumbotron() {
       {/* cta button */}
       <Button
         size={"lg"}
-        className="rounded-full text-xl relative inline-flex gap-5 justify-center items-center px-12 py-6 overflow-hidden bg-[#134679] group hover:bg-[#134179] hover:translate-y-1 transition-all ease-in-out"
+        className="rounded-full text-xl relative inline-flex gap-5 justify-center items-center px-12 py-6 overflow-hidden bg-[#134679] group hover:bg-[#134179] hover:translate-y-1 transition-all ease-in-out cursor-pointer"
         asChild
+        onClick={handleCtaClick}
       >
         <Link to={"/guidebook"} className="md:mx-auto">
           Be Part of ENT
@@ -96,6 +115,35 @@ export default function Jumbotron() {
           </span>
         </Link>
       </Button>
+
+      {/* Registration Closed Dialog */}
+      <Dialog open={isClosedModalOpen} onOpenChange={setIsClosedModalOpen}>
+        <DialogContent className="sm:max-w-md text-center">
+          <div className="flex flex-col items-center justify-center pt-4">
+            <div className="w-12 h-12 rounded-full bg-red-100 text-red-600 flex items-center justify-center mb-3">
+              <AlertCircle className="w-7 h-7" />
+            </div>
+            <DialogHeader className="text-center sm:text-center">
+              <DialogTitle className="text-xl font-bold text-gray-900">
+                {REGISTRATION_CONFIG.title}
+              </DialogTitle>
+              <DialogDescription className="text-gray-600 mt-2 text-base">
+                {REGISTRATION_CONFIG.message}
+              </DialogDescription>
+            </DialogHeader>
+          </div>
+          <DialogFooter className="sm:justify-center mt-4">
+            <Button
+              variant="default"
+              className="bg-[#134679] hover:bg-[#134179] w-full sm:w-auto px-8"
+              onClick={() => setIsClosedModalOpen(false)}
+            >
+              Tutup
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
+

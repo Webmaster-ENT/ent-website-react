@@ -5,10 +5,16 @@ import TabsRegistration from "@/components/partials/portfolio/tabs-registration"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FileText, Palette, Search } from "lucide-react";
 import { useSearchParams } from "react-router";
+import { REGISTRATION_CONFIG } from "@/constants/config";
+import RegistrationClosed from "@/components/partials/RegistrationClosed";
 
 export default function GuidebookPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const activeTab = searchParams.get("tab") || "guidebook";
+
+  if (!REGISTRATION_CONFIG.isOpen) {
+    return <RegistrationClosed />;
+  }
 
   const handleTabChange = (value: string) => {
     const newParams: Record<string, string> = { tab: value };
